@@ -174,6 +174,7 @@ alias cfrc='nvim ~/.config/ranger/commands.py'  # Config ranger-commands
 alias cfv='nvim ~/.config/nvim/init.vim'        # Config nvim
 alias restart='sudo shutdown -r now'
 alias low_light='xbacklight -set 0.01'
+alias reload_term='xrdb ~/.Xresources'
 
 # Modified default Text editor:
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR

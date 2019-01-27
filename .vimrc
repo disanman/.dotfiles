@@ -1,3 +1,5 @@
+" Deprecated file: Now I'm using NeoVim
+" Check the new NeoVim config file in ~/config/nvim/init.vim
 " __     ___                              __ _
 " \ \   / (_)_ __ ___     ___ ___  _ __  / _(_) __ _
 "  \ \ / /| | '_ ` _ \   / __/ _ \| '_ \| |_| |/ _` |

@@ -45,15 +45,16 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'scrooloose/nerdtree'
+" Plugin 'scrooloose/nerdtree'  " Now using ranger.vim!!
 " Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'wmvanvliet/jupyter-vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-geeknote'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
-Plugin 'gcmt/taboo.vim'  " to change tab names
-" Plugin 'itchyny/lightline.vim' " cool status bar
+Plugin 'gcmt/taboo.vim'         " Cool tab names
+Plugin 'vim-airline/vim-airline'  " Statusbar
+Plugin 'vim-airline/vim-airline-themes'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -113,17 +114,47 @@ map <C-n> :enew
 " Automatically deletes all tralling whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
-
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" Settings for using ranger.vim
+" Settings for ranger.vim
 let g:ranger_map_keys = 0  " don't use default key map
 map <f3> :RangerCurrentDirectory<CR>
 
 " Settings for taboo.vim (tab behaviour)
 let g:taboo_tab_format='%N-%f%m '
+
+" Settings for airline-statusbar
+" let g:airline_skip_empy_sections = 1  " To remove right triangles
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+" let g:airline_theme='sol'
+" let g:airline_theme='serene'
+let g:airline_theme='murmur'
 
