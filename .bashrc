@@ -146,6 +146,7 @@ alias ssh_umount_pricing_gba='sudo fusermount -u /mnt/pricing_gba && sudo rm -r 
 alias cfi='nvim ~/.i3/config'            # Config i3
 alias cfc='nvim ~/.config/compton.conf'         # Config i3
 alias cfb='nvim ~/.bashrc'                      # Config bashrc
+alias cfq='nvim ~/.config/qutebrowser/config.py' # Config qutebrowser
 alias cfr='nvim .config/ranger/rc.conf'         # Config ranger
 alias cfrr='nvim .config/ranger/rifle.conf'     # Config ranger-rifle
 alias cfrc='nvim ~/.config/ranger/commands.py'  # Config ranger-commands
