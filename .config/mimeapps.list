@@ -1,21 +1,21 @@
 [Default Applications]
-x-scheme-handler/http=userapp-Pale Moon.desktop
-x-scheme-handler/https=userapp-Pale Moon.desktop
-x-scheme-handler/ftp=userapp-Pale Moon.desktop
-x-scheme-handler/chrome=userapp-Pale Moon.desktop
-text/html=userapp-Pale Moon.desktop
-application/x-extension-htm=userapp-Pale Moon.desktop
-application/x-extension-html=userapp-Pale Moon.desktop
-application/x-extension-shtml=userapp-Pale Moon.desktop
-application/xhtml+xml=userapp-Pale Moon.desktop
-application/x-extension-xhtml=userapp-Pale Moon.desktop
-application/x-extension-xht=userapp-Pale Moon.desktop
+x-scheme-handler/http=userapp-Qutebrowser.desktop
+x-scheme-handler/https=userapp-Qutebrowser.desktop
+x-scheme-handler/ftp=userapp-Qutebrowser.desktop
+x-scheme-handler/chrome=userapp-Qutebrowser.desktop
+text/html=userapp-Qutebrowser.desktop
+application/x-extension-htm=userapp-Qutebrowser.desktop
+application/x-extension-html=userapp-Qutebrowser.desktop
+application/x-extension-shtml=userapp-Qutebrowser.desktop
+application/xhtml+xml=userapp-Qutebrowser.desktop
+application/x-extension-xhtml=userapp-Qutebrowser.desktop
+application/x-extension-xht=userapp-Qutebrowser.desktop
 image/jpeg=viewnior.desktop;gpicview.desktop;
 image/png=viewnior.desktop;gpicview.desktop;
 text/plain=mousepad.desktop
 x-scheme-handler/mailto=userapp-Thunderbird.desktop
 message/rfc822=userapp-Thunderbird.desktop
-application/pdf=epdfview.desktop
+application/pdf=org.pwmt.zathura.desktop
 application/x-bittorrent=deluge.desktop
 
 [Added Associations]
@@ -24,5 +24,5 @@ image/png=viewnior.desktop;gpicview.desktop;
 text/plain=mousepad.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird.desktop;
 message/rfc822=userapp-Thunderbird.desktop;
-application/pdf=epdfview.desktop;
+application/pdf=org.pwmt.zathura.desktop;
 application/x-bittorrent=deluge.desktop;
