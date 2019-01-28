@@ -12,6 +12,9 @@ let python_highlight_all=1
 nmap <C-e> V<Plug>JupyterRunVisual
 vmap <C-e> <Plug>JupyterRunVisual
 
+" Map fzf fuzzy finder, it should be installed in the os
+nmap <C-f> :FZF<CR>
+
 " close autocompletion when done, defines <space g> to go to definition
 let g:ycm_autoclose_preview_window_after_completion=1
 map <C-g>  :YcmCompleter GoToDefinitionElseDeclaration<CR>
