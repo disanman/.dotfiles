@@ -163,6 +163,8 @@ set -o vi
 
 # Added for using fuzzy search: fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
 
 # added by Miniconda3 4.5.12 installer
 # >>> conda init >>>
