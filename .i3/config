@@ -343,7 +343,7 @@ mode "$mode_system" {
 
 # Lock screen
 # bindsym $mod+x exec --no-startup-id blurlock
-bindsym $mod+x exec $term -T="cmatrix" -e cmatrix
+# bindsym $mod+x exec $term -T="cmatrix" -e cmatrix
 # exec_always xautolock -time 10 -locker '/home/diego/.config/i3/cmatrix_lock.sh'
 # exec_always xautolock -time 10 -locker
 
@@ -360,7 +360,7 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
