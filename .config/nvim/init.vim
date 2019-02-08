@@ -8,7 +8,7 @@
 
 " python highlight
 let python_highlight_all=1
-" let maplocalleader = ","
+let maplocalleader = ","    " Maps <leader> ('\' key) to ','
 nmap <C-e> V<Plug>JupyterRunVisual
 vmap <C-e> <Plug>JupyterRunVisual
 
@@ -58,6 +58,9 @@ Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
 Plugin 'gcmt/taboo.vim'         " Cool tab names
 Plugin 'vim-airline/vim-airline'  " Statusbar
 Plugin 'vim-airline/vim-airline-themes'
+" Plugins for markdown editing:
+" Plugin 'vimwiki/vimwiki'
+Plugin 'gabrielelana/vim-markdown'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -161,3 +164,17 @@ let g:airline_symbols.linenr = ''
 " let g:airline_theme='serene'
 let g:airline_theme='murmur'
 
+" Options for markdown editing:  helppage -> vimwiki-syntax
+" set nocompatible
+" filetype plugin on    " already enabled
+" syntax on             " already enabled
+" let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown'}
+" Activate instant preview, install:
+" https://github.com/suan/vim-instant-markdown
+" let g:instant_markdown_autostart = 0
+" map <leader>md :InstantMarkdownPreview<CR>
+
+" More settings for vimwiki
+" let g:vimwiki_root = $HOME . '/Documents/Wiki'
+" let g:vimwiki_list = [{'path': $HOME . '/Documents/Wiki', 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_global_ext = 0
