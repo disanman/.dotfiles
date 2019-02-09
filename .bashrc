@@ -184,41 +184,8 @@ unset __conda_setup
 # <<< conda init <<<
 alias config='/usr/bin/git --git-dir=/home/diego/.cfg/ --work-tree=/home/diego'
 
-# using fzf for vim with .md:
-# note taking function and command completion
-note_dir=~/vimwiki
-_n() {
-  local lis cur
-  lis=$(find "${note_dir}" -name "*.md" | \
-    sed -e "s|${note_dir}/||" | \
-    sed -e 's/\.md$//')
-  cur=${comp_words[comp_cword]}
-  compreply=( $(compgen -w "$lis" -- "$cur") )
-}
+# Testing note searching with parameter input, call it like "n text_to_search"
 n() {
-  : "${note_dir:?'note_dir env var not set'}"
-  if [ $# -eq 0 ]; then
-    local file
-    file=$(find "${note_dir}" -name "*.md" | \
-      sed -e "s|${note_dir}/||" | \
-      sed -e 's/\.md$//' | \
-      fzf \
-        --multi \
-        --select-1 \
-        --exit-0 \
-        --preview="cat ${note_dir}/{}.md" \
-        --preview-window=right:70%:wrap)
-    [[ -n $file ]] && \
-      ${editor:-vim} "${note_dir}/${file}.md"
-  else
-    case "$1" in
-      "-d")
-        rm "${note_dir}"/"$2".md
-        ;;
-      *)
-        ${editor:-vim} "${note_dir}"/"$*".md
-        ;;
-    esac
-  fi
+    rg -i "$1" | fzf --preview 'file {}' && nvim
 }
-complete -f _n n
+

@@ -225,6 +225,8 @@ exec --no-startup-id mpd
 # Sreen brightness controls: install xbacklight
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 1; notify-send 'brightness up'"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 1; notify-send 'brightness down'"
+bindsym $mod+mod1+period exec "xbacklight -inc 1; notify-send 'brightness up'"
+bindsym $mod+mod1+comma exec "xbacklight -dec 1; notify-send 'brightness down'"
 
 # Media player controls
 # xev -event keyboard

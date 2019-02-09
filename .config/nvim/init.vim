@@ -12,8 +12,8 @@ let maplocalleader = ","    " Maps <leader> ('\' key) to ','
 nmap <C-e> V<Plug>JupyterRunVisual
 vmap <C-e> <Plug>JupyterRunVisual
 
-" Map fzf fuzzy finder, it should be installed in the os
-nmap <C-f> :FZF<CR>
+" Using fzf.vim, and a modified version of Files: Filesp (with preview)
+nmap <C-f> :Filesp<CR>
 
 " close autocompletion when done, defines <space g> to go to definition
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -48,11 +48,8 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'scrooloose/nerdtree'  " Now using ranger.vim!!
-" Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'wmvanvliet/jupyter-vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-geeknote'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
 Plugin 'gcmt/taboo.vim'         " Cool tab names
@@ -61,6 +58,9 @@ Plugin 'vim-airline/vim-airline-themes'
 " Plugins for markdown editing:
 " Plugin 'vimwiki/vimwiki'
 Plugin 'gabrielelana/vim-markdown'
+Plugin 'Alok/notational-fzf-vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'   " Must install!
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -84,12 +84,13 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " Select color scheme
 set background=dark
 if has('gui_running')
-  colorscheme solarized
+  colorscheme zenburn
 else
   colorscheme zenburn
 endif
 " Toggle color scheme with F5
 call togglebg#map("<F5>")
+nnoremap <F4> :Color<CR>
 
 " Search color
 set hlsearch
@@ -178,3 +179,18 @@ let g:airline_theme='murmur'
 " let g:vimwiki_root = $HOME . '/Documents/Wiki'
 " let g:vimwiki_list = [{'path': $HOME . '/Documents/Wiki', 'syntax': 'markdown', 'ext': '.md'}]
 " let g:vimwiki_global_ext = 0
+
+" Options for note taking using notational-fzf-vim
+" Shortcuts c-x: use string as filename for new file
+"           c-v: open in vertical split
+"           c-s: open in horizontal split
+"           c-t: open in new tab
+"           c-y: yank selected filename
+"           <enter>: open highlighted search result in buffer
+"           c-p: previous result
+"           c-n: next result
+let g:nv_search_paths = ['~/Documents/Notes']
+let g:nv_use_short_pathnames = 1
+" Note search with Control-N
+nnoremap <c-N> :NV<CR>
+
