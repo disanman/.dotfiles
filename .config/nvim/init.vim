@@ -8,7 +8,8 @@
 
 " python highlight
 let python_highlight_all=1
-let maplocalleader = ","    " Maps <leader> ('\' key) to ','
+" let maplocalleader = ","
+let mapleader = ","      " Maps <leader> ('\' key) to ','
 nmap <C-e> V<Plug>JupyterRunVisual
 vmap <C-e> <Plug>JupyterRunVisual
 
@@ -56,8 +57,7 @@ Plugin 'gcmt/taboo.vim'         " Cool tab names
 Plugin 'vim-airline/vim-airline'  " Statusbar
 Plugin 'vim-airline/vim-airline-themes'
 " Plugins for markdown editing:
-" Plugin 'vimwiki/vimwiki'
-Plugin 'gabrielelana/vim-markdown'
+Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'   " Must install!
@@ -84,9 +84,9 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " Select color scheme
 set background=dark
 if has('gui_running')
-  colorscheme zenburn
+  colorscheme delek
 else
-  colorscheme zenburn
+  colorscheme delek
 endif
 " Toggle color scheme with F5
 call togglebg#map("<F5>")
@@ -97,7 +97,11 @@ set hlsearch
 hi Search ctermbg=Yellow
 hi Search ctermfg=Black
 
-set mouse=v
+" Search case
+set ignorecase
+set smartcase
+" if an uppercase character, it will do a case sensitive search
+" if search for purely lowercase, it will do a case insensitive search
 
 " Paste from clipboard when in insert mode.
 imap <C-V> <ESC>"+gpa
@@ -132,7 +136,7 @@ let g:ranger_map_keys = 0  " don't use default key map
 map <f3> :RangerCurrentDirectory<CR>
 
 " Settings for taboo.vim (tab behaviour)
-let g:taboo_tab_format='%N-%f%m '
+let g:taboo_tab_format=' |%N| %f%m  '
 
 " Settings for airline-statusbar
 " let g:airline_skip_empy_sections = 1  " To remove right triangles
@@ -169,16 +173,27 @@ let g:airline_theme='murmur'
 " set nocompatible
 " filetype plugin on    " already enabled
 " syntax on             " already enabled
-" let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown'}
-" Activate instant preview, install:
+let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': '.md'}]
+" let g:vimwiki_global_ext = 0
+nmap <Leader>wo <Plug>VimwikiUISelect
+nmap <Leader>sp <Plug>VimwikiSplitLink
+nmap <Leader>vs <Plug>VimwikiVSplitLink
+nmap <Leader>t <Plug>VimwikiTabnewLink
+nmap <Leader>n <Plug>VimwikiIncrementListItem
+nmap <Leader>p <Plug>VimwikiDecrementListItem
+
+
+" Turn on spell for markdown files
+autocmd FileType markdown setlocal spell
+set mouse=a mousemodel=popup
+map <F6> :setlocal spell! spelllang=en_us<CR>
+map <F7> :set spelllang=es<CR>
+
+" To activate instant preview (html preview of notes), install:
 " https://github.com/suan/vim-instant-markdown
 " let g:instant_markdown_autostart = 0
 " map <leader>md :InstantMarkdownPreview<CR>
 
-" More settings for vimwiki
-" let g:vimwiki_root = $HOME . '/Documents/Wiki'
-" let g:vimwiki_list = [{'path': $HOME . '/Documents/Wiki', 'syntax': 'markdown', 'ext': '.md'}]
-" let g:vimwiki_global_ext = 0
 
 " Options for note taking using notational-fzf-vim
 " Shortcuts c-x: use string as filename for new file

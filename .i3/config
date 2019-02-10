@@ -247,6 +247,7 @@ bindsym $mod+Ctrl+Shift+f exec steam steam://rungameid/427520
 bindsym $mod+e exec $term -e "source ~/.bashrc && ranger"
 bindsym $mod+shift+e exec $term -e sudo ranger
 bindsym $mod+g exec $term -e gotop
+bindsym $mod+v exec $term -e nvim
 bindsym $mod+b exec qutebrowser
 bindsym $mod+s exec subl -n          # Sublime text
 bindsym $mod+shift+m exec smerge     # Sublime merge
