@@ -181,6 +181,7 @@ nmap <Leader>vs <Plug>VimwikiVSplitLink
 nmap <Leader>t <Plug>VimwikiTabnewLink
 nmap <Leader>n <Plug>VimwikiIncrementListItem
 nmap <Leader>p <Plug>VimwikiDecrementListItem
+nmap <Leader>x <Plug>VimwikiToggleRejectedListItem
 
 
 " Turn on spell for markdown files
