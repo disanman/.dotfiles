@@ -68,7 +68,12 @@ filetype plugin indent on    " required
 
 syntax on
 filetype plugin on
+
+" Set relative number:
 set number relativenumber
+nmap <leader><F3> :set nu! <CR>
+nmap <leader><F4> :set rnu! <CR>
+
 " Set Python Spaces
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " au BufNewFile,BufRead *.py
