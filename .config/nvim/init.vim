@@ -6,10 +6,16 @@
                                                             " |___/
 "___________________________________________
 
-" python highlight
-let python_highlight_all=1
 " let maplocalleader = ","
 let mapleader = ","      " Maps <leader> ('\' key) to ','
+
+" Open this file to edit vim config
+nmap <Leader>e :e ~/.config/nvim/init.vim <CR>
+nmap <Leader><F1> :set nowrap!<CR>
+
+" python highlight
+let python_highlight_all=1
+" Execute python code into jupyterconsole
 nmap <C-e> V<Plug>JupyterRunVisual
 vmap <C-e> <Plug>JupyterRunVisual
 
@@ -61,6 +67,7 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'   " Must install!
+Plugin 'vim-voom/VOom'      " used to outline a markdown file
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -188,6 +195,8 @@ nmap <Leader>n <Plug>VimwikiIncrementListItem
 nmap <Leader>p <Plug>VimwikiDecrementListItem
 nmap <Leader>x <Plug>VimwikiToggleRejectedListItem
 
+" Options for VOoM (markdown outliner)
+nmap <Leader>o :Voom markdown<CR>
 
 " Turn on spell for markdown files
 autocmd FileType markdown setlocal spell
