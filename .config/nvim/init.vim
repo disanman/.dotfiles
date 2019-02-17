@@ -191,9 +191,15 @@ nmap <Leader>wo <Plug>VimwikiUISelect
 nmap <Leader>sp <Plug>VimwikiSplitLink
 nmap <Leader>vs <Plug>VimwikiVSplitLink
 nmap <Leader>t <Plug>VimwikiTabnewLink
+" Settings for to-do lists
 nmap <Leader>n <Plug>VimwikiIncrementListItem
 nmap <Leader>p <Plug>VimwikiDecrementListItem
 nmap <Leader>x <Plug>VimwikiToggleRejectedListItem
+" Settings for lists
+nmap <Leader>l <Plug>VimwikiIncreaseLvlSingleItem
+nmap <Leader>L <Plug>VimwikiIncreaseLvlWholeItem
+nmap <Leader>h <Plug>VimwikiDecreaseLvlSingleItem
+nmap <Leader>H <Plug>VimwikiDecreaseLvlWholeItem
 
 " Options for VOoM (markdown outliner)
 nmap <Leader>o :Voom markdown<CR>
