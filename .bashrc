@@ -110,6 +110,7 @@ alias remove='sudo pacman -R'
 alias autoremove='sudo apt autoremove'
 alias f='figlet'
 alias r='ranger'
+alias config='/usr/bin/git --git-dir=/home/diego/.cfg/ --work-tree=/home/diego'
 alias c='config'
 alias q='jupyter qtconsole &'
 alias j='jupyter qtconsole &'
@@ -183,7 +184,6 @@ else
 fi
 unset __conda_setup
 # <<< conda init <<<
-alias config='/usr/bin/git --git-dir=/home/diego/.cfg/ --work-tree=/home/diego'
 
 # Testing note searching with parameter input, call it like "n text_to_search"
 n() {
