@@ -205,7 +205,7 @@ nmap <Leader>H <Plug>VimwikiDecreaseLvlWholeItem
 nmap <Leader>o :Voom markdown<CR>
 
 " Turn on spell for markdown files
-autocmd FileType markdown setlocal spell
+" autocmd FileType markdown setlocal spell
 set mouse=a mousemodel=popup
 map <F6> :setlocal spell! spelllang=en_us<CR>
 map <F7> :set spelllang=es<CR>
