@@ -21,6 +21,8 @@ vmap <C-e> <Plug>JupyterRunVisual
 
 " Using fzf.vim, and a modified version of Files: Filesp (with preview)
 nmap <C-f> :Filesp<CR>
+" Using RipGrep with preview!
+nmap <Leader>f :Rg!<CR>
 
 " close autocompletion when done, defines <space g> to go to definition
 let g:ycm_autoclose_preview_window_after_completion=1
