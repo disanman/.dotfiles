@@ -11,16 +11,24 @@ let mapleader = ","      " Maps <leader> ('\' key) to ','
 
 " Open this file to edit vim config
 nmap <Leader>e :e ~/.config/nvim/init.vim <CR>
+nmap <Leader>T :tabnew<CR>
 nmap <Leader><F1> :set nowrap!<CR>
 
 " python highlight
 let python_highlight_all=1
 " Execute python code into jupyterconsole
-nmap <C-e> V<Plug>JupyterRunVisual
-vmap <C-e> <Plug>JupyterRunVisual
+nmap <Leader>c :JupyterConnect<CR>
+nmap <Leader>. V<Plug>JupyterRunVisual<CR>
+vmap <Leader>. <Plug>JupyterRunVisual<CR>
+nmap <Leader>W viw<Plug>JupyterRunVisual<CR>
+nmap <Leader>P vip<Plug>JupyterRunVisual<CR>
+
+" Set folder directory
+nmap <Leader>g :cd ~/git/<CR>
+nmap <Leader>G :cd ~/git/
 
 " Using fzf.vim, and a modified version of Files: Filesp (with preview)
-nmap <C-f> :Filesp<CR>
+nmap <C-f> :FZF --preview=head\ -10\ {}<CR>
 " Using RipGrep with preview!
 nmap <Leader>f :Rg!<CR>
 
@@ -140,8 +148,8 @@ map <C-n> :enew
 autocmd BufWritePre * %s/\s\+$//e
 
 " Enable folding
-set foldmethod=indent
-set foldlevel=99
+" set foldmethod=indent
+" set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 
