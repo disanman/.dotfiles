@@ -10,8 +10,8 @@ application/x-extension-shtml=userapp-Qutebrowser.desktop
 application/xhtml+xml=userapp-Qutebrowser.desktop
 application/x-extension-xhtml=userapp-Qutebrowser.desktop
 application/x-extension-xht=userapp-Qutebrowser.desktop
-image/jpeg=viewnior.desktop;gpicview.desktop;
-image/png=viewnior.desktop;gpicview.desktop;
+image/jpeg=sxiv.desktop;gpicview.desktop;
+image/png=sxiv.desktop;gpicview.desktop;
 text/plain=mousepad.desktop
 x-scheme-handler/mailto=userapp-Thunderbird.desktop
 message/rfc822=userapp-Thunderbird.desktop
@@ -19,8 +19,8 @@ application/pdf=org.pwmt.zathura.desktop
 application/x-bittorrent=deluge.desktop
 
 [Added Associations]
-image/jpeg=viewnior.desktop;gpicview.desktop;
-image/png=viewnior.desktop;gpicview.desktop;
+image/jpeg=sxiv.desktop;gpicview.desktop;
+image/png=sxiv.desktop;gpicview.desktop;
 text/plain=mousepad.desktop;
 message/rfc822=userapp-Thunderbird.desktop;
 application/pdf=org.pwmt.zathura.desktop;
