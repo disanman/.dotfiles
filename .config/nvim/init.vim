@@ -237,6 +237,6 @@ map <F7> :set spelllang=es<CR>
 "           c-n: next result
 let g:nv_search_paths = ['~/Documents/Notes']
 let g:nv_use_short_pathnames = 1
-" Note search with Control-N
+" Note search with Control-N - VimwiKi note search
 nnoremap <c-N> :NV<CR>
-
+nmap <Leader>N :tabnew<CR><c-N>
