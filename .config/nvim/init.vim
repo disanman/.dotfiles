@@ -240,3 +240,7 @@ let g:nv_use_short_pathnames = 1
 " Note search with Control-N - VimwiKi note search
 nnoremap <c-N> :NV<CR>
 nmap <Leader>N :tabnew<CR><c-N>
+
+" Using delete in insert mode
+imap <c-d> <c-o>x
+
