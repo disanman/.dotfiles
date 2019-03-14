@@ -33,8 +33,9 @@ nmap <C-f> :FZF --preview=head\ -10\ {}<CR>
 nmap <Leader>f :Rg!<CR>
 
 " close autocompletion when done, defines <space g> to go to definition
-let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_completion=0
 map <C-g>  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <Leader>d :YcmCompleter GetDoc<CR>
 
 " Split navigations
 set splitbelow
@@ -61,12 +62,13 @@ set rtp+=~/.vim/bundle/Vundle.vim  " Vundle path
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'  " replaced by ALE!
+Plugin 'w0rp/ale'
 Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'wmvanvliet/jupyter-vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'  " disabled to test ALE!
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
 Plugin 'gcmt/taboo.vim'         " Cool tab names
@@ -243,4 +245,16 @@ nmap <Leader>N :tabnew<CR><c-N>
 
 " Using delete in insert mode
 imap <c-d> <c-o>x
+
+" Settings for ALE
+let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
+let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+let g:ale_completion_enabled = 1
+" Ale
+let g:ale_set_balloons = 1
+nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <Leader>j <Plug>(ale_next_wrap)
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" inoremap <silent><expr> <C-i> <c-o>:ALEHoover<CR>
 
