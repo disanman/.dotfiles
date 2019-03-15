@@ -154,6 +154,7 @@ autocmd BufWritePre * %s/\s\+$//e
 " set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
+nmap <Leader>- vipzf
 
 " Settings for ranger.vim
 let g:ranger_map_keys = 0  " don't use default key map
@@ -250,11 +251,12 @@ imap <c-d> <c-o>x
 let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 let g:ale_completion_enabled = 1
-" Ale
 let g:ale_set_balloons = 1
+" navigate through errors:
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
+" tab selection of menu
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-" inoremap <silent><expr> <C-i> <c-o>:ALEHoover<CR>
+nmap <Leader>h :ALEHover<CR>
 
