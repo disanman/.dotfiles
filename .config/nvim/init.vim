@@ -13,6 +13,7 @@ nmap <silent> <localleader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
 
 " Settings for local-leader
 nmap <silent><localleader>q :q<CR>
+nmap <silent><localleader>d :drop _<CR>
 nmap <silent><localleader>t :tabnew<CR>
 nmap <silent><localleader>w :Windows<CR>
 nmap <silent><localleader>l :BLines<CR>
@@ -23,7 +24,8 @@ nmap <silent><localleader>m :Marks<CR>
 nmap <silent><localleader>c :Colors<CR>
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
-nmap <silent><localleader>s :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
+nmap <silent><localleader>s :w<CR>:echo "File saved!"<CR>
+nmap <silent><localleader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 
 " Open this file to edit vim config
 nmap <Leader>e :e ~/.config/nvim/init.vim <CR>
@@ -69,9 +71,9 @@ nnoremap <A-j> <C-w><C-j>
 nnoremap <A-k> <C-w><C-k>
 nnoremap <A-l> <C-w><C-l>
 nnoremap <A-h> <C-w><C-h>
-nnoremap <C-t> :tabnew<CR>:Ranger<CR>
-nnoremap <C-l> :tabnext<CR>
-nnoremap <C-h> :tabprevious<CR>
+nnoremap <silent><C-t> :tabnew<CR>:Ranger<CR>
+nnoremap <silent><C-l> :tabnext<CR>
+nnoremap <silent><C-h> :tabprevious<CR>
 " Resize splits
 nnoremap <A-J> :res -3<CR>
 nnoremap <A-K> :res +3<CR>
@@ -108,6 +110,10 @@ Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'luochen1990/rainbow'     " adds parenthesis colors
 Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
 Plugin 'numirias/semshi'         " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
+Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
+Plugin 'joequery/Stupid-EasyMotion'
+Plugin 'tpope/vim-surround'     "`:help surround`
+Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -280,11 +286,26 @@ nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 " tab selection of menu
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-nmap <silent><Leader>h :ALEHover<CR>
+nmap <silent><Leader>d :ALEHover<CR>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 
-" Rainbow settings
-let g:rainbow_active = 1
+" Rainbow settings, it should be disabled by default, so it won't interfere
+" with VimWiki's link hidding => enable it using: ,(
+let g:rainbow_active = 0
+
+" Apply macros with Q, hit qq to record, q to stop recording and Q to apply
+nnoremap Q @q
+vnoremap Q :norm @q<CR>
+
+" Indent char for python
+let g:indentLine_char = '┆'
+let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLinesToggle
+
+" Shortcuts for Stupid EasyMotion:
+nmap <m-w> <Leader><Leader>w
+nmap <m-W> <Leader><Leader>W
+nmap <m-f> <Leader><Leader>f
+
