@@ -6,12 +6,27 @@
                                                             " |___/
 "___________________________________________
 
-" let maplocalleader = ","
-let mapleader = ","      " Maps <leader> ('\' key) to ','
+" Settings for leader (,) and local-leader (ñ):
+let mapleader = ","
+let maplocalleader = "ñ"
+nmap <silent> <localleader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
+
+" Settings for local-leader
+nmap <silent><localleader>q :q<CR>
+nmap <silent><localleader>t :tabnew<CR>
+nmap <silent><localleader>w :Windows<CR>
+nmap <silent><localleader>l :BLines<CR>
+nmap <silent><localleader>h :History<CR>
+nmap <silent><localleader>b :Buffers<CR>
+nmap <silent><localleader>, :Maps<CR>
+nmap <silent><localleader>m :Marks<CR>
+nmap <silent><localleader>c :Colors<CR>
+nmap <silent><localleader>n :bn<CR>
+nmap <silent><localleader>p :bp<CR>
+nmap <silent><localleader>s :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 
 " Open this file to edit vim config
 nmap <Leader>e :e ~/.config/nvim/init.vim <CR>
-nmap <Leader>T :tabnew<CR>
 nmap <Leader><F1> :set nowrap!<CR>
 
 " python highlight
@@ -22,15 +37,25 @@ nmap <Leader>. V<Plug>JupyterRunVisual<CR>
 vmap <Leader>. <Plug>JupyterRunVisual<CR>
 nmap <Leader>W viw<Plug>JupyterRunVisual<CR>
 nmap <Leader>P vip<Plug>JupyterRunVisual<CR>
+" Enabling rainbow parenthesis colors by default:
+nmap <Leader>( :RainbowToggle<CR>
+" Illuminate visually words
+nmap <silent><Leader>i :IlluminationToggle<CR>
+nmap <silent><Leader>I :hi link illuminatedWord Visual<CR>
 
 " Set folder directory
-nmap <Leader>g :cd ~/git/<CR>
-nmap <Leader>G :cd ~/git/
+nmap <Leader>g :cd ~/Documents/<CR>
+nmap <Leader>G :cd ~/Documents/
 
 " Using fzf.vim, and a modified version of Files: Filesp (with preview)
-nmap <C-f> :FZF --preview=head\ -10\ {}<CR>
+nmap <silent> <Leader>F :FZF --preview=head\ -10\ {}<CR>
+nmap <silent> <Leader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
 " Using RipGrep with preview!
-nmap <Leader>f :Rg!<CR>
+nmap <silent> <Leader>R :Rg!<CR>
+nmap <silent> <Leader>r :tabnew<CR>:Rg!<CR>
+" Note search with Control-N - VimwiKi note search
+nmap <silent> <Leader>N :NV<CR>
+nmap <silent> <Leader>n :tabnew<CR>:NV<CR>
 
 " close autocompletion when done, defines <space g> to go to definition
 let g:ycm_autoclose_preview_window_after_completion=0
@@ -62,11 +87,9 @@ set rtp+=~/.vim/bundle/Vundle.vim  " Vundle path
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'vim-syntastic/syntastic'  " replaced by ALE!
+" other
 Plugin 'w0rp/ale'
 Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'wmvanvliet/jupyter-vim'
 " Plugin 'Valloric/YouCompleteMe'  " disabled to test ALE!
 Plugin 'francoiscabrol/ranger.vim'
@@ -80,6 +103,11 @@ Plugin 'Alok/notational-fzf-vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'   " Must install!
 Plugin 'vim-voom/VOom'      " used to outline a markdown file
+" Colors in Vim:
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'luochen1990/rainbow'     " adds parenthesis colors
+Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
+Plugin 'numirias/semshi'         " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -105,16 +133,13 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 "    \ set fileformat=unix
 
 
-" Select color scheme
+" Select color scheme, best ones: afterglow, dracula, termschool, wombat256mod
 set background=dark
 if has('gui_running')
-  colorscheme delek
+  colorscheme wombat256mod
 else
-  colorscheme delek
+  colorscheme wombat256mod
 endif
-" Toggle color scheme with F5
-call togglebg#map("<F5>")
-nnoremap <F4> :Color<CR>
 
 " Search color
 set hlsearch
@@ -205,8 +230,8 @@ nmap <Leader>sp <Plug>VimwikiSplitLink
 nmap <Leader>vs <Plug>VimwikiVSplitLink
 nmap <Leader>t <Plug>VimwikiTabnewLink
 " Settings for to-do lists
-nmap <Leader>n <Plug>VimwikiIncrementListItem
-nmap <Leader>p <Plug>VimwikiDecrementListItem
+nmap <Leader>+ <Plug>VimwikiIncrementListItem
+nmap <Leader>- <Plug>VimwikiDecrementListItem
 nmap <Leader>x <Plug>VimwikiToggleRejectedListItem
 " Settings for lists
 nmap <Leader>l <Plug>VimwikiIncreaseLvlSingleItem
@@ -240,9 +265,6 @@ map <F7> :set spelllang=es<CR>
 "           c-n: next result
 let g:nv_search_paths = ['~/Documents/Notes']
 let g:nv_use_short_pathnames = 1
-" Note search with Control-N - VimwiKi note search
-nnoremap <c-N> :NV<CR>
-nmap <Leader>N :tabnew<CR><c-N>
 
 " Using delete in insert mode
 imap <c-d> <c-o>x
@@ -258,5 +280,11 @@ nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 " tab selection of menu
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-nmap <Leader>h :ALEHover<CR>
+nmap <silent><Leader>h :ALEHover<CR>
 
+" Cursor changes :help guicursor
+" To enable mode shapes, Cursor highlight, and blinking:
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" Rainbow settings
+let g:rainbow_active = 1

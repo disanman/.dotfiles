@@ -18,7 +18,6 @@ XTerm*selectToClipboard: true
 *foreground:                      #d8d8d8
 *fading:                          8
 *fadeColor:                       black
-*cursorColor:                     #1ABB9B
 *pointerColorBackground:          #2B2C2B
 *pointerColorForeground:          #16A085
 
@@ -54,9 +53,6 @@ XTerm*selectToClipboard: true
 *color7:                          #d8d8d8
 *color15:                         #f8f8f8
 
-Xcursor.theme: xcursor-breeze
-Xcursor.size:                     0
-
 URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15
 URxvt.letterSpace:                -2
 
@@ -67,18 +63,18 @@ URxvt.letterSpace:                -2
 !! terminus names see end of file!
 
 URxvt.depth:                      32
-URxvt.background:                 [100]#222D31
+! Colors
+URxvt.background:                 black
+URxvt.foreground:                 grey
 URxvt*scrollBar:                  false
 URxvt*mouseWheelScrollPage:       false
-URxvt*cursorBlink:                true
-URxvt*background:                 black
-URxvt*foreground:                 grey
 URxvt*saveLines:                  5000
-
-! for 'fake' transparency (without Compton) uncomment the following three lines
-! URxvt*inheritPixmap:            true
-! URxvt*transparent:              true
-! URxvt*shading:                  138
+URxvt*underlineColor:             #4286f4
+! Cursor config
+URxvt.cursorBlink:                true
+URxvt.cursorUnderline:            false
+URxvt.cursorColor:                orange
+URxvt.cursorColor2:               orange
 
 ! Normal copy-paste keybindings without perls
 URxvt.iso14755:                   false
