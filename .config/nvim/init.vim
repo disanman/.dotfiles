@@ -9,26 +9,28 @@
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
 let maplocalleader = "ñ"
-nmap <silent> <localleader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
 
 " Settings for local-leader
 nmap <silent><localleader>q :q<CR>
 nmap <silent><localleader>d :drop _<CR>
 nmap <silent><localleader>t :tabnew<CR>
-nmap <silent><localleader>w :Windows<CR>
-nmap <silent><localleader>l :BLines<CR>
-nmap <silent><localleader>h :History<CR>
-nmap <silent><localleader>b :Buffers<CR>
-nmap <silent><localleader>, :Maps<CR>
-nmap <silent><localleader>m :Marks<CR>
-nmap <silent><localleader>c :Colors<CR>
+nmap <silent><localleader>w :FzfWindows<CR>
+nmap <silent><localleader>l :FzfBLines<CR>
+nmap <silent><localleader>h :FzfHistory<CR>
+nmap <silent><localleader>b :FzfBuffers<CR>
+nmap <silent><localleader>C :FzfCommands<CR>
+nmap <silent><localleader>: :FzfHistory:<CR>
+nmap <silent><localleader>/ :FzfHistory/<CR>
+nmap <silent><localleader>, :FzfMaps<CR>
+nmap <silent><localleader>m :FzfMarks<CR>
+nmap <silent><localleader>c :FzfColors<CR>
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
 nmap <silent><localleader>s :w<CR>:echo "File saved!"<CR>
 nmap <silent><localleader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 
 " Open this file to edit vim config
-nmap <Leader>e :e ~/.config/nvim/init.vim <CR>
+nmap <silent><Leader>e :e ~/.config/nvim/init.vim <CR>
 nmap <Leader><F1> :set nowrap!<CR>
 
 " python highlight
@@ -49,7 +51,8 @@ nmap <silent><Leader>I :hi link illuminatedWord Visual<CR>
 nmap <Leader>g :cd ~/Documents/<CR>
 nmap <Leader>G :cd ~/Documents/
 
-" Using fzf.vim, and a modified version of Files: Filesp (with preview)
+" Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
+let g:fzf_command_prefix = 'Fzf'
 nmap <silent> <Leader>F :FZF --preview=head\ -10\ {}<CR>
 nmap <silent> <Leader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
 " Using RipGrep with preview!
@@ -280,6 +283,7 @@ let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 let g:ale_completion_enabled = 1
 let g:ale_set_balloons = 1
+let g:ale_set_highlights = 1
 " navigate through errors:
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
@@ -308,4 +312,15 @@ let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLines
 nmap <m-w> <Leader><Leader>w
 nmap <m-W> <Leader><Leader>W
 nmap <m-f> <Leader><Leader>f
+nmap <Localleader>f <Leader><Leader>f
+
+" Color Scheme
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
