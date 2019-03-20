@@ -31,7 +31,8 @@ nmap <silent><localleader>r :source ~/.config/nvim/init.vim<CR>:echo "Config rel
 
 " Open this file to edit vim config
 nmap <silent><Leader>e :e ~/.config/nvim/init.vim <CR>
-nmap <Leader><F1> :set nowrap!<CR>
+set nowrap
+nmap <silent><Leader><F1> :set nowrap!<CR>
 
 " python highlight
 let python_highlight_all=1
@@ -107,7 +108,6 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'   " Must install!
-Plugin 'vim-voom/VOom'      " used to outline a markdown file
 " Colors in Vim:
 Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'luochen1990/rainbow'     " adds parenthesis colors
@@ -312,7 +312,7 @@ let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLines
 nmap <m-w> <Leader><Leader>w
 nmap <m-W> <Leader><Leader>W
 nmap <m-f> <Leader><Leader>f
-nmap <Localleader>f <Leader><Leader>f
+nmap <silent><Localleader>f <Leader><Leader>f
 
 " Color Scheme
 " Show syntax highlighting groups for word under cursor
