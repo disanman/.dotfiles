@@ -63,11 +63,6 @@ nmap <silent> <Leader>r :tabnew<CR>:Rg!<CR>
 nmap <silent> <Leader>N :NV<CR>
 nmap <silent> <Leader>n :tabnew<CR>:NV<CR>
 
-" close autocompletion when done, defines <space g> to go to definition
-let g:ycm_autoclose_preview_window_after_completion=0
-map <C-g>  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-map <Leader>d :YcmCompleter GetDoc<CR>
-
 " Split navigations
 set splitbelow
 set splitright
@@ -75,9 +70,13 @@ nnoremap <A-j> <C-w><C-j>
 nnoremap <A-k> <C-w><C-k>
 nnoremap <A-l> <C-w><C-l>
 nnoremap <A-h> <C-w><C-h>
-nnoremap <silent><C-t> :tabnew<CR>:Ranger<CR>
-nnoremap <silent><C-l> :tabnext<CR>
-nnoremap <silent><C-h> :tabprevious<CR>
+" Tab navigation
+nnoremap <silent><c-t> :tabnew<CR>:Ranger<CR>
+nnoremap <silent><c-l> :tabnext<CR>
+nnoremap <silent><c-h> :tabprevious<CR>
+" Move tabs: ñ<c-h>
+nmap <silent><localleader><c-h> :tabm -1<CR>
+nmap <silent><localleader><c-l> :tabm +1<CR>
 " Resize splits
 nnoremap <A-J> :res -3<CR>
 nnoremap <A-K> :res +3<CR>
