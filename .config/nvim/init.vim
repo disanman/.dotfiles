@@ -143,6 +143,7 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 
 
 " Select color scheme, best ones: afterglow, dracula, termschool, wombat256mod
+nmap <leader><leader>t :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 set background=dark
 if has('gui_running')
   colorscheme wombat256mod
@@ -152,8 +153,7 @@ endif
 
 " Search color
 set hlsearch
-hi Search ctermbg=Yellow
-hi Search ctermfg=Black
+hi Search ctermbg=Yellow ctermfg=Black
 
 " Search case
 set ignorecase
@@ -324,3 +324,18 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+" Semshi additional color highlight in Python
+ hi semshiLocal           ctermfg=209
+ hi semshiGlobal          ctermfg=214
+ hi semshiImported        ctermfg=9    cterm=italic,bold
+ hi semshiParameter       ctermfg=75
+ hi semshiParameterUnused ctermfg=117  cterm=underline gui=underline
+ hi semshiFree            ctermfg=218
+ hi semshiBuiltin         ctermfg=207  cterm=italic
+ hi semshiSelf            ctermfg=94   cterm=italic
+ hi semshiAttribute       ctermfg=94
+ hi semshiUnresolved      ctermfg=226  cterm=underline
+ hi semshiSelected        ctermfg=231  ctermbg=161
+ hi semshiErrorSign       ctermfg=231  ctermbg=160
+ hi semshiErrorChar       ctermfg=231  ctermbg=160
+ sign define semshiError text=E> texthl=semshiErrorSign

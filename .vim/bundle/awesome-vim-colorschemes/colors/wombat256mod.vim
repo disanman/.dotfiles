@@ -1,11 +1,5 @@
 " Vim color file
-" Original Maintainer:  Lars H. Nielsen (dengmao@gmail.com)
-" Last Change:  2010-07-23
-"
-" Modified version of wombat for 256-color terminals by
-"   David Liang (bmdavll@gmail.com)
-" based on version by
-"   Danila Bespalov (danila.bespalov@gmail.com)
+" Check color table at: https://jonasjacek.github.io/colors/
 
 set background=dark
 if version > 580
@@ -95,21 +89,33 @@ hi! link NonText		LineNr
 " vim:set ts=4 sw=4 noet:
 
 " Python mods
-hi pythonString	 ctermfg=101 cterm=none
-hi pythonQuotes	 ctermfg=101 cterm=none
-hi pythonComment ctermfg=1 cterm=italic
-hi pythonInclude ctermfg=9  cterm=italic
-hi pythonFunction ctermfg=34  cterm=none
-hi pythonStatement ctermfg=33  cterm=italic
-hi pythonKeyword ctermfg=135  cterm=none
-hi pythonAttribute ctermfg=9  cterm=bold
-hi pythonNumber ctermfg=9  cterm=bold
+hi pythonString	        ctermfg=101     cterm=none
+hi pythonQuotes	        ctermfg=101     cterm=none
+hi pythonFunction       ctermfg=34      cterm=bold
+hi pythonKeyword        ctermfg=135     cterm=none
+hi pythonAttribute      ctermfg=123       cterm=none
+hi pythonNumber         ctermfg=9       cterm=none
+" Function definition and decorators -> blue 33
+hi pythonStatement      ctermfg=33      cterm=italic
+hi pythonDecorator      ctermfg=33      cterm=italic
+hi pythonDecoratorName  ctermfg=33      cterm=italic
+hi pythonOperator       ctermfg=33      cterm=italic
+" Import -> dark_red 9
+hi pythonInclude        ctermfg=9       cterm=italic
+" Comments -> orange: 172
+hi pythonComment        ctermfg=172     cterm=italic
+" Builtin -> pink
+hi pythonBuiltin        ctermfg=135     cterm=italic
+hi pythonEscape         ctermfg=135     cterm=italic
 
 " VimwikiCode
-hi VimwikiCode ctermfg=172  cterm=italic
-hi VimwikiHeader1 ctermfg=15  cterm=bold
-hi VimwikiPre ctermfg=9  cterm=none
-hi VimwikiListTodo ctermfg=28  cterm=none
+hi VimwikiCode          ctermfg=172   ctermbg=none   cterm=italic
+hi VimwikiHeaderChar    ctermfg=15    ctermbg=none   cterm=bold
+hi VimwikiHeader1       ctermfg=15    ctermbg=none   cterm=bold
+hi VimwikiHeader2       ctermfg=15    ctermbg=none   cterm=bold
+hi VimwikiPre           ctermfg=9     ctermbg=none   cterm=none
+hi VimwikiListTodo      ctermfg=28    ctermbg=none   cterm=none
+hi Vimwikiweblink1      ctermfg=32    ctermbg=none   cterm=italic
 
 " Vimrc
 hi vimLineComment ctermfg=9
@@ -118,3 +124,4 @@ hi vimLineComment ctermfg=9
 hi SpellCap ctermbg=236
 hi SignColumn ctermbg=235
 
+" options: bold, underline,undercurl, reverse, inverse, italic, standout, NONE
