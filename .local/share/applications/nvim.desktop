@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=;
+Comment=Edit file in nVim
+Exec=nvim %f
+GenericName=Process Viewer
+Hidden=false
+Icon=nvim
+Name=nVim
+Terminal=true
+Type=Application
+Version=1.0

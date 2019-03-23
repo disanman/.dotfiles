@@ -49,8 +49,8 @@ nmap <silent><Leader>i :IlluminationToggle<CR>
 nmap <silent><Leader>I :hi link illuminatedWord Visual<CR>
 
 " Set folder directory
-nmap <Leader>g :cd ~/Documents/<CR>
-nmap <Leader>G :cd ~/Documents/
+nmap <Leader>G :cd ~/Documents/<CR>
+nmap <Leader>g :cd ~/git/<CR>
 
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
 let g:fzf_command_prefix = 'Fzf'
@@ -113,9 +113,12 @@ Plugin 'luochen1990/rainbow'     " adds parenthesis colors
 Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
 Plugin 'numirias/semshi'         " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
-Plugin 'joequery/Stupid-EasyMotion'
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'tpope/vim-fugitive'
+" Indentation level objects for python
+Plugin 'michaeljsmith/vim-indent-object'
+" Sneak for quick text finding
+Plugin 'justinmk/vim-sneak'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -197,7 +200,8 @@ map <f3> :RangerCurrentDirectory<CR>
 let g:taboo_tab_format=' |%N| %f%m  '
 
 " Settings for airline-statusbar
-" let g:airline_skip_empy_sections = 1  " To remove right triangles
+set noshowmode
+let g:airline_skip_empy_sections = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -224,8 +228,9 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 " let g:airline_theme='sol'
-" let g:airline_theme='serene'
-let g:airline_theme='murmur'
+let g:airline_theme='serene'
+" let g:airline_theme='distinguished'
+" let g:airline_theme='murmur'
 
 " Options for markdown editing:  helppage -> vimwiki-syntax
 " set nocompatible
@@ -281,8 +286,14 @@ imap <c-d> <c-o>x
 let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 let g:ale_completion_enabled = 1
+set completeopt+=noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
+" let g:ale_lint_on_text_changed = 'always'
+" Changing the way warnings and erros are shown:
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " navigate through errors:
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
@@ -290,6 +301,7 @@ nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nmap <silent><Leader>d :ALEHover<CR>
+nmap <silent><Leader>D :ALEDocumentation<CR>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
@@ -306,12 +318,6 @@ vnoremap Q :norm @q<CR>
 " Indent char for python
 let g:indentLine_char = '┆'
 let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLinesToggle
-
-" Shortcuts for Stupid EasyMotion:
-nmap <m-w> <Leader><Leader>w
-nmap <m-W> <Leader><Leader>W
-nmap <m-f> <Leader><Leader>f
-nmap <silent><Localleader>f <Leader><Leader>f
 
 " Color Scheme
 " Show syntax highlighting groups for word under cursor
@@ -338,3 +344,9 @@ endfunc
  hi semshiErrorSign       ctermfg=231  ctermbg=160
  hi semshiErrorChar       ctermfg=231  ctermbg=160
  sign define semshiError text=E> texthl=semshiErrorSign
+nmap <silent><localleader>j :Semshi goto function next<CR>
+nmap <silent><localleader>k :Semshi goto function prev<CR>
+nmap <silent><leader>rr :Semshi rename<CR>
+
+" Sneak config
+let g:sneak#label = 1
