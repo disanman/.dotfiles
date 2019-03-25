@@ -119,6 +119,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'michaeljsmith/vim-indent-object'
 " Sneak for quick text finding
 Plugin 'justinmk/vim-sneak'
+Plugin 'tpope/vim-repeat'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -350,3 +351,5 @@ nmap <silent><leader>rr :Semshi rename<CR>
 
 " Sneak config
 let g:sneak#label = 1
+" Enable clever s (s_next)
+let g:sneak#s_next = 1
