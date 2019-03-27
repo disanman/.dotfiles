@@ -332,7 +332,7 @@ endfunc
 
 " Semshi additional color highlight in Python
  hi semshiLocal           ctermfg=209
- hi semshiGlobal          ctermfg=214
+ hi semshiGlobal          ctermfg=28
  hi semshiImported        ctermfg=9    cterm=italic,bold
  hi semshiParameter       ctermfg=75
  hi semshiParameterUnused ctermfg=117  cterm=underline gui=underline
