@@ -186,12 +186,12 @@ map <C-n> :enew
 " Automatically deletes all tralling whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
-" Enable folding
-" set foldmethod=indent
+" Enable folding code
+set foldmethod=manual
 " set foldlevel=99
 " Enable folding with the spacebar
+nmap <Leader><space> viizf
 nnoremap <space> za
-nmap <Leader>- vipzf
 
 " Settings for ranger.vim
 let g:ranger_map_keys = 0  " don't use default key map
@@ -330,21 +330,7 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-" Semshi additional color highlight in Python
- hi semshiLocal           ctermfg=209
- hi semshiGlobal          ctermfg=28
- hi semshiImported        ctermfg=9    cterm=italic,bold
- hi semshiParameter       ctermfg=75
- hi semshiParameterUnused ctermfg=117  cterm=underline gui=underline
- hi semshiFree            ctermfg=218
- hi semshiBuiltin         ctermfg=207  cterm=italic
- hi semshiSelf            ctermfg=94   cterm=italic
- hi semshiAttribute       ctermfg=94
- hi semshiUnresolved      ctermfg=226  cterm=underline
- hi semshiSelected        ctermfg=231  ctermbg=161
- hi semshiErrorSign       ctermfg=231  ctermbg=160
- hi semshiErrorChar       ctermfg=231  ctermbg=160
- sign define semshiError text=E> texthl=semshiErrorSign
+" Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
 nmap <silent><leader>rr :Semshi rename<CR>
