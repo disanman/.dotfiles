@@ -130,8 +130,8 @@ filetype plugin on
 
 " Set relative number:
 set number relativenumber
-nmap <leader><F3> :set nu! <CR>
-nmap <leader><F4> :set rnu! <CR>
+nmap <silent><leader><F3> :set nu! <CR>
+nmap <silent><leader><F4> :set rnu! <CR>
 
 " Set Python Spaces
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
@@ -286,15 +286,30 @@ imap <c-d> <c-o>x
 " Settings for ALE
 let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_fix_on_save = 0
+let g:ale_lint_on_save = 0
+let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
-set completeopt+=noinsert
+let g:ale_completion_delay = 50
+set completeopt=menu,menuone,preview,noselect,noinsert
+" set completeopt+=noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
-" let g:ale_lint_on_text_changed = 'always'
+" Env settings
+let g:ale_python_auto_pipenv = 1
+let g:ale_python_flake8_executable = '/home/diego/miniconda3/bin/flake8'
+let g:ale_python_flake8_use_global = 1
+let g:ale_python_mypy_executable = '/home/diego/miniconda3/bin/mypy'
+let g:ale_python_mypy_use_global = 1
+let g:ale_python_pyls_executable = '/home/diego/miniconda3/bin/pyls'
+let g:ale_python_pyls_use_global = 1
+let g:ale_python_flake8_auto_pipenv = 1
 " Changing the way warnings and erros are shown:
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 " navigate through errors:
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>j <Plug>(ale_next_wrap)
@@ -303,6 +318,12 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nmap <silent><Leader>d :ALEHover<CR>
 nmap <silent><Leader>D :ALEDocumentation<CR>
+nmap <silent><localleader><space> :ALELint<CR>
+" Open definition in
+nmap <silent><leader>o :ALEGoToDefinition<CR>
+nmap <silent><leader>t :ALEGoToDefinitionInTab<CR>
+nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
+nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
