@@ -123,7 +123,7 @@ hi vimLineComment ctermfg=9
 
 " ALE Hightlights SpellBad, SpellCap, error, and todo
 hi SpellCap ctermbg=236
-hi SignColumn ctermbg=235
+hi SignColumn ctermbg=232
 
 " Other options - coments orange
 hi confComment        ctermfg=172     cterm=italic

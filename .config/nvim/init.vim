@@ -283,32 +283,63 @@ let g:nv_use_short_pathnames = 1
 " Using delete in insert mode
 imap <c-d> <c-o>x
 
-" Settings for ALE
-let g:ale_linters = {'python': ['flake8', 'pyls', 'pycodestyle']}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+" Settings for ALE, eslint and typescript (tsserver) are for java
+let g:ale_linters = {'python': ['pycodestyle', 'mypy', 'pyls', 'flake8', 'pyflakes', 'mccabe', 'black', 'isort']}
+let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8', 'black']}
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
-let g:ale_completion_delay = 50
+let g:ale_completion_delay = 5
 set completeopt=menu,menuone,preview,noselect,noinsert
 " set completeopt+=noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
 " Env settings
 let g:ale_python_auto_pipenv = 1
+" pycodestyle options
+let g:ale_python_pycodestyle_executable = '/home/diego/miniconda3/bin/pycodestyle'
+let g:ale_python_pycodestyle_options = '--max-line-length=120'
+let g:ale_python_pycodestyle_use_global = 1
+let g:ale_python_pycodestyle_auto_pipenv = 1
+" flake8 options
 let g:ale_python_flake8_executable = '/home/diego/miniconda3/bin/flake8'
+let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_python_flake8_use_global = 1
-let g:ale_python_mypy_executable = '/home/diego/miniconda3/bin/mypy'
-let g:ale_python_mypy_use_global = 1
-let g:ale_python_pyls_executable = '/home/diego/miniconda3/bin/pyls'
-let g:ale_python_pyls_use_global = 1
 let g:ale_python_flake8_auto_pipenv = 1
+" let g:ale_python_flake8_options = '--ignore-missing-imports'
+" mypy options
+let g:ale_python_mypy_executable = '/home/diego/miniconda3/bin/mypy'
+let g:ale_python_mypy_options = '--ignore-missing-imports'
+let g:ale_python_mypy_use_global = 1
+let g:ale_python_mypy_auto_pipenv = 1
+" pyls options
+let g:ale_python_pyls_executable = '/home/diego/miniconda3/bin/pyls'
+let g:ale_python_pyls_options = '--ignore-missing-imports'
+let g:ale_python_pyls_use_global = 1
+let g:ale_python_pyls_auto_pipenv = 1
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\     'plugins': {'pycodestyle': {'enabled': v:false},
+\                 'mypy': {'enabled': v:false},
+\                 'flake8': {'enabled': v:false}
+\     }
+\   },
+\ }
+" black options
+let g:ale_python_black_executable = '/home/diego/miniconda3/bin/black'
+let g:ale_python_black_use_global = 1
+let g:ale_python_black_auto_pipenv = 1
+let g:ale_python_black_change_directory = 1
 " Changing the way warnings and erros are shown:
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_error_str = '✘'
+let g:ale_echo_msg_warning_str = '!'
+let g:ale_sign_error = '✘ '
+let g:ale_sign_warning = '! '
+hi ALEErrorSign ctermbg=232 ctermfg=red
+hi ALEWarningSign ctermbg=232 ctermfg=172
 let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 " navigate through errors:
 nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
@@ -317,13 +348,15 @@ nmap <silent> <Leader>j <Plug>(ale_next_wrap)
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nmap <silent><Leader>d :ALEHover<CR>
-nmap <silent><Leader>D :ALEDocumentation<CR>
+nmap <silent><Leader>D :ALEDetail<CR>
 nmap <silent><localleader><space> :ALELint<CR>
 " Open definition in
 nmap <silent><leader>o :ALEGoToDefinition<CR>
 nmap <silent><leader>t :ALEGoToDefinitionInTab<CR>
 nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
 nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
+" References
+nmap <silent><localleader>f :ALEFindReferences<CR>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
@@ -360,3 +393,4 @@ nmap <silent><leader>rr :Semshi rename<CR>
 let g:sneak#label = 1
 " Enable clever s (s_next)
 let g:sneak#s_next = 1
+
