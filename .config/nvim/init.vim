@@ -394,3 +394,8 @@ let g:sneak#label = 1
 " Enable clever s (s_next)
 let g:sneak#s_next = 1
 
+" Fugitive config -> git
+nmap <localleader><localleader>s :Gstatus<CR>
+nmap <localleader><localleader>d :Gdiff<CR>
+nmap <localleader><localleader>p :Gpull<CR>
+nmap <localleader><localleader>c :Gcommit<CR>

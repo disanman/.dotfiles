@@ -1,5 +1,6 @@
 " Vim color file
 " Check color table at: https://jonasjacek.github.io/colors/
+" Use :syntax to see color highlight groups
 
 set background=dark
 if version > 580
@@ -38,10 +39,12 @@ hi PmenuSel		ctermfg=232		ctermbg=192						guifg=#080808	guibg=#cae982
 endif
 
 " Diff highlighting
-hi DiffAdd						ctermbg=17										guibg=#2a0d6a
-hi DiffDelete	ctermfg=234		ctermbg=60		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
-hi DiffText						ctermbg=53		cterm=none						guibg=#73186e	gui=none
+hi DiffAdd		ctermfg=255		ctermbg=22									guibg=#2a0d6a
+hi DiffDelete	ctermfg=232		ctermbg=9		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
+hi DiffText		ctermfg=232 	ctermbg=172		cterm=bold						guibg=#73186e	gui=none
 hi DiffChange					ctermbg=237										guibg=#382a37
+hi DiffRemoved	ctermfg=9		ctermbg=none		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
+hi DiffAdded	ctermfg=40		ctermbg=none									guibg=#2a0d6a
 
 "hi CursorIM
 "hi Directory
@@ -127,3 +130,4 @@ hi SignColumn ctermbg=232
 
 " Other options - coments orange
 hi confComment        ctermfg=172     cterm=italic
+
