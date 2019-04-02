@@ -90,11 +90,22 @@ URxvt.keysym.Shift-Control-Up:    \033[1;6A
 URxvt.keysym.Control-Down:        \033[1;5B
 URxvt.keysym.Shift-Control-Down:  \033[1;6B
 
+! ----------------------------------------------------------------
+! Testing shift+enter
+! URxvt.keysym.Shift-Return:  Rxvt.keysym.S-Return
+! URxvt.keysym.S-Return:      \033_S-CR_
+! Check: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter
+URxvt.keysym.S-Return:     \033[13;2u
+URxvt.keysym.C-Return:     \033[13;5u
+! ----------------------------------------------------------------
+
+! URxvt.keysym.S-Page_Up : seen as Rxvt.keysym.S-Page_Up
 ! Rxvt.perl-ext-common:             ...,clipboard
 ! URxvt.keysym.M-C-c:               perl:clipboard:copy
 ! URxvt.keysym.M-v:                 perl:clipboard:paste
 ! URxvt.keysym.M-C-v:               perl:clipboard:paste_escaped
-URxvt*termName:                    xterm-256color
+! URxvt*termName:                    xterm-256color
+URxvt*termName:                    rxvt-256color
 ! URxvt*geometry:                   geometry
 ! URxvt*chdir:                      string
 ! URxvt*loginShell:                 boolean

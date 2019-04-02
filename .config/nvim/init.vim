@@ -239,10 +239,11 @@ let g:airline_theme='serene'
 " syntax on             " already enabled
 let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': '.md'}]
 " let g:vimwiki_global_ext = 0
-nmap <Leader>wo <Plug>VimwikiUISelect
-nmap <Leader>sp <Plug>VimwikiSplitLink
-nmap <Leader>vs <Plug>VimwikiVSplitLink
-nmap <Leader>t <Plug>VimwikiTabnewLink
+nmap <Leader>U <Plug>VimwikiUISelect
+nmap <Leader>S <Plug>VimwikiSplitLink
+nmap <Leader>V <Plug>VimwikiVSplitLink
+nmap <Leader>T <Plug>VimwikiTabnewLink
+nmap <Leader>D <Plug>VimwikiDiaryIndex
 " Settings for to-do lists
 nmap <Leader>+ <Plug>VimwikiIncrementListItem
 nmap <Leader>- <Plug>VimwikiDecrementListItem
@@ -252,9 +253,6 @@ nmap <Leader>l <Plug>VimwikiIncreaseLvlSingleItem
 nmap <Leader>L <Plug>VimwikiIncreaseLvlWholeItem
 nmap <Leader>h <Plug>VimwikiDecreaseLvlSingleItem
 nmap <Leader>H <Plug>VimwikiDecreaseLvlWholeItem
-
-" Options for VOoM (markdown outliner)
-nmap <Leader>o :Voom markdown<CR>
 
 " Turn on spell for markdown files
 " autocmd FileType markdown setlocal spell
@@ -360,7 +358,7 @@ nmap <silent><localleader>f :ALEFindReferences<CR>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250_Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Rainbow settings, it should be disabled by default, so it won't interfere
 " with VimWiki's link hidding => enable it using: ,(
@@ -399,3 +397,7 @@ nmap <localleader><localleader>s :Gstatus<CR>
 nmap <localleader><localleader>d :Gdiff<CR>
 nmap <localleader><localleader>p :Gpull<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
+
+" Mapping using urxvt Shift-Enter and Ctrl-Enter
+nmap <S-CR> :tabnew<CR>
+nmap <C-CR> :vsplit<CR>
