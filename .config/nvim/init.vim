@@ -8,6 +8,7 @@
 
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
+nnoremap ,, ,
 let maplocalleader = "ñ"
 
 " Settings for local-leader
@@ -18,50 +19,61 @@ nmap <silent><localleader>w :FzfWindows<CR>
 nmap <silent><localleader>l :FzfBLines<CR>
 nmap <silent><localleader>h :FzfHistory<CR>
 nmap <silent><localleader>b :FzfBuffers<CR>
-nmap <silent><localleader>C :FzfCommands<CR>
+nmap <silent><localleader>c :FzfCommands<CR>
 nmap <silent><localleader>: :FzfHistory:<CR>
 nmap <silent><localleader>/ :FzfHistory/<CR>
 nmap <silent><localleader>, :FzfMaps<CR>
 nmap <silent><localleader>m :FzfMarks<CR>
-nmap <silent><localleader>c :FzfColors<CR>
+nmap <silent><localleader>C :FzfColors<CR>
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
 nmap <silent><localleader>s :w<CR>:echo "File saved!"<CR>
 nmap <silent><localleader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 
 " Open this file to edit vim config
-nmap <silent><Leader>e :e ~/.config/nvim/init.vim <CR>
+nmap <silent><leader>e :e ~/.config/nvim/init.vim <CR>
 set nowrap
-nmap <silent><Leader><F1> :set nowrap!<CR>
 
-" python highlight
+" Fx settings
+nmap <silent><leader><F1> :set nowrap!<CR>
+" Set numbera and relative number:
+" set nu rnu
+nmap <silent><leader><F2> :set nu! rnu!<CR>
+nmap <silent><leader><F3> :set nu! <CR>
+nmap <silent><leader><F4> :set rnu! <CR>
+" Turn on spell for markdown files
+set mouse=a mousemodel=popup
+map <F6> :setlocal spell! spelllang=en_us<CR>
+map <F7> :set spelllang=es<CR>
+
+" Set Python Spaces and highlight
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 let python_highlight_all=1
 " Execute python code into jupyterconsole
-nmap <Leader>c :JupyterConnect<CR>
-nmap <Leader>. V<Plug>JupyterRunVisual<CR>
-vmap <Leader>. <Plug>JupyterRunVisual<CR>
-nmap <Leader>W viw<Plug>JupyterRunVisual<CR>
-nmap <Leader>P vip<Plug>JupyterRunVisual<CR>
-" Enabling rainbow parenthesis colors by default:
-nmap <Leader>( :RainbowToggle<CR>
+nmap <leader>c :JupyterConnect<CR>
+nmap <leader>. V<Plug>JupyterRunVisual<CR>
+vmap <leader>. <Plug>JupyterRunVisual<CR>
+nmap <leader>W viw<Plug>JupyterRunVisual<CR>
+nmap <leader>P vip<Plug>JupyterRunVisual<CR>
+
 " Illuminate visually words
-nmap <silent><Leader>i :IlluminationToggle<CR>
-nmap <silent><Leader>I :hi link illuminatedWord Visual<CR>
+nmap <silent><leader>i :IlluminationToggle<CR>
+" nmap <silent><leader>I :hi link illuminatedWord Visual<CR>
 
 " Set folder directory
-nmap <Leader>G :cd ~/Documents/<CR>
-nmap <Leader>g :cd ~/git/<CR>
+nmap <leader>G :cd ~/Documents/<CR>
+nmap <leader>g :cd ~/git/<CR>
 
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
 let g:fzf_command_prefix = 'Fzf'
-nmap <silent> <Leader>F :FZF --preview=head\ -10\ {}<CR>
-nmap <silent> <Leader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
-" Using RipGrep with preview!
-nmap <silent> <Leader>R :Rg!<CR>
-nmap <silent> <Leader>r :tabnew<CR>:Rg!<CR>
+nmap <silent><leader>F :FZF --preview=head\ -10\ {}<CR>
+nmap <silent><leader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
+" Using RipGrep with preview! -> modify file as in git
+nmap <silent><leader>R :Rg!<CR>
+nmap <silent><leader>r :tabnew<CR>:Rg!<CR>
 " Note search with Control-N - VimwiKi note search
-nmap <silent> <Leader>N :NV<CR>
-nmap <silent> <Leader>n :tabnew<CR>:NV<CR>
+nmap <silent><leader>N :NV<CR>
+nmap <silent><leader>n :tabnew<CR>:NV<CR>
 
 " Split navigations
 set splitbelow
@@ -77,12 +89,16 @@ nnoremap <silent><c-h> :tabprevious<CR>
 " Move tabs: ñ<c-h>
 nmap <silent><localleader><c-h> :tabm -1<CR>
 nmap <silent><localleader><c-l> :tabm +1<CR>
-" Resize splits
-nnoremap <A-J> :res -3<CR>
-nnoremap <A-K> :res +3<CR>
-nnoremap <A-L> :vertical resize +5<CR>
-nnoremap <A-H> :vertical resize -5<CR>
-" Tab navigation
+" Resize split windows
+nnoremap <silent><A-J> :res -3<CR>
+nnoremap <silent><A-K> :res +3<CR>
+nnoremap <silent><A-L> :vertical resize +5<CR>
+nnoremap <silent><A-H> :vertical resize -5<CR>
+
+" Settings for ranger.vim
+let g:ranger_map_keys = 0  " don't use default key map
+map <f3> :RangerCurrentDirectory<CR>
+
 
 "___________________________________________
 " Settings for Vundle (package manager)
@@ -90,36 +106,33 @@ set nocompatible                   " be iMproved, required
 filetype off                       " required
 set rtp+=~/.vim/bundle/Vundle.vim  " Vundle path
 call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" other
-Plugin 'w0rp/ale'
-Plugin 'nvie/vim-flake8'
-Plugin 'wmvanvliet/jupyter-vim'
-" Plugin 'Valloric/YouCompleteMe'  " disabled to test ALE!
+Plugin 'VundleVim/Vundle.vim'             " let Vundle manage Vundle, required
+" Python programming
+Plugin 'w0rp/ale'                         " Lint files
+Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
+Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python
+Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
+" Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
-Plugin 'gcmt/taboo.vim'         " Cool tab names
-Plugin 'vim-airline/vim-airline'  " Statusbar
-Plugin 'vim-airline/vim-airline-themes'
 " Plugins for markdown editing:
 Plugin 'vimwiki/vimwiki'
-Plugin 'Alok/notational-fzf-vim'
+Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
+" Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'   " Must install!
-" Colors in Vim:
+Plugin 'junegunn/fzf.vim'              " Must install!
+Plugin 'gcmt/taboo.vim'                " Cool tab names
+Plugin 'vim-airline/vim-airline'       " Statusbar
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'luochen1990/rainbow'     " adds parenthesis colors
 Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
-Plugin 'numirias/semshi'         " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
 Plugin 'tpope/vim-surround'     "`:help surround`
-Plugin 'tpope/vim-fugitive'
-" Indentation level objects for python
-Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'tpope/vim-fugitive'     " awesome git plugin
 " Sneak for quick text finding
 Plugin 'justinmk/vim-sneak'
-Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'       " useful?
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -128,25 +141,8 @@ filetype plugin indent on    " required
 syntax on
 filetype plugin on
 
-" Set relative number:
-set number relativenumber
-nmap <silent><leader><F3> :set nu! <CR>
-nmap <silent><leader><F4> :set rnu! <CR>
-
-" Set Python Spaces
-set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
-" au BufNewFile,BufRead *.py
-"    \ set tabstop=4
-"    \ set softtabstop=4
-"    \ set shiftwidth=4
-"    \ set textwidth=79
-"    \ set expandtab
-"    \ set autoindent
-"    \ set fileformat=unix
-
-
 " Select color scheme, best ones: afterglow, dracula, termschool, wombat256mod
-nmap <leader><leader>t :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
+nmap <localleader><localleader>t :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 set background=dark
 if has('gui_running')
   colorscheme wombat256mod
@@ -154,48 +150,36 @@ else
   colorscheme wombat256mod
 endif
 
-" Search color
-set hlsearch
-hi Search ctermbg=Yellow ctermfg=Black
-
-" Search case
+" Search options
 set ignorecase
 set smartcase
-" if an uppercase character, it will do a case sensitive search
-" if search for purely lowercase, it will do a case insensitive search
+set hlsearch
+hi Search ctermbg=Yellow ctermfg=Black
+" Clear last search highlight
+nmap <silent><leader>0 :let @/ = ""<CR>
 
+" Copy selection to clipboard when in visual mode.
+vmap <C-C> "+y
 " Paste from clipboard when in insert mode.
 imap <C-V> <ESC>"+gpa
 " Paste from clipboard when in visual mode. (Replace whatever is selected in visual mode.)
 vmap <C-V> "+gp
-" Copy selection to clipboard when in visual mode.
-vmap <C-C> "+y
 " Cut selection to clipboard when in visual mode.
-vmap <C-X> "+y
+vmap <C-X> "+x
 
-" old changes to use + register (clipboard)
-" noremap <C-c> "+y
-" nnoremap <C-v> "+P
-" vnoremap <C-X> "+x
-
-" map "select all text"
+" select all text"
 map <C-a> GVgg
-" map new document
-map <C-n> :enew
+" Open new empty current buffer (like drop file)
+map <silent><C-n> :enew<CR>
 
 " Automatically deletes all tralling whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
 " Enable folding code
 set foldmethod=manual
-" set foldlevel=99
 " Enable folding with the spacebar
-nmap <Leader><space> viizf
+nmap <leader><space> viizf
 nnoremap <space> za
-
-" Settings for ranger.vim
-let g:ranger_map_keys = 0  " don't use default key map
-map <f3> :RangerCurrentDirectory<CR>
 
 " Settings for taboo.vim (tab behaviour)
 let g:taboo_tab_format=' |%N| %f%m  '
@@ -234,37 +218,27 @@ let g:airline_theme='serene'
 " let g:airline_theme='murmur'
 
 " Options for markdown editing:  helppage -> vimwiki-syntax
-" set nocompatible
-" filetype plugin on    " already enabled
-" syntax on             " already enabled
 let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': '.md'}]
 " let g:vimwiki_global_ext = 0
-nmap <Leader>U <Plug>VimwikiUISelect
-nmap <Leader>S <Plug>VimwikiSplitLink
-nmap <Leader>V <Plug>VimwikiVSplitLink
-nmap <Leader>T <Plug>VimwikiTabnewLink
-nmap <Leader>D <Plug>VimwikiDiaryIndex
+nmap <leader>U <Plug>VimwikiUISelect
+nmap <leader>S <Plug>VimwikiSplitLink
+nmap <leader>V <Plug>VimwikiVSplitLink
+nmap <leader>T <Plug>VimwikiTabnewLink
+nmap <leader>dd <Plug>VimwikiDiaryIndex
 " Settings for to-do lists
-nmap <Leader>+ <Plug>VimwikiIncrementListItem
-nmap <Leader>- <Plug>VimwikiDecrementListItem
-nmap <Leader>x <Plug>VimwikiToggleRejectedListItem
+nmap <leader>+ <Plug>VimwikiIncrementListItem
+nmap <leader>- <Plug>VimwikiDecrementListItem
+nmap <leader>x <Plug>VimwikiToggleRejectedListItem
 " Settings for lists
-nmap <Leader>l <Plug>VimwikiIncreaseLvlSingleItem
-nmap <Leader>L <Plug>VimwikiIncreaseLvlWholeItem
-nmap <Leader>h <Plug>VimwikiDecreaseLvlSingleItem
-nmap <Leader>H <Plug>VimwikiDecreaseLvlWholeItem
-
-" Turn on spell for markdown files
-" autocmd FileType markdown setlocal spell
-set mouse=a mousemodel=popup
-map <F6> :setlocal spell! spelllang=en_us<CR>
-map <F7> :set spelllang=es<CR>
+nmap <leader>l <Plug>VimwikiIncreaseLvlSingleItem
+nmap <leader>L <Plug>VimwikiIncreaseLvlWholeItem
+nmap <leader>h <Plug>VimwikiDecreaseLvlSingleItem
+nmap <leader>H <Plug>VimwikiDecreaseLvlWholeItem
 
 " To activate instant preview (html preview of notes), install:
 " https://github.com/suan/vim-instant-markdown
 " let g:instant_markdown_autostart = 0
 " map <leader>md :InstantMarkdownPreview<CR>
-
 
 " Options for note taking using notational-fzf-vim
 " Shortcuts c-x: use string as filename for new file
@@ -340,20 +314,20 @@ hi ALEErrorSign ctermbg=232 ctermfg=red
 hi ALEWarningSign ctermbg=232 ctermfg=172
 let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 " navigate through errors:
-nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <Leader>j <Plug>(ale_next_wrap)
-" tab selection of menu
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
+" tab selection of menu - autocomplete
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-nmap <silent><Leader>d :ALEHover<CR>
-nmap <silent><Leader>D :ALEDetail<CR>
+nmap <silent><leader>d :ALEHover<CR>
+nmap <silent><leader>D :ALEDetail<CR>
 nmap <silent><localleader><space> :ALELint<CR>
 " Open definition in
 nmap <silent><leader>o :ALEGoToDefinition<CR>
 nmap <silent><leader>t :ALEGoToDefinitionInTab<CR>
 nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
 nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
-" References
+" References - python
 nmap <silent><localleader>f :ALEFindReferences<CR>
 
 " Cursor changes :help guicursor
@@ -363,14 +337,16 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinko
 " Rainbow settings, it should be disabled by default, so it won't interfere
 " with VimWiki's link hidding => enable it using: ,(
 let g:rainbow_active = 0
+nmap <leader>( :RainbowToggle<CR>
 
 " Apply macros with Q, hit qq to record, q to stop recording and Q to apply
 nnoremap Q @q
 vnoremap Q :norm @q<CR>
 
-" Indent char for python
+" Indent char for python - settings for Yggdroot/indentLine
 let g:indentLine_char = '┆'
 let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLinesToggle
+nmap <silent><localleader>i :IndentLinesToggle<CR>
 
 " Color Scheme
 " Show syntax highlighting groups for word under cursor
@@ -386,10 +362,11 @@ endfunc
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
 nmap <silent><leader>rr :Semshi rename<CR>
+let g:semshi#error_sign = v:false
+let g:semshi#update_delay_factor = 0.0001
 
-" Sneak config
+" Sneak config, enable clever s (s_next)
 let g:sneak#label = 1
-" Enable clever s (s_next)
 let g:sneak#s_next = 1
 
 " Fugitive config -> git
@@ -398,6 +375,6 @@ nmap <localleader><localleader>d :Gdiff<CR>
 nmap <localleader><localleader>p :Gpull<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
 
-" Mapping using urxvt Shift-Enter and Ctrl-Enter
-nmap <S-CR> :tabnew<CR>
+" Mapping using urxvt Shift-Enter and Ctrl-Enter - WIP
+nmap <S-CR> :split<CR>
 nmap <C-CR> :vsplit<CR>
