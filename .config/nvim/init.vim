@@ -133,6 +133,8 @@ Plugin 'tpope/vim-fugitive'     " awesome git plugin
 " Sneak for quick text finding
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-repeat'       " useful?
+" Tag bar - function outline
+Plugin 'majutsushi/tagbar'      " Code outline: Install Universal ctags on linux to have this working
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -374,6 +376,11 @@ nmap <localleader><localleader>s :Gstatus<CR>
 nmap <localleader><localleader>d :Gdiff<CR>
 nmap <localleader><localleader>p :Gpull<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
+
+" Tagbar - ctags - code outline
+nmap <silent><localleader>o :TagbarToggle<CR><a-l>
+let g:tagbar_previewwin_pos = "aboveright"
+hi TagbarHighlight ctermfg=172 cterm=italic
 
 " Mapping using urxvt Shift-Enter and Ctrl-Enter - WIP
 nmap <S-CR> :split<CR>
