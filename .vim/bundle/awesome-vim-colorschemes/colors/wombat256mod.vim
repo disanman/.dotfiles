@@ -130,4 +130,7 @@ hi SignColumn ctermbg=232
 
 " Other options - coments orange
 hi confComment        ctermfg=172     cterm=italic
-
+" Tab colors
+hi TabLine      ctermfg=248 ctermbg=238 cterm=none
+hi TabLineFill  ctermfg=235 ctermbg=236
+hi TabLineSel   ctermfg=255 ctermbg=232 cterm=bold

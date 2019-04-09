@@ -69,7 +69,7 @@ URxvt.foreground:                 grey
 URxvt*scrollBar:                  false
 URxvt*mouseWheelScrollPage:       false
 URxvt*saveLines:                  5000
-URxvt*underlineColor:             #4286f4
+! URxvt*underlineColor:             #4286f4
 ! Cursor config
 URxvt.cursorBlink:                true
 URxvt.cursorUnderline:            false

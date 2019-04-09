@@ -158,6 +158,7 @@ alias cfv='nvim ~/.config/nvim/init.vim'        # Config nvim
 alias restart='sudo shutdown -r now'
 alias low_light='xbacklight -set 0.01'
 alias reload_term='xrdb ~/.Xresources'
+alias ip='ipython --no-autoindent'
 
 # Modified default Text editor:
 VISUAL=nvim; export VISUAL EDITOR=nvim; export EDITOR

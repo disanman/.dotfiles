@@ -10,6 +10,13 @@
 let mapleader = ","
 nnoremap ,, ,
 let maplocalleader = "ñ"
+" Remap - to " to use faster registers:
+nnoremap - "
+vnoremap - "
+
+" Remap j and k for working with wrapped lines
+nmap j gj
+nmap k gk
 
 " Settings for local-leader
 nmap <silent><localleader>q :q<CR>
@@ -78,10 +85,6 @@ nmap <silent><leader>n :tabnew<CR>:NV<CR>
 " Split navigations
 set splitbelow
 set splitright
-nnoremap <A-j> <C-w><C-j>
-nnoremap <A-k> <C-w><C-k>
-nnoremap <A-l> <C-w><C-l>
-nnoremap <A-h> <C-w><C-h>
 " Tab navigation
 nnoremap <silent><c-t> :tabnew<CR>:Ranger<CR>
 nnoremap <silent><c-l> :tabnext<CR>
@@ -135,6 +138,11 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-repeat'       " useful?
 " Tag bar - function outline
 Plugin 'majutsushi/tagbar'      " Code outline: Install Universal ctags on linux to have this working
+" Connect to MySQL db
+Plugin 'tpope/vim-dadbod'
+" tmux
+Plugin 'christoomey/vim-tmux-runner'
+Plugin 'christoomey/vim-tmux-navigator'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -184,7 +192,8 @@ nmap <leader><space> viizf
 nnoremap <space> za
 
 " Settings for taboo.vim (tab behaviour)
-let g:taboo_tab_format=' |%N| %f%m  '
+let g:taboo_tab_format='|%N| %f%m '
+let g:taboo_unnamed_tab_label='_'
 
 " Settings for airline-statusbar
 set noshowmode
@@ -377,6 +386,11 @@ nmap <localleader><localleader>d :Gdiff<CR>
 nmap <localleader><localleader>p :Gpull<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
 
+" Settings for MySQL, using dadbod plugin
+let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
+vmap <silent><leader>m :DB<CR>
+nmap <silent><leader>m V:DB<CR>
+
 " Tagbar - ctags - code outline
 nmap <silent><localleader>o :TagbarToggle<CR><a-l>
 let g:tagbar_previewwin_pos = "aboveright"
@@ -385,3 +399,24 @@ hi TagbarHighlight ctermfg=172 cterm=italic
 " Mapping using urxvt Shift-Enter and Ctrl-Enter - WIP
 nmap <S-CR> :split<CR>
 nmap <C-CR> :vsplit<CR>
+
+" Settings for tmux runner -> sending python lines
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+nmap <leader>a :VtrAttachToPane 0
+nmap <leader>1 :VtrAttachToPane 1<CR>
+nmap <leader>2 :VtrAttachToPane 2<CR>
+nmap <leader>3 :VtrAttachToPane 3<CR>
+nmap <localleader>. :VtrSendLinesToRunner<CR>
+vmap <localleader>. :VtrSendLinesToRunner<CR>
+nmap <localleader>W viw:VtrSendCommandToRunner<CR>
+nmap <localleader>P vip:VtrSendLinesToRunner<CR>
+
+" Settings for tmux navigator - navigate through panes
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent><A-h> :TmuxNavigateLeft<cr>
+nnoremap <silent><A-j> :TmuxNavigateDown<cr>
+nnoremap <silent><A-k> :TmuxNavigateUp<cr>
+nnoremap <silent><A-l> :TmuxNavigateRight<cr>
+nnoremap <silent><A-p> :TmuxNavigatePrevious<cr>
