@@ -14,9 +14,16 @@ let maplocalleader = "ñ"
 nnoremap - "
 vnoremap - "
 
+" Remap to use faster norm commands using Ex and +:
+vmap v :'<,'>norm<space>
+
 " Remap j and k for working with wrapped lines
 nmap j gj
 nmap k gk
+
+" Hide vim's bar:
+nmap <silent><localleader><F1> :set laststatus=0<CR>
+nmap <silent><localleader><F2> :set laststatus=2<CR>
 
 " Settings for local-leader
 nmap <silent><localleader>q :q<CR>
