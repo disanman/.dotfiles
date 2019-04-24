@@ -17,6 +17,9 @@ vnoremap - "
 " Remap to use faster norm commands using Ex and +:
 vmap v :'<,'>norm<space>
 
+" Remap Alt tab to 4 spaces
+imap <m-tab> <space><space><space><space>
+
 " Remap j and k for working with wrapped lines
 nmap j gj
 nmap k gk
@@ -283,7 +286,7 @@ let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 5
-set completeopt=menu,menuone,preview,noselect,noinsert
+set completeopt=menu,menuone,preview  " ,noselect,noinsert
 " set completeopt+=noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
@@ -335,7 +338,7 @@ let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 " tab selection of menu - autocomplete
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<c-x><c-n>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nmap <silent><leader>d :ALEHover<CR>
 nmap <silent><leader>D :ALEDetail<CR>
