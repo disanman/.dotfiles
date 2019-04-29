@@ -5,7 +5,6 @@
 " |_| \_|\___|\___/ \_/  |___|_|  |_|  \____\___/|_| |_|_| |_|\__, |
                                                             " |___/
 "___________________________________________
-
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
 nnoremap ,, ,
@@ -238,6 +237,8 @@ let g:airline_theme='serene'
 " let g:airline_theme='distinguished'
 " let g:airline_theme='murmur'
 
+" Vimwiki settings, using dev branch
+let g:vimwiki_markdown_link_ext = 1
 " Options for markdown editing:  helppage -> vimwiki-syntax
 let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': '.md'}]
 " let g:vimwiki_global_ext = 0
@@ -286,7 +287,7 @@ let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 5
-set completeopt=menu,menuone,preview  " ,noselect,noinsert
+set completeopt=menu,menuone,preview,noinsert  " ,noselect,noinsert
 " set completeopt+=noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
@@ -394,6 +395,7 @@ let g:sneak#s_next = 1
 nmap <localleader><localleader>s :Gstatus<CR>
 nmap <localleader><localleader>d :Gdiff<CR>
 nmap <localleader><localleader>p :Gpull<CR>
+nmap <localleader><localleader>u :Gpush<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
 
 " Settings for MySQL, using dadbod plugin
