@@ -152,6 +152,7 @@ Plugin 'tpope/vim-dadbod'
 " tmux
 Plugin 'christoomey/vim-tmux-runner'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'itchyny/calendar.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -169,7 +170,9 @@ else
   colorscheme wombat256mod
 endif
 
-" Search options
+" Search options (using regex)
+nnoremap / /\v
+vnoremap / /\v
 set ignorecase
 set smartcase
 set hlsearch
@@ -246,7 +249,6 @@ nmap <leader>U <Plug>VimwikiUISelect
 nmap <leader>S <Plug>VimwikiSplitLink
 nmap <leader>V <Plug>VimwikiVSplitLink
 nmap <leader>T <Plug>VimwikiTabnewLink
-nmap <leader>dd <Plug>VimwikiDiaryIndex
 " Settings for to-do lists
 nmap <leader>+ <Plug>VimwikiIncrementListItem
 nmap <leader>- <Plug>VimwikiDecrementListItem
@@ -256,6 +258,14 @@ nmap <leader>l <Plug>VimwikiIncreaseLvlSingleItem
 nmap <leader>L <Plug>VimwikiIncreaseLvlWholeItem
 nmap <leader>h <Plug>VimwikiDecreaseLvlSingleItem
 nmap <leader>H <Plug>VimwikiDecreaseLvlWholeItem
+" Diary settings: dd open index, dn: new note (today), di: update index
+nmap <leader>dd <Plug>VimwikiDiaryIndex
+nmap <leader>di <Plug>VimwikiDiaryGenerateLinks
+nmap <leader>dn <Plug>VimwikiMakeDiaryNote
+nmap <leader>dy <Plug>VimwikiMakeYesterdayDiaryNote
+nmap <leader>dt <Plug>VimwikiMakeTomorrowDiaryNote
+nmap <leader>dj <Plug>VimwikiDiaryPrevDay
+nmap <leader>dk <Plug>VimwikiDiaryNextDay
 
 " To activate instant preview (html preview of notes), install:
 " https://github.com/suan/vim-instant-markdown
@@ -432,3 +442,7 @@ nnoremap <silent><A-j> :TmuxNavigateDown<cr>
 nnoremap <silent><A-k> :TmuxNavigateUp<cr>
 nnoremap <silent><A-l> :TmuxNavigateRight<cr>
 nnoremap <silent><A-p> :TmuxNavigatePrevious<cr>
+
+" Settings for calendar
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
