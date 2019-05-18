@@ -153,6 +153,10 @@ Plugin 'tpope/vim-dadbod'
 Plugin 'christoomey/vim-tmux-runner'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'itchyny/calendar.vim'
+" Fish syntax
+Plugin 'dag/vim-fish'
+" Superman, add 'export PATH="$PATH:$HOME/.vim/bundle/vim-superman/bin"' to fishrc, open command with vman
+Plugin 'jez/vim-superman'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -409,7 +413,8 @@ nmap <localleader><localleader>u :Gpush<CR>
 nmap <localleader><localleader>c :Gcommit<CR>
 
 " Settings for MySQL, using dadbod plugin
-let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
+" let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
+let g:db = 'postgresql://dbuser:pwd@localhost/DB'
 vmap <silent><leader>m :DB<CR>
 nmap <silent><leader>m V:DB<CR>
 
@@ -446,3 +451,6 @@ nnoremap <silent><A-p> :TmuxNavigatePrevious<cr>
 " Settings for calendar
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
+
+" Set filetype of fish files as sh
+" autocmd BufNewFile,BufRead *.fish set syntax=sh

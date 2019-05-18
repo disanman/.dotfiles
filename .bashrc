@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------
+exec fish
+# ------------------------------------------------------------------------
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -124,8 +128,6 @@ alias m_disk='udisksctl mount -b /dev/sdb1'  # use lsblk to find disk names
 alias um_disk='udisksctl unmount -b /dev/sdb1'
 alias m_data='udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 alias um_data='udisksctl unmount -b /dev/sda1'
-# Geeknote -> Evernote
-alias g='geeknote'
 
 # Opening youtube videos using vlc and specific resolutions
 alias y240='cvlc --preferred-resolution 240'
@@ -153,6 +155,7 @@ alias cfq='nvim ~/.config/qutebrowser/config.py' # Config qutebrowser
 alias cfr='nvim .config/ranger/rc.conf'         # Config ranger
 alias cfrr='nvim .config/ranger/rifle.conf'     # Config ranger-rifle
 alias cfrc='nvim ~/.config/ranger/commands.py'  # Config ranger-commands
+alias cff='nvim ~/.config/fish/config.fish'     # Config fish shell
 # alias cfv='nvim ~/.vimrc'               # Config vim
 alias cfv='nvim ~/.config/nvim/init.vim'        # Config nvim
 alias restart='sudo shutdown -r now'
