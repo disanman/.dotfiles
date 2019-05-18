@@ -14,44 +14,44 @@ XTerm*faceSize:          11
 XTerm*reverseVideo:      on
 XTerm*selectToClipboard: true
 
-*background:                      #222D31
-*foreground:                      #d8d8d8
+*background:                      #1d1f21
+*foreground:                      #c5c8c6
 *fading:                          8
 *fadeColor:                       black
 *pointerColorBackground:          #2B2C2B
 *pointerColorForeground:          #16A085
 
 !! black dark/light
-*color0:                          #222D31
-*color8:                          #585858
+*color0:                          #282a2e
+*color8:                          #373b41
 
 !! red dark/light
-*color1:                          #ab4642
-*color9:                          #ab4642
+*color1:                          #933232
+*color9:                          #c34040
 
 !! green dark/light
-*color2:                          #7E807E
-*color10:                         #8D8F8D
+*color2:                          #8c9440
+*color10:                         #b5bd68
 
 !! yellow dark/light
-*color3:                          #f7ca88
-*color11:                         #f7ca88
+*color3:                          #de935f
+*color11:                         #f0c674
 
 !! blue dark/light
-*color4:                          #7cafc2
-*color12:                         #7cafc2
+*color4:                          #5f819d
+*color12:                         #81a2b3
 
 !! magenta dark/light
-*color5:                          #ba8baf
-*color13:                         #ba8baf
+*color5:                          #85678f
+*color13:                         #b294bb
 
 !! cyan dark/light
-*color6:                          #1ABB9B
-*color14:                         #1ABB9B
+*color6:                          #5e8d87
+*color14:                         #8abeb7
 
 !! white dark/light
-*color7:                          #d8d8d8
-*color15:                         #f8f8f8
+*color7:                          #707880
+*color15:                         #c5c8c6
 
 URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15
 URxvt.letterSpace:                -2
