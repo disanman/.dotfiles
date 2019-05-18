@@ -16,15 +16,13 @@ function fish_vi_cursor --on-variable fish_bind_mode
             printf "\033[6 q"
         case replace
             printf "\033[4 q"
-        case "*"
-            printf "\033[2 q"
     end
 end
 
 # Settings
 set -U fish_greeting  # removes greetings!
 set -g fish_key_bindings hybrid_bindings
-fish_vi_cursor
+# fish_vi_cursor
 export PATH="$PATH:$HOME/.vim/bundle/vim-superman/bin"
 
 # Programs abbr

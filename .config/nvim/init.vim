@@ -415,8 +415,8 @@ nmap <localleader><localleader>c :Gcommit<CR>
 " Settings for MySQL, using dadbod plugin
 " let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
 let g:db = 'postgresql://dbuser:pwd@localhost/DB'
-vmap <silent><leader>m :DB<CR>
-nmap <silent><leader>m V:DB<CR>
+vmap <silent><leader>m :DB<CR><M-j>
+nmap <silent><leader>m V:DB<CR><M-j>
 
 " Tagbar - ctags - code outline
 nmap <silent><localleader>o :TagbarToggle<CR><a-l>
