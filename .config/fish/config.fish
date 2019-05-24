@@ -24,6 +24,7 @@ set -U fish_greeting  # removes greetings!
 set -g fish_key_bindings hybrid_bindings
 # fish_vi_cursor
 export PATH="$PATH:$HOME/.vim/bundle/vim-superman/bin"
+export PATH="/home/diego/miniconda3/bin:$PATH"
 
 # Programs abbr
 abbr x 'exit'
