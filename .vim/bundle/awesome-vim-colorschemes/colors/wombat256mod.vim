@@ -84,16 +84,17 @@ hi pythonOperator       ctermfg=33      cterm=italic
 " Import -> dark_red 9
 hi pythonInclude        ctermfg=9       cterm=italic
 " Comments -> orange: 172
-hi pythonComment        ctermfg=172     cterm=italic
+hi pythonComment        ctermfg=242     cterm=italic
 " Builtin -> pink
 hi pythonBuiltin        ctermfg=135     cterm=italic
 hi pythonEscape         ctermfg=135     cterm=italic
 
-" VimwikiCode
-hi VimwikiCode          ctermfg=172   ctermbg=none   cterm=italic
-hi VimwikiHeaderChar    ctermfg=15    ctermbg=none   cterm=bold
-hi VimwikiHeader1       ctermfg=15    ctermbg=none   cterm=bold
-hi VimwikiHeader2       ctermfg=15    ctermbg=none   cterm=bold
+" Vimwiki
+hi VimwikiCode          ctermfg=28   ctermbg=none   cterm=italic
+hi VimwikiHeaderChar    ctermfg=172    ctermbg=none   cterm=bold
+hi VimwikiHeader1       ctermfg=172    ctermbg=none   cterm=bold
+hi VimwikiHeader2       ctermfg=172    ctermbg=none   cterm=bold
+hi VimwikiHeader3       ctermfg=172    ctermbg=none   cterm=bold
 hi VimwikiPre           ctermfg=9     ctermbg=none   cterm=none
 hi VimwikiListTodo      ctermfg=28    ctermbg=none   cterm=none
 hi Vimwikiweblink1      ctermfg=32    ctermbg=none   cterm=italic

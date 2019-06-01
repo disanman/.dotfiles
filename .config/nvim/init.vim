@@ -5,6 +5,7 @@
 " |_| \_|\___|\___/ \_/  |___|_|  |_|  \____\___/|_| |_|_| |_|\__, |
                                                             " |___/
 "___________________________________________
+
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
 nnoremap ,, ,
@@ -15,9 +16,6 @@ vnoremap - "
 
 " Remap to use faster norm commands using Ex and +:
 vmap v :'<,'>norm<space>
-
-" Remap Alt tab to 4 spaces
-imap <m-tab> <space><space><space><space>
 
 " Remap j and k for working with wrapped lines
 nmap j gj
@@ -157,6 +155,10 @@ Plugin 'itchyny/calendar.vim'
 Plugin 'dag/vim-fish'
 " Superman, add 'export PATH="$PATH:$HOME/.vim/bundle/vim-superman/bin"' to fishrc, open command with vman
 Plugin 'jez/vim-superman'
+" Syntax hightlight show
+Plugin 'vim-scripts/SyntaxAttr.vim'
+" Insert digraphs - unicode characters
+Plugin 'chrisbra/unicode.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -292,6 +294,7 @@ let g:nv_use_short_pathnames = 1
 imap <c-d> <c-o>x
 
 " Settings for ALE, eslint and typescript (tsserver) are for java
+nmap <silent><localleader>0 :ALEToggle<CR>
 let g:ale_linters = {'python': ['pycodestyle', 'mypy', 'pyls', 'flake8', 'pyflakes', 'mccabe', 'black', 'isort']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8', 'black']}
 let g:ale_lint_on_enter = 0
@@ -300,9 +303,8 @@ let g:ale_fix_on_save = 0
 let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
-let g:ale_completion_delay = 5
-set completeopt=menu,menuone,preview  " ,noselect,noinsert
-" set completeopt+=noinsert
+" let g:ale_completion_delay = 5
+set completeopt=menu,menuone,preview,noinsert  " ,noselect,noinsert
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
 " Env settings
@@ -352,7 +354,7 @@ let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 " navigate through errors:
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
-" tab selection of menu - autocomplete
+" tab selection of menu - autocomplete - Alt tab to open menu selection
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<c-x><c-n>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 nmap <silent><leader>d :ALEHover<CR>
@@ -365,6 +367,8 @@ nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
 nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
 " References - python
 nmap <silent><localleader>f :ALEFindReferences<CR>
+" Map tab in insert mode => insert 4 spaces
+imap <m-tab> <space><space><space><space>
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
@@ -393,6 +397,8 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+" Using vim-scripts/SyntaxAttr.vim plugin:
+nmap <leader><C-S-P> :call SyntaxAttr()<CR>
 
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
@@ -424,8 +430,8 @@ let g:tagbar_previewwin_pos = "aboveright"
 hi TagbarHighlight ctermfg=172 cterm=italic
 
 " Mapping using urxvt Shift-Enter and Ctrl-Enter - WIP
-nmap <S-CR> :split<CR>
-nmap <C-CR> :vsplit<CR>
+nmap <C-CR> :split<CR>
+nmap <S-CR> :vsplit<CR>
 
 " Settings for tmux runner -> sending python lines
 let g:VtrStripLeadingWhitespace = 0
@@ -454,3 +460,10 @@ let g:calendar_google_task = 1
 
 " Set filetype of fish files as sh
 " autocmd BufNewFile,BufRead *.fish set syntax=sh
+
+" Surround customizing - use <c-s> in insert mode to insert surrounds
+nmap <leader>s ysiw`
+vmap <leader>s S`
+
+" Remove map in vimwiki for key: -
+nmap º <Plug>VimwikiRemoveHeaderLevel
