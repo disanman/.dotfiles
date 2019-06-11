@@ -49,10 +49,10 @@ nmap <silent><leader>e :e ~/.config/nvim/init.vim <CR>
 set nowrap
 
 " Fx settings
-nmap <silent><leader><F1> :set nowrap!<CR>
+nmap <silent><leader><F2> :set nowrap!<CR>
 " Set numbera and relative number:
 " set nu rnu
-nmap <silent><leader><F2> :set nu! rnu!<CR>
+nmap <silent><leader><F1> :set nu! rnu!<CR>
 nmap <silent><leader><F3> :set nu! <CR>
 nmap <silent><leader><F4> :set rnu! <CR>
 " Turn on spell for markdown files
@@ -122,6 +122,7 @@ Plugin 'w0rp/ale'                         " Lint files
 Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
 Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python
 Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
+Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
 " Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
@@ -207,6 +208,7 @@ autocmd BufWritePre * %s/\s\+$//e
 set foldmethod=manual
 " Enable folding with the spacebar
 nmap <leader><space> viizf
+vmap <leader><space> zf
 nnoremap <space> za
 
 " Settings for taboo.vim (tab behaviour)

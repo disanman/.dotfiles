@@ -273,6 +273,7 @@ bindsym $mod+ctrl+2 exec xbacklight -set 20
 bindsym $mod+ctrl+3 exec xbacklight -set 30
 bindsym $mod+ctrl+4 exec xbacklight -set 40
 bindsym $mod+ctrl+5 exec xbacklight -set 50
+bindsym $mod+ctrl+9 exec xbacklight -set 100
 
 bindsym $mod+shift+c exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
