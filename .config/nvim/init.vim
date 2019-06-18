@@ -21,9 +21,13 @@ vmap v :'<,'>norm<space>
 nmap j gj
 nmap k gk
 
-" Hide vim's bar:
+" Map Y to yank up to the end of the line
+nmap Y v$y
+
+" Hide vim's bar and tab bar:
 nmap <silent><localleader><F1> :set laststatus=0<CR>
 nmap <silent><localleader><F2> :set laststatus=2<CR>
+nmap <expr><silent><localleader><F3> &showtabline ? ":set showtabline=0\<cr>" : ":set showtabline=1\<cr>"
 
 " Settings for local-leader
 nmap <silent><localleader>q :q<CR>
@@ -464,7 +468,7 @@ let g:calendar_google_task = 1
 " autocmd BufNewFile,BufRead *.fish set syntax=sh
 
 " Surround customizing - use <c-s> in insert mode to insert surrounds
-nmap <leader>s ysiw`
+nmap <leader>s ysiw`E
 vmap <leader>s S`
 
 " Remove map in vimwiki for key: -
