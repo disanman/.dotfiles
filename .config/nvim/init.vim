@@ -54,7 +54,7 @@ set nowrap
 
 " Fx settings
 nmap <silent><leader><F2> :set nowrap!<CR>
-" Set numbera and relative number:
+" Set numbera and relative number: [add numbered list :put =range(1,10)]
 " set nu rnu
 nmap <silent><leader><F1> :set nu! rnu!<CR>
 nmap <silent><leader><F3> :set nu! <CR>
@@ -69,10 +69,11 @@ set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 let python_highlight_all=1
 " Execute python code into jupyterconsole
 nmap <leader>c :JupyterConnect<CR>
-nmap <leader>. V<Plug>JupyterRunVisual<CR>
-vmap <leader>. <Plug>JupyterRunVisual<CR>
+nmap <silent><S-CR> V<Plug>JupyterRunVisual<CR>
+vmap <silent><S-CR> <Plug>JupyterRunVisual<CR>
 nmap <leader>W viw<Plug>JupyterRunVisual<CR>
 nmap <leader>P vip<Plug>JupyterRunVisual<CR>
+
 
 " Illuminate visually words
 nmap <silent><leader>i :IlluminationToggle<CR>
@@ -436,8 +437,8 @@ let g:tagbar_previewwin_pos = "aboveright"
 hi TagbarHighlight ctermfg=172 cterm=italic
 
 " Mapping using urxvt Shift-Enter and Ctrl-Enter - WIP
-nmap <C-CR> :split<CR>
-nmap <S-CR> :vsplit<CR>
+nmap <silent><leader><leader>s :split<CR>
+nmap <silent><leader><leader>v :vsplit<CR>
 
 " Settings for tmux runner -> sending python lines
 let g:VtrStripLeadingWhitespace = 0
@@ -447,8 +448,8 @@ nmap <leader>a :VtrAttachToPane 0
 nmap <leader>1 :VtrAttachToPane 1<CR>
 nmap <leader>2 :VtrAttachToPane 2<CR>
 nmap <leader>3 :VtrAttachToPane 3<CR>
-nmap <localleader>. :VtrSendLinesToRunner<CR>
-vmap <localleader>. :VtrSendLinesToRunner<CR>
+nmap <silent><C-CR> :VtrSendLinesToRunner<CR>
+vmap <silent><C-CR> :VtrSendLinesToRunner<CR>
 nmap <localleader>W viw:VtrSendCommandToRunner<CR>
 nmap <localleader>P vip:VtrSendLinesToRunner<CR>
 
@@ -468,8 +469,8 @@ let g:calendar_google_task = 1
 " autocmd BufNewFile,BufRead *.fish set syntax=sh
 
 " Surround customizing - use <c-s> in insert mode to insert surrounds
-nmap <leader>s ysiw`E
-vmap <leader>s S`
+nmap <leader>z ysiw`E
+vmap <leader>z S`
 
 " Remove map in vimwiki for key: -
 nmap º <Plug>VimwikiRemoveHeaderLevel

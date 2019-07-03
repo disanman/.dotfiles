@@ -29,9 +29,12 @@ config.bind('<Ctrl-Shift-f>', 'hint --rapid links tab-bg')
 # config.bind('th', 'back -t')     # opens previous visted page in a tab
 # config.bind('tl', 'forward -t')  # opens forward in history page in a tab
 
-config.bind('<Ctrl-Shift-V>', 'enter-mode passthrough')
-config.bind('<Ctrl-Shift-V>', 'leave-mode', mode='passthrough')
+# config.bind('<Ctrl-Shift-V>', 'enter-mode passthrough')
+# config.bind('<Ctrl-Shift-V>', 'leave-mode', mode='passthrough')
+config.bind('<Ctrl-i>', 'enter-mode passthrough')
+config.bind('<Ctrl-i>', 'leave-mode', mode='passthrough')
 config.unbind('<Ctrl-v>')  # unbind the old way of entering to passthrough mode
+config.unbind('<Shift-Escape>', mode='passthrough')  # unbind the old way of leaaving to passthrough mode (needed to use vim mode in Jupyter)
 
 config.bind('<Ctrl-h>', 'tab-prev')
 config.bind('<Ctrl-l>', 'tab-next')
