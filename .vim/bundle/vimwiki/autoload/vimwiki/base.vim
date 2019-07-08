@@ -262,6 +262,9 @@ function! vimwiki#base#system_open_link(url)
     if a:url =~# '.py'
         echomsg 'Opening python file in a new tab...'
         exe 'tabnew ' . fnameescape(a:url)
+    elseif a:url =~# '.sql'
+        echomsg 'Opening sql file in a new tab...'
+        exe 'tabnew ' . fnameescape(a:url)
     else
         call system('xdg-open ' . shellescape(a:url).' &')
     endif
