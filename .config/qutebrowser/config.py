@@ -41,12 +41,16 @@ config.bind('<Ctrl-l>', 'tab-next')
 config.bind('<Ctrl-Shift-h>', 'tab-move -')
 config.bind('<Ctrl-Shift-l>', 'tab-move +')
 
+# ........................... used to hide the navigation and status bars
+config.bind('xx', 'config-cycle statusbar.hide ;; config-cycle tabs.show always switching')
+config.bind('xt', 'config-cycle tabs.show always switching')
+config.bind('xb', 'config-cycle statusbar.hide')
 
 ## Automatically start playing `<video>` elements. Note: On Qt < 5.11,
 c.content.autoplay = False
 
 ## Allow pdf.js to view PDF files in the browser. Note that the files can
-## still be downloaded by clicking the download button in the pdf.js viewer.
+## still be downloaded by clicking the download butn in the pdf.js viewer.
 # c.content.pdfjs = False
 
 ## Editor (and arguments) to use for the `open-editor` command. The

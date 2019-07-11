@@ -364,6 +364,7 @@ nmap <silent> <leader>j <Plug>(ale_next_wrap)
 " tab selection of menu - autocomplete - Alt tab to open menu selection
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<c-x><c-n>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+nmap <silent><S-tab> :ALEHover<CR>
 nmap <silent><leader>d :ALEHover<CR>
 nmap <silent><leader>D :ALEDetail<CR>
 nmap <silent><localleader><space> :ALELint<CR>
