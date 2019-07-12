@@ -201,8 +201,8 @@ vmap <C-V> "+gp
 " Cut selection to clipboard when in visual mode.
 vmap <C-X> "+x
 
-" select all text"
-map <C-a> GVgg
+" select all text"  <C-a> is increment number, <C-x> is decrement number
+map <leader><C-a> GVgg
 " Open new empty current buffer (like drop file)
 map <silent><C-n> :enew<CR>
 

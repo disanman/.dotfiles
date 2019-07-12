@@ -1,7 +1,7 @@
 # Crontab
 
 # Wallpaper changer, use `env | grep -i display` to find which display X port is in use
-*/2 * * * * DISPLAY=:0 feh --randomize --bg-fill /home/diego/Pictures/Wallpapers/*
+*/5 * * * * DISPLAY=:0 feh --randomize --bg-fill /home/diego/Pictures/Wallpapers/*
 
 
 # -----------------------------------------------------------------
