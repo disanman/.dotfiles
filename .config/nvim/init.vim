@@ -70,7 +70,7 @@ let python_highlight_all=1
 " Execute python code into jupyterconsole
 nmap <leader>c :JupyterConnect<CR>
 nmap <silent><S-CR> V<Plug>JupyterRunVisual<CR>
-vmap <silent><S-CR> <Plug>JupyterRunVisual<CR>
+vmap <silent><S-CR> <Plug>JupyterRunVisual:'>+1<CR>
 nmap <leader>W viw<Plug>JupyterRunVisual<CR>
 nmap <leader>P vip<Plug>JupyterRunVisual<CR>
 
