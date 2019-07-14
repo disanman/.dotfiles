@@ -55,7 +55,9 @@ abbr today 'cal -3 && date'
 abbr m_disk 'udisksctl mount -b /dev/sdb1'  # use lsblk to find disk names
 abbr um_disk 'udisksctl unmount -b /dev/sdb1'
 abbr m_data 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
+abbr md 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr um_data 'udisksctl unmount -b /dev/sda1'
+abbr ud 'udisksctl unmount -b /dev/sda1'  # use lsblk to find disk names
 
 # Opening youtube videos using vlc and specific resolutions
 abbr y240 'cvlc --preferred-resolution 240'

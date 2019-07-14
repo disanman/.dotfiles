@@ -4,22 +4,29 @@
 " | |\  |  __/ (_) \ V /  | || |  | | | |__| (_) | | | |  _| | (_| |
 " |_| \_|\___|\___/ \_/  |___|_|  |_|  \____\___/|_| |_|_| |_|\__, |
                                                             " |___/
+                                                            "
 "___________________________________________
 
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
 nnoremap ,, ,
 let maplocalleader = "ñ"
-" Remap - to " to use faster registers:
+" Remap - to " to use faster registers, + to ` to use faster marks
 nnoremap - "
 vnoremap - "
+nnoremap _ `
+vnoremap _ `
+" Repeat ex commands with the previously used flags
+nnoremap & :&&<CR>
 
 " Remap to use faster norm commands using Ex and +:
 vmap v :'<,'>norm<space>
 
-" Remap j and k for working with wrapped lines
+" Remap j and k for working with wrapped lines, E for going to the end of
+" previous line
 nmap j gj
 nmap k gk
+nmap E ge
 
 " Map Y to yank up to the end of the line
 nmap Y v$y
@@ -71,8 +78,8 @@ let python_highlight_all=1
 nmap <leader>c :JupyterConnect<CR>
 nmap <silent><S-CR> V<Plug>JupyterRunVisual<CR>
 vmap <silent><S-CR> <Plug>JupyterRunVisual:'>+1<CR>
-nmap <leader>W viw<Plug>JupyterRunVisual<CR>
-nmap <leader>P vip<Plug>JupyterRunVisual<CR>
+nmap <leader>W viw<Plug>JupyterRunVisualel
+nmap <leader>P vip<Plug>JupyterRunVisual:'>+1<CR>
 
 
 " Illuminate visually words
@@ -125,7 +132,7 @@ Plugin 'VundleVim/Vundle.vim'             " let Vundle manage Vundle, required
 " Python programming
 Plugin 'w0rp/ale'                         " Lint files
 Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
-Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python
+Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python: vaf, vif (in func), vac, vic (in class), vii (in indentation), vai (around indentation)
 Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
 " Ranger
@@ -361,9 +368,7 @@ let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 " navigate through errors:
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
-" tab selection of menu - autocomplete - Alt tab to open menu selection
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<c-x><c-n>"
-inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" Hover and details
 nmap <silent><S-tab> :ALEHover<CR>
 nmap <silent><leader>d :ALEHover<CR>
 nmap <silent><leader>D :ALEDetail<CR>
@@ -377,6 +382,18 @@ nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
 nmap <silent><localleader>f :ALEFindReferences<CR>
 " Map tab in insert mode => insert 4 spaces
 imap <m-tab> <space><space><space><space>
+
+" Autocomplete:
+" tab: to open menu selection, omnicompletion
+" Shift tab: to open completion in all results list, \<C-x><C-n> can be also used
+" CR: to accept current suggestion
+" S-CR: to cancel current suggestion and exit
+"                                if           yes         no
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x><C-o>"
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-n>"
+inoremap <silent> <C-Tab> pumvisible() ? "\<C-x><C-l>" : "\<C-x><C-l>"
+imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "<CR>"
+imap <silent><expr> <S-CR> pumvisible() ? "\<C-e>" : "<S-CR>"
 
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
