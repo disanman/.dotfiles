@@ -40,6 +40,7 @@ nmap <expr><silent><localleader><F3> &showtabline ? ":set showtabline=0\<cr>" : 
 nmap <silent><localleader>q :q<CR>
 nmap <silent><localleader>d :drop _<CR>
 nmap <silent><localleader>t :tabnew<CR>
+nmap <silent><localleader><localleader>t :FzfBTags<CR>
 nmap <silent><localleader>w :FzfWindows<CR>
 nmap <silent><localleader>l :FzfBLines<CR>
 nmap <silent><localleader>h :FzfHistory<CR>
@@ -135,6 +136,7 @@ Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
 Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python: vaf, vif (in func), vac, vic (in class), vii (in indentation), vai (around indentation)
 Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
+Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
@@ -158,6 +160,7 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-repeat'       " useful?
 " Tag bar - function outline
 Plugin 'majutsushi/tagbar'      " Code outline: Install Universal ctags on linux to have this working
+Plugin 'ludovicchabant/vim-gutentags'   " GutenTags: automatic generation of tags
 " Connect to MySQL db
 Plugin 'tpope/vim-dadbod'
 " tmux
@@ -181,7 +184,7 @@ syntax on
 filetype plugin on
 
 " Select color scheme, best ones: afterglow, dracula, termschool, wombat256mod
-nmap <localleader><localleader>t :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
+nmap <leader><leader>w :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 set background=dark
 if has('gui_running')
   colorscheme wombat256mod
@@ -492,3 +495,7 @@ vmap <leader>z S`
 
 " Remove map in vimwiki for key: -
 nmap º <Plug>VimwikiRemoveHeaderLevel
+
+" Setting for Shougo/echodoc.vim, using neovim's floating text feature:
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'echo'
