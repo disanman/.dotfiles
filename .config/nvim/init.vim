@@ -30,13 +30,24 @@ nmap E ge
 
 " Map Y to yank up to the end of the line
 nmap Y v$y
+" Yank link (text inside following parenthesis)
+nmap <leader>yl f)vi)<C-c>
+" Yank text inside following `
+nmap <leader>yg f`vi`<C-c>
+
+" Insert time stamp
+nmap <silent><leader><leader>t :r! date "+\%Y-\%m-\%d \%H:\%M"<CR>
+
+" Justify (break line before 120 characters, at the previous word)
+nmap <silent><c-j> 0120lBi<CR><ESC>
+nmap <silent><leader><c-j> 0120lBi<s-CR><ESC>
 
 " Hide vim's bar and tab bar:
 nmap <silent><localleader><F1> :set laststatus=0<CR>
 nmap <silent><localleader><F2> :set laststatus=2<CR>
 nmap <expr><silent><localleader><F3> &showtabline ? ":set showtabline=0\<cr>" : ":set showtabline=1\<cr>"
 
-" Settings for local-leader
+" Settings for local-leader - fzf shortcuts
 nmap <silent><localleader>q :q<CR>
 nmap <silent><localleader>d :drop _<CR>
 nmap <silent><localleader>t :tabnew<CR>
@@ -54,7 +65,7 @@ nmap <silent><localleader>C :FzfColors<CR>
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
 nmap <silent><localleader>s :w<CR>:echo "File saved!"<CR>
-nmap <silent><localleader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
+nmap <silent><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 
 " Open this file to edit vim config
 nmap <silent><leader>e :e ~/.config/nvim/init.vim <CR>
@@ -76,11 +87,13 @@ map <F7> :set spelllang=es<CR>
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 let python_highlight_all=1
 " Execute python code into jupyterconsole
-nmap <leader>c :JupyterConnect<CR>
+nmap <leader>C :JupyterConnect<CR>
 nmap <silent><S-CR> V<Plug>JupyterRunVisual<CR>
 vmap <silent><S-CR> <Plug>JupyterRunVisual:'>+1<CR>
-nmap <leader>W viw<Plug>JupyterRunVisualel
-nmap <leader>P vip<Plug>JupyterRunVisual:'>+1<CR>
+nmap <silent><leader>w viw<Plug>JupyterRunVisualel
+nmap <silent><leader>p vip<Plug>JupyterRunVisual:'>+1<CR>
+nmap <silent><leader>c vac<Plug>JupyterRunVisual:'>+1<CR>
+nmap <silent><leader>f vaf<Plug>JupyterRunVisual:'>+1<CR>
 
 
 " Illuminate visually words
@@ -93,11 +106,11 @@ nmap <leader>g :cd ~/git/<CR>
 
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
 let g:fzf_command_prefix = 'Fzf'
-nmap <silent><leader>F :FZF --preview=head\ -10\ {}<CR>
-nmap <silent><leader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
+nmap <silent><localleader>F :FZF --preview=head\ -10\ {}<CR>
+nmap <silent><localleader>f :tabnew<CR>:FZF --preview=head\ -10\ {}<CR>
 " Using RipGrep with preview! -> modify file as in git
-nmap <silent><leader>R :Rg!<CR>
-nmap <silent><leader>r :tabnew<CR>:Rg!<CR>
+nmap <silent><localleader>R :Rg!<CR>
+nmap <silent><localleader>r :tabnew<CR>:Rg!<CR>
 " Note search with Control-N - VimwiKi note search
 nmap <silent><leader>N :NV<CR>
 nmap <silent><leader>n :tabnew<CR>:NV<CR>
@@ -175,6 +188,8 @@ Plugin 'jez/vim-superman'
 Plugin 'vim-scripts/SyntaxAttr.vim'
 " Insert digraphs - unicode characters
 Plugin 'chrisbra/unicode.vim'
+" Submodes!
+Plugin 'kana/vim-submode'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -368,6 +383,7 @@ let g:ale_sign_warning = '! '
 hi ALEErrorSign ctermbg=232 ctermfg=red
 hi ALEWarningSign ctermbg=232 ctermfg=172
 let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+" ALE shortcuts
 " navigate through errors:
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
@@ -382,7 +398,7 @@ nmap <silent><leader>t :ALEGoToDefinitionInTab<CR>
 nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
 nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
 " References - python
-nmap <silent><localleader>f :ALEFindReferences<CR>
+nmap <silent><leader>f :ALEFindReferences<CR>
 " Map tab in insert mode => insert 4 spaces
 imap <m-tab> <space><space><space><space>
 
@@ -394,6 +410,7 @@ imap <m-tab> <space><space><space><space>
 "                                if           yes         no
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x><C-o>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-n>"
+inoremap <silent><expr> <C-l> pumvisible() ? "\<C-x><C-n>" : "\<C-l>"
 inoremap <silent> <C-Tab> pumvisible() ? "\<C-x><C-l>" : "\<C-x><C-l>"
 imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "<CR>"
 imap <silent><expr> <S-CR> pumvisible() ? "\<C-e>" : "<S-CR>"
@@ -498,4 +515,16 @@ nmap º <Plug>VimwikiRemoveHeaderLevel
 
 " Setting for Shougo/echodoc.vim, using neovim's floating text feature:
 let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'echo'
+let g:echodoc#type = 'signature'
+
+" Settings for gutentags
+let g:gutentags_exclude = ['*.json', '*.ipyng', '*.svg', '*.md']
+
+" Vim-submodes settings - leave with Esc by default
+" Show submode
+let g:submode_always_show_submode = 1    " show mode
+let g:submode_timeout = 0
+let g:submode_timeoutlen = 2000  " ms (only works if previous is set to 1
+" submode#enter_with({submode}, {modes: Normal, Insert...}, {options}, {lhs}, [{commands to execute when using lhs...}])
+call submode#enter_with('FZF', 'n', '', 'ñf')
+call submode#map('FZF', 'n', '', 'h', ':FzfHistory<CR>')   " history

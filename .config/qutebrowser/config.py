@@ -73,4 +73,4 @@ c.editor.command = ['nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l']
 # c.input.rocker_gestures = False
 
 # Auto zoom
-QT_AUTO_SCREEN_SCALE_FACTOR=1
+QT_AUTO_SCREEN_SCALE_FACTOR=1.25

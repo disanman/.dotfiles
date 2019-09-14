@@ -27,4 +27,4 @@ python/py=nvim.desktop
 message/rfc822=userapp-Thunderbird.desktop;
 application/pdf=org.pwmt.zathura.desktop;
 application/x-bittorrent=deluge.desktop;
-
+text/markdown=google-chrome.desktop;qutebrowser.desktop;
