@@ -54,6 +54,7 @@ abbr today 'cal -3 && date'
 # Mount and unmount disk
 abbr m_disk 'udisksctl mount -b /dev/sdb1'  # use lsblk to find disk names
 abbr um_disk 'udisksctl unmount -b /dev/sdb1'
+abbr umk 'udisksctl unmount -b /dev/sdb1'
 abbr m_data 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr md 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr um_data 'udisksctl unmount -b /dev/sda1'
