@@ -381,6 +381,7 @@ exec_always synclient TapButton2=2 && synclient TapButton3=3  # fix touchpad cli
 # exec_always --no-startup-id mintupdate-launcher
 exec_always --no-startup-id feh --randomize --bg-fill ~/Pictures/Wallpapers/*  # set wallpapers
 exec_always --no-startup-id compton --config ~/.config/compton.conf --shadow-exclude '!focused'
+# exec_always --no-startup-id picom
 exec_always --no-startup-id udiskie   # Automount external disks, to umount, check um_disk in .bashrc
 # ......................................................................
 # Set space to mod3
