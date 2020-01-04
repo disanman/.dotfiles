@@ -46,6 +46,8 @@ nmap <silent><leader><c-j> 0120lBi<s-CR><ESC>
 nmap <silent><localleader><F1> :set laststatus=0<CR>
 nmap <silent><localleader><F2> :set laststatus=2<CR>
 nmap <expr><silent><localleader><F3> &showtabline ? ":set showtabline=0\<cr>" : ":set showtabline=1\<cr>"
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 " Settings for local-leader - fzf shortcuts
 nmap <silent><localleader>q :q<CR>
@@ -156,6 +158,8 @@ Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
 " Plugins for markdown editing:
 Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
+" TaskWiki - Tasks and project management
+Plugin 'tbabej/taskwiki'
 " Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'              " Must install!
@@ -528,3 +532,7 @@ let g:submode_timeoutlen = 2000  " ms (only works if previous is set to 1
 " submode#enter_with({submode}, {modes: Normal, Insert...}, {options}, {lhs}, [{commands to execute when using lhs...}])
 call submode#enter_with('FZF', 'n', '', 'ñf')
 call submode#map('FZF', 'n', '', 'h', ':FzfHistory<CR>')   " history
+
+" Settings for TaskWiki
+let g:taskwiki_markup_syntax = 'markdown'
+let g:taskwiki_disable_concealcursor = 'yes'
