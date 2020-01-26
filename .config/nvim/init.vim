@@ -536,3 +536,4 @@ call submode#map('FZF', 'n', '', 'h', ':FzfHistory<CR>')   " history
 " Settings for TaskWiki
 let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_disable_concealcursor = 'yes'
+noremap <silent><localleader><localleader>tm :TaskWikiMod<CR>

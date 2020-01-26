@@ -59,6 +59,11 @@ abbr m_data 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr md 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr um_data 'udisksctl unmount -b /dev/sda1'
 abbr ud 'udisksctl unmount -b /dev/sda1'  # use lsblk to find disk names
+# Tasks shortcuts
+abbr t 'task'
+abbr ta 'task add'
+abbr tm 'task modify'
+abbr tc 'task completed'
 
 # Opening youtube videos using vlc and specific resolutions
 abbr y240 'cvlc --preferred-resolution 240'
