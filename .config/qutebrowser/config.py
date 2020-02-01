@@ -60,7 +60,9 @@ c.content.autoplay = False
 ## `{line0}`: Same as `{line}`, but starting from index 0. * `{column0}`:
 ## Same as `{column}`, but starting from index 0.
 ## Type: ShellCommand
-c.editor.command = ['nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l']
+# c.editor.command = ['nvim', '-f', '{file}', '-c', 'normal {line}G{column0}l']
+c.editor.command = ['urxvt', '-e', 'nvim', '{}']
+config.bind('ee', 'open-editor')
 
 ## Automatically enter insert mode if an editable element is focused
 ## after loading the page.

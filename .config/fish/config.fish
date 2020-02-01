@@ -64,6 +64,11 @@ abbr t 'task'
 abbr ta 'task add'
 abbr tm 'task modify'
 abbr tc 'task completed'
+# Expressvpn
+abbr se 'sudo systemctl start expressvpn.service'
+abbr e 'expressvpn'
+# History
+abbr h 'history | fzf'
 
 # Opening youtube videos using vlc and specific resolutions
 abbr y240 'cvlc --preferred-resolution 240'
@@ -96,6 +101,10 @@ abbr restart 'sudo shutdown -r now'
 abbr low_light 'xbacklight -set 0.01'
 abbr reload_term 'xrdb ~/.Xresources'
 abbr ip 'ipython --no-autoindent'
+
+# Change locale
+abbr es 'setxkbmap es && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: ES"'
+abbr us 'setxkbmap us && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: US"'
 
 # Start/Stop PostgreSQL
 abbr pstart 'pg_ctl -D /var/lib/postgres/data/ start'

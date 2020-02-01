@@ -23,7 +23,8 @@ smart_borders on
 # Show a border with the active window
 bindsym $mod+a exec i3-msg border pixel 3
 bindsym --release $mod+a exec i3-msg border pixel 2
-for_window [class="^.*"] border pixel 2  # removes other borders
+# removes borders:
+for_window [class="^.*"] border pixel 2
 
 # .....................................
 # i3-gaps
@@ -228,6 +229,10 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 1; notify-send 'brightness d
 bindsym $mod+mod1+period exec "xbacklight -inc 1; notify-send 'brightness up'"
 bindsym $mod+mod1+comma exec "xbacklight -dec 1; notify-send 'brightness down'"
 
+# Keyboard Locale change
+bindsym $mod+Shift+e exec setxkbmap es && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: ES"
+bindsym $mod+Shift+u exec setxkbmap us && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: US"
+
 # Media player controls
 # xev -event keyboard
 # sudo evtest
@@ -245,7 +250,7 @@ bindsym $mod+p exec mpc_toggle
 bindsym $mod+Ctrl+Shift+f exec steam steam://rungameid/427520
 # exec --no-startup-id blueman-applet  # This seems that needs to be executed first than pa-applet and mpd! This is taking like 60 MB ram -> disable by default!
 bindsym $mod+e exec $term -e "source ~/.bashrc && ranger"
-bindsym $mod+shift+e exec $term -e sudo ranger
+bindsym $mod+Ctrl+r exec $term -e sudo ranger
 bindsym $mod+g exec $term -e gotop
 bindsym mod1+v exec $term -e nvim
 bindsym $mod+b exec qutebrowser
@@ -375,7 +380,7 @@ exec_always --no-startup-id fix_xcursor
 
 # Switch caps with escape:
 exec_always setxkbmap -option caps:swapescape  # switch capslock-escape
-exec_always --no-startup-id xmodmap -e 'keycode 135 = Super_R' && xset -r 135  # maps menu key to $mod key in i3
+# exec_always --no-startup-id xmodmap -e 'keycode 135 = Super_R' && xset -r 135  # maps menu key to $mod key in i3
 exec_always synclient TapButton2=2 && synclient TapButton3=3  # fix touchpad click
 # exec_always --no-startup-id mate-volume-control-applet
 # exec_always --no-startup-id mintupdate-launcher
@@ -392,6 +397,7 @@ exec_always --no-startup-id udiskie   # Automount external disks, to umount, che
 # add mod4 = Super_L Super_R
 # ......................................................................
 exec --no-startup-id sleep 3 && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && xcape -e "Hyper_L=space" && notify-send "Finished boot!"
+# exec --no-startup-id sleep 3 && xmodmap /home/diego/.Xmodmap && xcape -e "Hyper_L=space" && notify-send "Finished boot!"
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {

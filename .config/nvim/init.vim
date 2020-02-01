@@ -10,7 +10,7 @@
 " Settings for leader (,) and local-leader (ñ):
 let mapleader = ","
 nnoremap ,, ,
-let maplocalleader = "ñ"
+let maplocalleader = ";"
 " Remap - to " to use faster registers, + to ` to use faster marks
 nnoremap - "
 vnoremap - "
