@@ -1,0 +1,15 @@
+[user]
+	email = disanman@gmail.com
+	name = Diego
+[diff]
+  tool = nvimdiff
+[difftool]
+  prompt = false
+[difftool "nvimdiff"]
+  cmd = nvim -d -u /home/diego/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\"
+[merge]
+  tool = nvimdiff
+[mergetool]
+  prompt = true
+[mergetool "nvimdiff"]
+  cmd = nvim -d -u /home/diego/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
