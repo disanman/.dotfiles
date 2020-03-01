@@ -20,7 +20,7 @@ c.downloads.position = 'bottom'
 
 c.tabs.background = True  ## Open new tabs (middleclick/ctrl+click) in the background.
 c.tabs.last_close = 'close'  # Options: ignore, blank, startpage, default-page, close
-c.tabs.new_position.related = 'last'
+c.tabs.new_position.related = 'next'
 
 config.bind('f', 'hint')
 config.bind('F', 'hint all tab-bg')
@@ -76,3 +76,10 @@ config.bind('ee', 'open-editor')
 
 # Auto zoom
 QT_AUTO_SCREEN_SCALE_FACTOR=1.25
+
+# Remove bold font in hints
+c.fonts.hints = '11pt Consolas'
+
+# change way of closing tabs:
+config.unbind('d')
+config.bind('dd', 'tab-close')

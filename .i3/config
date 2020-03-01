@@ -28,7 +28,8 @@ for_window [class="^.*"] border pixel 2
 
 # Battery and temperature indicators
 bindsym $mod+mod1+b exec notify-send 'Battery status:' "$(acpi | grep -P -o '(D|C).*')"
-bindsym $mod+mod1+t exec notify-send 'Temperature status:' "$(acpi -t | grep -P -o '\d+\.\d+.*')"
+bindsym $mod+mod1+c exec notify-send 'Temperature status:' "$(acpi -t | grep -P -o '\d+\.\d+.*')"
+bindsym $mod+mod1+t exec notify-send 'Time:' "$(date)"
 
 # .....................................
 # i3-gaps

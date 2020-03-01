@@ -65,8 +65,10 @@ abbr ta 'task add'
 abbr tm 'task modify'
 abbr tc 'task completed'
 # Expressvpn
-abbr se 'sudo systemctl start expressvpn.service'
+abbr se 'sudo systemctl start expressvpn.service && sleep 3 && expressvpn connect'
 abbr e 'expressvpn'
+abbr ec 'expressvpn connect'
+abbr ed 'expressvpn disconnect'
 # History
 abbr h 'history | fzf'
 
