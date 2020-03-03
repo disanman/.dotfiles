@@ -113,3 +113,10 @@ abbr us 'setxkbmap us && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 
 
 # Start/Stop PostgreSQL
 abbr pstart 'pg_ctl -D /var/lib/postgres/data/ start'
+
+# Bluetooth devices
+abbr bp 'bluetoothctl power on && bluetoothctl connect E8:07:BF:F3:1D:7A'
+abbr bd 'bluetoothctl disconnect && bluetoothctl power off'
+abbr bi 'bluetoothctl info'
+abbr bs 'bluetoothctl scan'
+abbr bc 'bluetoothctl scan'

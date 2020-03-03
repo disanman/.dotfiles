@@ -267,8 +267,8 @@ bindsym $mod+c exec jupyter qtconsole
 bindsym $mod+Shift+p exec pavucontrol
 bindsym $mod+m exec $term -e ncmpcpp # music player
 bindsym $mod+Ctrl+Shift+m exec "pkill pulseaudio && pulseaudio --start &"
-bindsym $mod+ctrl+comma exec pactl set-sink-volume 0 -5% && notify-send "Sound volume decreased by a 5%"
-bindsym $mod+ctrl+period exec pactl set-sink-volume 0 +5% && notify-send "Sound volume increased by a 5%"
+bindsym $mod+ctrl+comma exec amixer set Master 5%- && notify-send "Volume -5%" -t 1000
+bindsym $mod+ctrl+period exec amixer set Master 5%+ && notify-send "Volume +5%" -t 1000
 # bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # exec --no-startup-id volumeicon
 
@@ -392,7 +392,13 @@ exec_always synclient TapButton2=2 && synclient TapButton3=3  # fix touchpad cli
 exec_always --no-startup-id feh --randomize --bg-fill ~/Pictures/Wallpapers/*  # set wallpapers
 exec_always --no-startup-id compton --config ~/.config/compton.conf --shadow-exclude '!focused'
 # exec_always --no-startup-id picom
+
+# ----------------------------------------
+# Mount external disks:
 exec_always --no-startup-id udiskie   # Automount external disks, to umount, check um_disk in .bashrc
+exec_always --no-startup-id udisksctl mount -b /dev/sda1  # data partition
+# ----------------------------------------
+
 # ......................................................................
 # Set space to mod3
 # Create file .Xmodmap with the following content:

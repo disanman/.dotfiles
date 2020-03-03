@@ -160,6 +160,8 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
 " TaskWiki - Tasks and project management
 Plugin 'tbabej/taskwiki'
+Plugin 'farseer90718/vim-taskwarrior'  " enable grid view
+Plugin 'powerman/vim-plugin-AnsiEsc'   " enables colors in charts
 " Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'              " Must install!
@@ -537,3 +539,4 @@ call submode#map('FZF', 'n', '', 'h', ':FzfHistory<CR>')   " history
 let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_disable_concealcursor = 'yes'
 noremap <silent><localleader><localleader>tm :TaskWikiMod<CR>
+" noremap <silent><localleader><localleader>ts :TaskWikiSummary<CR>
