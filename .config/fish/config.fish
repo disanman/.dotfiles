@@ -69,6 +69,7 @@ abbr ta 'task add'
 abbr tm 'task modify'
 abbr td 'task done'
 abbr tu 'task undo'
+abbr tsy 'task sync'
 # Task reports
 abbr tp 'task projects'
 abbr ts 'task summary'

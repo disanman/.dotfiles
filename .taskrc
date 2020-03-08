@@ -19,7 +19,7 @@ default.project=Inbox
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
 #include /usr/share/doc/task/rc/light-256.theme
-include /usr/share/doc/task/rc/dark-16.theme
+#include /usr/share/doc/task/rc/dark-16.theme
 #include /usr/share/doc/task/rc/dark-256.theme
 #include /usr/share/doc/task/rc/dark-red-256.theme
 #include /usr/share/doc/task/rc/dark-green-256.theme
@@ -31,6 +31,80 @@ include /usr/share/doc/task/rc/dark-16.theme
 #include /usr/share/doc/task/rc/solarized-dark-256.theme
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
+# =============================================================
+#   My color theme
+# =============================================================
+# General decoration
+color.label=
+color.label.sort=
+color.alternate=on gray1    # rows alternation
+color.header=cyan          # ??????
+color.footnote=bold green            # when something needs to be sync eg.
+color.warning=color0 on yellow
+color.error=red
+color.debug=color5
+
+# Task state
+color.completed=green
+color.deleted=gray6
+color.active=bold red
+color.recurring=blue
+color.scheduled=cyan
+color.until=
+color.blocked=red on gray3
+color.blocking=yellow on gray4
+
+# Project
+color.project.none=
+
+# Priority
+color.uda.priority.H=bold blue #color14
+color.uda.priority.M=bold yellow #color12
+color.uda.priority.L=bold green #color11
+
+# Tags
+color.tag.next=
+color.tag.none=
+color.tagged=color10
+
+# Due
+color.due=blue
+color.due.today=yellow
+color.overdue=bold red
+
+# Report: burndown
+color.burndown.done=gray2 on green
+color.burndown.pending=gray2 on red
+color.burndown.started=gray2 on blue
+
+# Report: history
+color.history.add=color0 on color1
+color.history.delete=color0 on color3
+color.history.done=color0 on color6
+
+# Report: summary
+color.summary.background=black on gray2
+color.summary.bar=red on green
+
+# Command: calendar
+color.calendar.due=color0 on color9
+color.calendar.due.today=color0 on color1
+color.calendar.holiday=color0 on color3
+color.calendar.overdue=color0 on color5
+color.calendar.today=color0 on color4
+color.calendar.weekend=on color0
+color.calendar.weeknumber=color4
+
+# Command: sync
+color.sync.added=color14
+color.sync.changed=color9
+color.sync.rejected=color13
+
+# Command: undo
+color.undo.after=green
+color.undo.before=red
+
+
 
 regex=on
 
@@ -66,6 +140,12 @@ urgency.uda.estimate.8h.coefficient=8.0
 # Modifying reports
 # report.next.columns =    id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
 # report.next.description = 'Most urgent tasks'
-report.next.filter = status:pending limit:20
+report.next.filter = status:pending limit:15
 # report.next.labels   =   ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
 # report.next.sort     =   urgency-
+taskd.certificate=/home/diego/Documents/Notes/.task/private.cert
+taskd.key=/home/diego/Documents/Notes/.task/private.key
+taskd.ca=/home/diego/Documents/Notes/.task/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/disanman/c5d67d2c-744f-4e18-85ab-a7d0f6e28546
+taskd.trust=ignore hostname
