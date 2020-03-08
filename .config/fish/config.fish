@@ -62,11 +62,22 @@ abbr m_data 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr md 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr um_data 'udisksctl unmount -b /dev/sda1'
 abbr ud 'udisksctl unmount -b /dev/sda1'  # use lsblk to find disk names
+
 # Tasks shortcuts
 abbr t 'task'
 abbr ta 'task add'
 abbr tm 'task modify'
+abbr td 'task done'
+abbr tu 'task undo'
+# Task reports
+abbr tp 'task projects'
+abbr ts 'task summary'
+abbr tt 'task timesheet'
 abbr tc 'task completed'
+abbr tcal 'task calendar'
+abbr tbd 'task burndown.daily'
+abbr tbw 'task burndown.weekly'
+
 # Expressvpn
 abbr se 'sudo systemctl start expressvpn.service && sleep 3 && expressvpn connect'
 abbr e 'expressvpn'
@@ -102,6 +113,7 @@ abbr cfrr 'nvim .config/ranger/rifle.conf'     # Config ranger-rifle
 abbr cfrc 'nvim ~/.config/ranger/commands.py'  # Config ranger-commands
 abbr cff 'nvim ~/.config/fish/config.fish'     # Config fish shell
 abbr cfv 'nvim ~/.config/nvim/init.vim'        # Config nvim
+abbr cft 'nvim ~/.taskrc'                      # Config task
 abbr restart 'sudo shutdown -r now'
 abbr low_light 'xbacklight -set 0.01'
 abbr reload_term 'xrdb ~/.Xresources'
@@ -116,6 +128,7 @@ abbr pstart 'pg_ctl -D /var/lib/postgres/data/ start'
 
 # Bluetooth devices
 abbr bp 'bluetoothctl power on && bluetoothctl connect E8:07:BF:F3:1D:7A'
+abbr bh 'bluetoothctl power on && bluetoothctl connect 00:16:94:28:CE:28'
 abbr bd 'bluetoothctl disconnect && bluetoothctl power off'
 abbr bi 'bluetoothctl info'
 abbr bs 'bluetoothctl scan'

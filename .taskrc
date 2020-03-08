@@ -13,10 +13,13 @@
 # Files
 data.location=~/Documents/Notes/.task
 
+# Default values
+default.project=Inbox
+
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
 #include /usr/share/doc/task/rc/light-256.theme
-#include /usr/share/doc/task/rc/dark-16.theme
+include /usr/share/doc/task/rc/dark-16.theme
 #include /usr/share/doc/task/rc/dark-256.theme
 #include /usr/share/doc/task/rc/dark-red-256.theme
 #include /usr/share/doc/task/rc/dark-green-256.theme
@@ -29,3 +32,40 @@ data.location=~/Documents/Notes/.task
 #include /usr/share/doc/task/rc/solarized-light-256.theme
 #include /usr/share/doc/task/rc/no-color.theme
 
+regex=on
+
+# Contexts
+alias.@=context
+context.work=+work
+
+# Urgency coefficients
+urgency.annotations.coefficient = 0.1
+urgency.tags.coefficient = 0.3
+urgency.uda.priority.H.coefficient = 3.0
+urgency.uda.priority.M.coefficient = 1.0
+urgency.uda.priority.L.coefficient = -2.0
+urgency.due.coefficient = 20.0
+urgency.inherit = 1
+
+
+# Estimate UDA: measured in hours
+uda.estimate.type=string
+uda.estimate.label=Estimate
+uda.estimate.values=qh,hh,h,2h,3h,4h,5h,6h,7h,8h
+urgency.uda.estimate.qh.coefficient=1.0
+urgency.uda.estimate.hh.coefficient=0.5
+urgency.uda.estimate.h.coefficient=1.0
+urgency.uda.estimate.2h.coefficient=2.0
+urgency.uda.estimate.3h.coefficient=3.0
+urgency.uda.estimate.4h.coefficient=4.0
+urgency.uda.estimate.5h.coefficient=5.0
+urgency.uda.estimate.6h.coefficient=6.0
+urgency.uda.estimate.7h.coefficient=7.0
+urgency.uda.estimate.8h.coefficient=8.0
+
+# Modifying reports
+# report.next.columns =    id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
+# report.next.description = 'Most urgent tasks'
+report.next.filter = status:pending limit:20
+# report.next.labels   =   ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
+# report.next.sort     =   urgency-

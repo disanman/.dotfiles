@@ -512,9 +512,9 @@ let g:calendar_google_task = 1
 " Set filetype of fish files as sh
 " autocmd BufNewFile,BufRead *.fish set syntax=sh
 
-" Surround customizing - use <c-s> in insert mode to insert surrounds
-nmap <leader>z ysiw`E
-vmap <leader>z S`
+" Surround `customizing` - use <c-s> in insert mode to insert surrounds
+nmap <leader>z ysiw`f`
+vmap <leader>z S`f`
 
 " Remove map in vimwiki for key: -
 nmap º <Plug>VimwikiRemoveHeaderLevel
