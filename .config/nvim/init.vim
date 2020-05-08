@@ -539,4 +539,20 @@ call submode#map('FZF', 'n', '', 'h', ':FzfHistory<CR>')   " history
 let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_disable_concealcursor = 'yes'
 noremap <silent><localleader><localleader>tm :TaskWikiMod<CR>
+let g:taskwiki_sort_orders={'D': 'project+,due+', 'J': 'urgency+', 'K': 'urgency-'}
 " noremap <silent><localleader><localleader>ts :TaskWikiSummary<CR>
+
+
+
+function! s:changebranch(branch)
+    execute 'Git checkout' . a:branch
+    call feedkeys("i")
+endfunction
+
+command! -bang Gbranch call fzf#run({
+            \ 'source': 'git branch -a --no-color | grep -v "^\* " ',
+            \ 'sink': function('s:changebranch')
+            \ })
+
+
+command! -bang -nargs=* MRU call fzf#vim#history(fzf#vim#with_preview())

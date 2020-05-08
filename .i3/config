@@ -233,6 +233,11 @@ bindsym XF86MonBrightnessUp exec "xbacklight -inc 1; notify-send 'brightness up'
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 1; notify-send 'brightness down'"
 bindsym $mod+mod1+period exec "xbacklight -inc 1; notify-send 'brightness up'"
 bindsym $mod+mod1+comma exec "xbacklight -dec 1; notify-send 'brightness down'"
+# Set brightness using space-alt, or .   5%
+# bindsym XF86MonBrightnessUp exec "brillo -A 1; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "brillo -U 1; notify-send 'brightness down'"
+# bindsym $mod+mod1+period exec "brillo -A 1; notify-send 'brightness up'"
+# bindsym $mod+mod1+comma exec "brillo -U 1; notify-send 'brightness down'"
 
 # Keyboard Locale change
 bindsym $mod+Shift+e exec setxkbmap es && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: ES"
@@ -277,6 +282,7 @@ bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec palemoon
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+Shift+F3 exec gksu pcmanfm
+# Brightness
 bindsym $mod+ctrl+0 exec xbacklight -set 0.01
 bindsym $mod+ctrl+1 exec xbacklight -set 10
 bindsym $mod+ctrl+2 exec xbacklight -set 20
@@ -370,6 +376,7 @@ mode "$mode_system" {
 # battery popup, should install, search in AUR: https://github.com/rjekker/i3-battery-popup
 exec --no-startup-id i3-battery-popup -n
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id optimus-manager-qt
 # exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
@@ -390,7 +397,7 @@ exec_always synclient TapButton2=2 && synclient TapButton3=3  # fix touchpad cli
 # exec_always --no-startup-id mate-volume-control-applet
 # exec_always --no-startup-id mintupdate-launcher
 exec_always --no-startup-id feh --randomize --bg-fill ~/Pictures/Wallpapers/*  # set wallpapers
-exec_always --no-startup-id compton --config ~/.config/compton.conf --shadow-exclude '!focused'
+# exec_always --no-startup-id compton --config ~/.config/compton.conf --shadow-exclude '!focused'
 # exec_always --no-startup-id picom
 
 # ----------------------------------------

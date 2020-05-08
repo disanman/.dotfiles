@@ -11,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=~/Documents/Notes/.task
+data.location=~/Documents/.task
 
 # Default values
 default.project=Inbox
@@ -70,7 +70,7 @@ color.tagged=color10
 # Due
 color.due=blue
 color.due.today=yellow
-color.overdue=bold red
+color.overdue=bold red on gray16
 
 # Report: burndown
 color.burndown.done=gray2 on green
@@ -111,6 +111,7 @@ regex=on
 # Contexts
 alias.@=context
 context.work=+work
+context.home=-work
 
 # Urgency coefficients
 urgency.annotations.coefficient = 0.1
@@ -120,6 +121,9 @@ urgency.uda.priority.M.coefficient = 1.0
 urgency.uda.priority.L.coefficient = -2.0
 urgency.due.coefficient = 20.0
 urgency.inherit = 1
+urgency.blocking.coefficient = 5.0
+# Project importances
+urgency.user.project.ImprovePython.coefficient = 1
 
 
 # Estimate UDA: measured in hours
@@ -143,9 +147,10 @@ urgency.uda.estimate.8h.coefficient=8.0
 report.next.filter = status:pending limit:15
 # report.next.labels   =   ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
 # report.next.sort     =   urgency-
-taskd.certificate=/home/diego/Documents/Notes/.task/private.cert
-taskd.key=/home/diego/Documents/Notes/.task/private.key
-taskd.ca=/home/diego/Documents/Notes/.task/ca.cert.pem
+taskd.certificate=/home/diego/Documents/.task/private.cert
+taskd.key=/home/diego/Documents/.task/private.key
+taskd.ca=/home/diego/Documents/.task/ca.cert.pem
 taskd.server=taskwarrior.inthe.am:53589
 taskd.credentials=inthe_am/disanman/c5d67d2c-744f-4e18-85ab-a7d0f6e28546
 taskd.trust=ignore hostname
+context=home
