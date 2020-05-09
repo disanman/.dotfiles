@@ -19,6 +19,7 @@ function fish_vi_cursor --on-variable fish_bind_mode
     end
 end
 
+
 # Settings
 set -U fish_greeting  # removes greetings!
 set -g fish_key_bindings hybrid_bindings
