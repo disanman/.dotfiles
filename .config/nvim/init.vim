@@ -43,7 +43,7 @@ vmap <leader>z S`f`
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
 nmap <silent><leader>e :e ~/.config/nvim/init.vim <CR>
-nmap <silent><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
+nmap <silent><leader><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 " Color file
 nmap <leader><leader>w :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 " Set folder directory: useful when calling fuzzy finder
@@ -66,6 +66,7 @@ Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
+Plugin 'kevinhwang91/rnvimr'    " floating ranger!
 " Plugins for markdown editing:
 Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
@@ -137,12 +138,27 @@ nnoremap <space> za
 " Buffers: next, previous
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
-" Settings for ranger.vim
+
+
+"---------------------------------------------------------------  Ranger
+" ranger.vim settings
 let g:ranger_map_keys = 0  " don't use default key map
 map <f3> :RangerCurrentDirectory<CR>
 " Sneak config, enable clever s (s_next)
 let g:sneak#label = 1
 let g:sneak#s_next = 1
+" .......................................
+" rnvimr settings
+nmap <silent><leader>r :RnvimrToggle<CR>
+tnoremap <silent> <M-i> <C-\><C-n>:RnvimrResize<CR>
+" Make Ranger replace netrw and be the file explorer
+let g:rnvimr_ex_enable = 1
+" Make Ranger to be hidden after picking a file
+let g:rnvimr_pick_enable = 0
+" Make Neovim to wipe the buffers corresponding to the files deleted by Ranger
+let g:rnvimr_bw_enable = 1
+" Set up only two columns in miller mode
+let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
 
 "---------------------------------------------------------------  Window management
 " Split vertical, horizontal
@@ -260,7 +276,7 @@ let g:echodoc#type = 'signature'
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
-nmap <silent><leader>rr :Semshi rename<CR>
+nmap <silent><leader><leader><leader>rr :Semshi rename<CR>
 let g:semshi#error_sign = v:false
 let g:semshi#update_delay_factor = 0.0001
 
@@ -406,6 +422,7 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
 " let g:ale_completion_delay = 5
 set completeopt=menu,menuone,preview,noinsert  " ,noselect,noinsert
+set complete=.,t,k
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
 " Env settings
@@ -478,12 +495,14 @@ imap <m-tab> <space><space><space><space>
 " S-CR: to cancel current suggestion and exit
 " TODO: <C-n> is more generic, it's better when using SQL => activate it using `autocmd BufNewFile,BufRead *.hql set spell`...
 "                                if           yes         no
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x><C-o>"
-inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-n>"
-inoremap <silent><expr> <C-l> pumvisible() ? "\<C-x><C-n>" : "\<C-l>"
-inoremap <silent> <C-Tab> pumvisible() ? "\<C-x><C-l>" : "\<C-x><C-l>"
-imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "<CR>"
-imap <silent><expr> <S-CR> pumvisible() ? "\<C-e>" : "<S-CR>"
+" inoremap <silent><expr> <Tab> pumvisible() ? '\<C-n>' : '\<C-x><C-o>'
+" inoremap <silent><expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<C-n>'
+inoremap <Tab> <C-n>
+inoremap <S-Tab> <C-p>
+inoremap <silent><expr> <C-l> pumvisible() ? '\<C-x><C-n>' : '\<C-l>'
+inoremap <silent> <C-Tab> pumvisible() ? '\<C-x><C-l>' : '\<C-x><C-l>'
+imap <silent><expr> <CR> pumvisible() ? '\<C-y>' : '<CR>'
+imap <silent><expr> <S-CR> pumvisible() ? '\<C-e>' : '<S-CR>'
 
 "------------------------------------------------------------  Git
 " Fugitive config -> git
