@@ -1,12 +1,15 @@
-"  _   _         __     _____ __  __    ____             __ _
-" | \ | | ___  __\ \   / /_ _|  \/  |  / ___|___  _ __  / _(_) __ _
-" |  \| |/ _ \/ _ \ \ / / | || |\/| | | |   / _ \| '_ \| |_| |/ _` |
-" | |\  |  __/ (_) \ V /  | || |  | | | |__| (_) | | | |  _| | (_| |
-" |_| \_|\___|\___/ \_/  |___|_|  |_|  \____\___/|_| |_|_| |_|\__, |
-"                                                             |___/
+"                  _   _         __     _____ __  __    ____             __ _
+"                 | \ | | ___  __\ \   / /_ _|  \/  |  / ___|___  _ __  / _(_) __ _
+"                 |  \| |/ _ \/ _ \ \ / / | || |\/| | | |   / _ \| '_ \| |_| |/ _` |
+"                 | |\  |  __/ (_) \ V /  | || |  | | | |__| (_) | | | |  _| | (_| |
+"                 |_| \_|\___|\___/ \_/  |___|_|  |_|  \____\___/|_| |_|_| |_|\__, |
+"                                                                             |___/
 
 
 "---------------------------------------------------------------  Main key-maps
+let g:python3_host_prog = '/home/diego/miniconda3/bin/python'
+" let g:python3_host_prog = '/usr/local/bin/python3'
+let g:loaded_python_provider = 0
 " Settings for leader (,) and local-leader (;) :
 let mapleader = ","
 let maplocalleader = ";"
@@ -19,8 +22,9 @@ nnoremap Q @q
 vnoremap Q :norm @q<CR>
 " Repeat ex commands with the previously used flags
 nnoremap & :&&<CR>
-" Using delete in insert mode
+" Using delete in insert mode (mac doesn't have del)
 imap <c-d> <c-o>x
+imap <C-l> <Del>
 " Remap j and k for working with wrapped lines, E for going to the end of previous line
 nmap j gj
 nmap k gk
@@ -39,13 +43,20 @@ vmap v :'<,'>norm<space>
 " Surround yank surround ` in word - use <c-s> in insert mode to insert surrounds
 nmap <leader>z ysiw`f`
 vmap <leader>z S`f`
+" Settings for writing faster python code
+nmap \\i A.iloc[0] <ESC><S-CR>k$F.D
+" JSON prettify
+nmap <silent><leader><leader>j :set syntax=json<CR>:%!python -m json.tool<CR>
+" Send query to python from a SQL file
+nmap <silent><leader><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>data = select(query)<CR>data<ESC>,pu<ESC>}
+nmap \\q {i<CR>query = '''<ESC>}O'''<CR>select(query, '')<ESC>0f'a
 
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
-nmap <silent><leader>e :e ~/.config/nvim/init.vim <CR>
+nmap <silent><leader>e :tabnew<CR>:e ~/.config/nvim/init.vim<CR>
 nmap <silent><leader><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 " Color file
-nmap <leader><leader>w :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
+nmap <leader><leader>x :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 " Set folder directory: useful when calling fuzzy finder
 nmap <leader>G :cd ~/Documents/<CR>
 nmap <leader>g :cd ~/git/<CR>
@@ -112,6 +123,7 @@ filetype plugin indent on    " required
 "---------------------------------------------------------------  Plugins - Vundle
 
 "---------------------------------------------------------------  Session
+scriptencoding utf-8
 syntax on
 set mouse=a mousemodel=popup
 " Split navigations
@@ -139,7 +151,6 @@ nnoremap <space> za
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
 
-
 "---------------------------------------------------------------  Ranger
 " ranger.vim settings
 let g:ranger_map_keys = 0  " don't use default key map
@@ -159,6 +170,15 @@ let g:rnvimr_pick_enable = 0
 let g:rnvimr_bw_enable = 1
 " Set up only two columns in miller mode
 let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
+let g:rnvimr_split_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit' }
+let g:rnvimr_sync_path = '~/.config/ranger/'
+" Customize initial layout
+let g:rnvimr_layout = { 'relative': 'editor',
+                      \ 'width': float2nr(round(0.8 * &columns)),
+                      \ 'height': float2nr(round(0.8 * &lines)),
+                      \ 'col': float2nr(round(0.1 * &columns)),
+                      \ 'row': float2nr(round(0.1 * &lines)),
+                      \ 'style': 'minimal' }
 
 "---------------------------------------------------------------  Window management
 " Split vertical, horizontal
@@ -211,6 +231,20 @@ vmap <C-V> "+gp
 vmap <C-X> "+x
 " select all text"  <C-a> is increment number, <C-x> is decrement number
 map <leader><C-a> GVgg
+" Copy current paragraph to clipboard, and put cursor on the end of it
+nmap \c vip<C-C>}k
+" Copy current paragraph to clipboard, and put cursor on the end of it
+nmap \ip vip<C-C>}k
+nmap \p vip<C-C>}k
+" Copy current line to clipboard, and put cursor on the end of it
+nmap \y V<C-C>$
+nmap \l V<C-C>$
+" copy in word
+nmap \iw viw<C-C>e
+nmap \w viw<C-C>e
+" copy in WORD
+nmap \iW viW<C-C>e
+nmap \W viW<C-C>e
 
 "---------------------------------------------------------------  FZF
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
@@ -242,16 +276,32 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source'
 
 "---------------------------------------------------------------  Python settings
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
+" pandas print
+nmap <localleader><localleader>1 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap <localleader><localleader>2 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap <localleader><localleader>3 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap <localleader><localleader>4 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100)<ESC><S-CR>{v}D
 let python_highlight_all=1
 " Execute python code into jupyterconsole
 nmap <leader>C :JupyterConnect<CR>
-nmap <silent><S-CR> V<Plug>JupyterRunVisual<CR>
-vmap <silent><S-CR> <Plug>JupyterRunVisual:'>+1<CR>
-nmap <silent><leader>w viw<Plug>JupyterRunVisualel
+" Alternative way to connect, open console and send commands,    has to be executed from a Python file TODO: fix that
+nmap <leader><leader>C :!jupyter qtconsole & disown && sleep 2<CR>:JupyterConnect<CR>O<ESC>Di<CR><CR><ESC>kicd '/Users/dsanchez/git/data-science/workspace/python/'<ESC><S-CR>kD:!kinit -l 4h -kt '/Users/dsanchez/Documents/Jupyter/dsanchez.keytab' dsanchez@HADOOP.TRIVAGO.COM<CR>iimport pandas as pd<CR>from hive_connect import select, STATUS, DATA<ESC>,p{v}d
+" Execute code (current line)
+nmap <silent><leader><CR> V<Plug>JupyterRunVisual<CR>
+nmap <S-CR> V<Plug>JupyterRunVisual<CR>
+nmap <silent><leader>ll V<Plug>JupyterRunVisual<CR>
+" Execute code (current selection)
+vmap <S-CR> <Plug>JupyterRunVisual:'>+1<CR>
+vmap <silent><leader><CR> <Plug>JupyterRunVisual:'>+1<CR>
+" Execute code (current word)
+nmap <silent><leader>w viw<Plug>JupyterRunVisuale
+" Execute code (current paragraph)
 nmap <silent><leader>p vip<Plug>JupyterRunVisual:'>+1<CR>
+" Execute code (current python class)
 nmap <silent><leader>c vac<Plug>JupyterRunVisual:'>+1<CR>
+" Execute code (current python function)
 nmap <silent><leader>f vaf<Plug>JupyterRunVisual:'>+1<CR>
-" Indent char for python - settings for Yggdroot/indentLine
+" Indent char for python - settings for Yggdroot/indentLine,
 let g:indentLine_char = '┆'
 let g:indentLine_enabled = 0   " Disable it by default, enable with :IndentLinesToggle
 nmap <silent><localleader>i :IndentLinesToggle<CR>
@@ -264,10 +314,18 @@ nmap <leader>a :VtrAttachToPane 0
 nmap <leader>1 :VtrAttachToPane 1<CR>
 nmap <leader>2 :VtrAttachToPane 2<CR>
 nmap <leader>3 :VtrAttachToPane 3<CR>
+" Execute code (current line)
 nmap <silent><C-CR> :VtrSendLinesToRunner<CR>
+" Execute code (current selection)      ///////////////////////TO BE FIXED!!!    :'>+1  end of selection
 vmap <silent><C-CR> :VtrSendLinesToRunner<CR>
-nmap <localleader>W viw:VtrSendCommandToRunner<CR>
-nmap <localleader>P vip:VtrSendLinesToRunner<CR>
+" Execute code (current word)           ///////////////////////TO BE FIXED!!!
+nmap <leader><leader>w viw:VtrSendCommandToRunner<CR>
+" Execute code (current paragraph)
+nmap <leader><leader>p vip:VtrSendLinesToRunner<CR>
+" Execute code (current python class)
+nmap <leader><leader>c vac:VtrSendLinesToRunner<CR>
+" Execute code (current python function)
+nmap <leader><leader>f vaf:VtrSendLinesToRunner<CR>
 " .........................................................
 " Setting for Shougo/echodoc.vim, using neovim's floating text feature (signatures for completions):
 let g:echodoc#enable_at_startup = 1
@@ -276,9 +334,20 @@ let g:echodoc#type = 'signature'
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
-nmap <silent><leader><leader><leader>rr :Semshi rename<CR>
+nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
 let g:semshi#error_sign = v:false
 let g:semshi#update_delay_factor = 0.0001
+"___________________________________________
+"Python path
+" let g:python3_host_prog = '/Users/dsanchez/miniconda3/bin/python'
+" let g:vim_virtualenv_path = '/Users/dsanchez/miniconda3/'
+" "Kite - Python autocompleter
+" set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
+" set laststatus=2  " always hide the status line
+" let g:kite_auto_complete=1
+" " autocmd CompleteDone * if !pumvisible() | pclose | endif
+" nnoremap <silent><leader><leader>h :KiteDocsAtCursor<CR>
+"___________________________________________
 
 "------------------------------------------------------------  Visual aspects
 " Cursor changes :help guicursor
@@ -421,8 +490,9 @@ let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_completion_enabled = 1
 " let g:ale_completion_delay = 5
-set completeopt=menu,menuone,preview,noinsert  " ,noselect,noinsert
-set complete=.,t,k
+set completeopt=menu,menuone   ",noinsert,nopreview,noselect,noinsert,longest
+" set completeopt-=noinsert   " do not have it, I like auto-insert the first match
+set complete=.,k,t
 let g:ale_set_balloons = 1
 let g:ale_set_highlights = 1
 " Env settings
@@ -495,14 +565,14 @@ imap <m-tab> <space><space><space><space>
 " S-CR: to cancel current suggestion and exit
 " TODO: <C-n> is more generic, it's better when using SQL => activate it using `autocmd BufNewFile,BufRead *.hql set spell`...
 "                                if           yes         no
-" inoremap <silent><expr> <Tab> pumvisible() ? '\<C-n>' : '\<C-x><C-o>'
-" inoremap <silent><expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<C-n>'
+" inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x><C-o>"
+" inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-n>"
 inoremap <Tab> <C-n>
 inoremap <S-Tab> <C-p>
-inoremap <silent><expr> <C-l> pumvisible() ? '\<C-x><C-n>' : '\<C-l>'
-inoremap <silent> <C-Tab> pumvisible() ? '\<C-x><C-l>' : '\<C-x><C-l>'
-imap <silent><expr> <CR> pumvisible() ? '\<C-y>' : '<CR>'
-imap <silent><expr> <S-CR> pumvisible() ? '\<C-e>' : '<S-CR>'
+inoremap <silent><expr> <C-l> pumvisible() ? "\<C-x><C-n>" : "\<C-l>"
+inoremap <silent> <C-Tab> pumvisible() ? "\<C-x><C-l>" : "\<C-x><C-l>"
+imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "<CR>"
+imap <silent><expr> <S-CR> pumvisible() ? "\<C-e>" : "<S-CR>"
 
 "------------------------------------------------------------  Git
 " Fugitive config -> git
@@ -527,11 +597,15 @@ nmap <localleader><localleader>B :FzfBCommits<CR>
 "             \ })
 
 "------------------------------------------------------------ SQL
+" Settings for writting cool SQL, load dict:
+nmap <silent><leader><leader>k :set dictionary+=~/Documents/Notes/completion_dict.hql<CR>
+" map for editing the dict
+nmap <silent><leader><leader><leader>k :tabnew<CR>:e ~/Documents/Notes/completion_dict.hql<CR>
 " Settings for MySQL, using dadbod plugin
 " let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
 let g:db = 'postgresql://dbuser:pwd@localhost/DB'
 vmap <silent><leader>m :DB<CR><M-j>
 nmap <silent><leader>m V:DB<CR><M-j>
+" Load hive files as SQL (cool syntax)
+au BufRead,BufNewFile *.hql set filetype=sql
 
-
-"---------------------------------------------------------------- Testing...
