@@ -91,12 +91,17 @@ URxvt.keysym.Control-Down:        \033[1;5B
 URxvt.keysym.Shift-Control-Down:  \033[1;6B
 
 ! ----------------------------------------------------------------
-! Testing shift+enter
-! URxvt.keysym.Shift-Return:  Rxvt.keysym.S-Return
-! URxvt.keysym.S-Return:      \033_S-CR_
+! Check: http://www.leonerd.org.uk/hacks/fixterms/
 ! Check: https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter
 URxvt.keysym.S-Return:     \033[13;2u
 URxvt.keysym.C-Return:     \033[13;5u
+! Map S-space
+URxvt.keysym.S-space:      \033[32;2u
+! Map C-Space
+URxvt.keysym.C-space:      \033[0x00
+! Map C-S-Space
+URxvt.keysym.C-S-space:    \033[32;6u
+
 ! ----------------------------------------------------------------
 
 ! URxvt.keysym.S-Page_Up : seen as Rxvt.keysym.S-Page_Up

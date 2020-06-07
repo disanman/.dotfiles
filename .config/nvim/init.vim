@@ -74,6 +74,8 @@ Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python
 " Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
 Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
+" Completion
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}  " Conquer of Completion
 " Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
@@ -332,13 +334,13 @@ let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 " .........................................................
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
-nmap <silent><localleader>j :Semshi goto function next<CR>
-nmap <silent><localleader>k :Semshi goto function prev<CR>
-nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
-let g:semshi#error_sign = v:false
-let g:semshi#update_delay_factor = 0.0001
+" nmap <silent><localleader>j :Semshi goto function next<CR>
+" nmap <silent><localleader>k :Semshi goto function prev<CR>
+" nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
+" let g:semshi#error_sign = v:false
+" let g:semshi#update_delay_factor = 0.0001
 "___________________________________________
-"Python path
+"Python path... Kite options
 " let g:python3_host_prog = '/Users/dsanchez/miniconda3/bin/python'
 " let g:vim_virtualenv_path = '/Users/dsanchez/miniconda3/'
 " "Kite - Python autocompleter
@@ -426,6 +428,8 @@ endfunc
 nmap <leader><C-S-P> :call SyntaxAttr()<CR>
 
 "------------------------------------------------------------  Vimwiki
+" disable table options so it won't interfere with coc completions
+let g:vimwiki_table_mappings=0
 let g:vimwiki_markdown_link_ext = 1
 " Options for markdown editing:  helppage -> vimwiki-syntax
 let g:vimwiki_list = [{'path': '~/Documents/Notes', 'syntax': 'markdown', 'ext': '.md'}]
@@ -437,7 +441,8 @@ nmap <leader>T <Plug>VimwikiTabnewLink
 " Settings for to-do lists
 nmap <leader>+ <Plug>VimwikiIncrementListItem
 nmap <leader>- <Plug>VimwikiDecrementListItem
-nmap <leader>x <Plug>VimwikiToggleRejectedListItem
+nmap <leader>0 <Plug>VimwikiToggleRejectedListItem
+nmap <leader>x <Plug>VimwikiToggleListItem
 " Settings for lists
 nmap <leader>l <Plug>VimwikiIncreaseLvlSingleItem
 nmap <leader>L <Plug>VimwikiIncreaseLvlWholeItem
@@ -488,7 +493,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 " let g:ale_completion_delay = 5
 set completeopt=menu,menuone   ",noinsert,nopreview,noselect,noinsert,longest
 " set completeopt-=noinsert   " do not have it, I like auto-insert the first match
@@ -565,14 +570,85 @@ imap <m-tab> <space><space><space><space>
 " S-CR: to cancel current suggestion and exit
 " TODO: <C-n> is more generic, it's better when using SQL => activate it using `autocmd BufNewFile,BufRead *.hql set spell`...
 "                                if           yes         no
-" inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x><C-o>"
-" inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<C-n>"
-inoremap <Tab> <C-n>
-inoremap <S-Tab> <C-p>
-inoremap <silent><expr> <C-l> pumvisible() ? "\<C-x><C-n>" : "\<C-l>"
-inoremap <silent> <C-Tab> pumvisible() ? "\<C-x><C-l>" : "\<C-x><C-l>"
-imap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "<CR>"
-imap <silent><expr> <S-CR> pumvisible() ? "\<C-e>" : "<S-CR>"
+" inoremap <silent><expr> <Tab> pumvisible() ? '\<C-n>' : '\<C-x><C-o>'
+" inoremap <silent><expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<C-n>'
+" ......................................................................
+" Disabled to test CoC
+" ......................................................................
+" inoremap <Tab> <C-n>
+" inoremap <S-Tab> <C-p>
+" inoremap <silent><expr> <C-l> pumvisible() ? '\<C-x><C-n>' : '\<C-l>'
+" inoremap <silent> <C-Tab> pumvisible() ? '\<C-x><C-l>' : '\<C-x><C-l>'
+" imap <silent><expr> <CR> pumvisible() ? '\<C-y>' : '<CR>'
+" imap <silent><expr> <S-CR> pumvisible() ? '\<C-e>' : '<S-CR>'
+" ................................................................
+" Testing CoC
+" ................................................................
+" TextEdit might fail if hidden is not set.
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<Tab>"
+" use <Shift-space>for trigger completion
+inoremap <silent><expr> <S-space> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+" Use `[g` and `]g` to navigate diagnostics (warnings and errors)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Rename
+nmap <silent> [r <Plug>(coc-rename)
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" ..................................... coc-snippets settings
+" use c-j and c-k to jump between placeholders of the snippet
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 
 "------------------------------------------------------------  Git
 " Fugitive config -> git
