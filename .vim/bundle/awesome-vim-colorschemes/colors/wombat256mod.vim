@@ -74,7 +74,7 @@ hi pythonString	        ctermfg=101     cterm=none
 hi pythonQuotes	        ctermfg=101     cterm=none
 hi pythonFunction       ctermfg=34      cterm=bold
 hi pythonKeyword        ctermfg=135     cterm=none
-hi pythonAttribute      ctermfg=123       cterm=none
+hi pythonAttribute      ctermfg=166     cterm=none
 hi pythonNumber         ctermfg=9       cterm=none
 " Function definition and decorators -> blue 33
 hi pythonStatement      ctermfg=33      cterm=italic

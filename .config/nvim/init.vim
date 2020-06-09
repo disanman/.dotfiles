@@ -71,7 +71,7 @@ Plugin 'VundleVim/Vundle.vim'             " let Vundle manage Vundle, required
 Plugin 'w0rp/ale'                         " Lint files
 Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
 Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python: vaf, vif (in func), vac, vic (in class), vii (in indentation), vai (around indentation)
-" Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
+Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
 Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Completion
@@ -332,13 +332,6 @@ nmap <leader><leader>f vaf:VtrSendLinesToRunner<CR>
 " Setting for Shougo/echodoc.vim, using neovim's floating text feature (signatures for completions):
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
-" .........................................................
-" Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
-" nmap <silent><localleader>j :Semshi goto function next<CR>
-" nmap <silent><localleader>k :Semshi goto function prev<CR>
-" nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
-" let g:semshi#error_sign = v:false
-" let g:semshi#update_delay_factor = 0.0001
 "___________________________________________
 "Python path... Kite options
 " let g:python3_host_prog = '/Users/dsanchez/miniconda3/bin/python'
@@ -441,7 +434,7 @@ nmap <leader>T <Plug>VimwikiTabnewLink
 " Settings for to-do lists
 nmap <leader>+ <Plug>VimwikiIncrementListItem
 nmap <leader>- <Plug>VimwikiDecrementListItem
-nmap <leader>0 <Plug>VimwikiToggleRejectedListItem
+nmap <leader>= <Plug>VimwikiToggleRejectedListItem
 nmap <leader>x <Plug>VimwikiToggleListItem
 " Settings for lists
 nmap <leader>l <Plug>VimwikiIncreaseLvlSingleItem
@@ -685,3 +678,31 @@ nmap <silent><leader>m V:DB<CR><M-j>
 " Load hive files as SQL (cool syntax)
 au BufRead,BufNewFile *.hql set filetype=sql
 
+
+" ......................................................... Semshi (has to be at the end of the file)
+" Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
+nmap <silent><localleader>j :Semshi goto function next<CR>
+nmap <silent><localleader>k :Semshi goto function prev<CR>
+" nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
+let g:semshi#error_sign = v:false
+let g:semshi#update_delay_factor = 0.0001
+" ...............................................................
+" Semshi colors:
+hi semshiLocal           ctermfg=209
+hi semshiGlobal          ctermfg=242
+hi semshiImported        ctermfg=1    cterm=bold,italic
+" input parameters to functions
+hi semshiParameter       ctermfg=75
+hi semshiParameterUnused ctermfg=117  cterm=underline
+hi semshiFree            ctermfg=218
+hi semshiBuiltin         ctermfg=207
+hi semshiAttribute       ctermfg=166
+hi semshiSelf            ctermfg=242  cterm=italic
+hi semshiUnresolved      ctermfg=226  cterm=underline
+hi semshiSelected        ctermfg=231  ctermbg=161
+" ...............................................................
+function MyCustomHighlights()
+    hi semshiGlobal      ctermfg=red guifg=#ff0000
+endfunction
+autocmd FileType python call MyCustomHighlights()
+autocmd ColorScheme * call MyCustomHighlights()
