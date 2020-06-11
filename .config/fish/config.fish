@@ -148,6 +148,9 @@ abbr bc 'bluetoothctl scan'
 # Screen settings
 abbr om 'optimus-manager'
 
+# Play emulator
+abbr play 'pcsxr'
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 eval /home/diego/miniconda3/bin/conda "shell.fish" "hook" $argv | source

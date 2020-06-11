@@ -1,0 +1,32 @@
+snippet query "SQL Query template" b
+SELECT
+    ${2:*}
+FROM ${1:my_table}
+WHERE
+	condition
+GROUP BY
+	col
+ORDER BY
+	col
+LIMIT ${3:100}
+endsnippet
+
+snippet count_and_percent "Count and percent calculation from a col in group by" b
+COUNT(1) AS cnt_${1:col_name},
+ROUND(COUNT(1) / (SUM(COUNT(1)) OVER ()) * 100, 2) AS perc_${1:col_name},
+endsnippet
+
+snippet title "Title frame" b
+--.............................................................................
+--  ${1:My title}
+--.............................................................................
+endsnippet
+
+
+snippet macro "SQL Macro template" b
+CREATE TEMPORARY MACRO ${1:my_macro} AS (
+${2:COUNT(1)}
+)
+endsnippet
+
+

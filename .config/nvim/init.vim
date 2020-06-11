@@ -76,6 +76,8 @@ Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around func
 Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}  " Conquer of Completion
+" Snippets
+Plugin 'SirVer/ultisnips'
 " Ranger
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'  " it says ranger.vim needs it?
@@ -679,6 +681,14 @@ nmap <silent><leader>m V:DB<CR><M-j>
 au BufRead,BufNewFile *.hql set filetype=sql
 
 
+"------------------------------------------------------------ Ultisnips
+map <silent><leader>s :UltiSnipsEdit<CR>
+" To allow :UltiSnipsEdit to split current window.
+let g:UltiSnipsEditSplit='vertical'
+" Just disable the default command used to trigger ultisnips so it doesn't
+" inteinterfere with coc completion:
+let g:UltiSnipsExpandTrigger='<C-tab>'
+
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
@@ -689,7 +699,7 @@ let g:semshi#update_delay_factor = 0.0001
 " ...............................................................
 " Semshi colors:
 hi semshiLocal           ctermfg=209
-hi semshiGlobal          ctermfg=242
+hi semshiGlobal          ctermfg=1
 hi semshiImported        ctermfg=1    cterm=bold,italic
 " input parameters to functions
 hi semshiParameter       ctermfg=75
@@ -701,8 +711,3 @@ hi semshiSelf            ctermfg=242  cterm=italic
 hi semshiUnresolved      ctermfg=226  cterm=underline
 hi semshiSelected        ctermfg=231  ctermbg=161
 " ...............................................................
-function MyCustomHighlights()
-    hi semshiGlobal      ctermfg=red guifg=#ff0000
-endfunction
-autocmd FileType python call MyCustomHighlights()
-autocmd ColorScheme * call MyCustomHighlights()

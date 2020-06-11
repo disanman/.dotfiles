@@ -1,0 +1,7 @@
+snippet query "Code used to query from Hadoop" b
+query = '''
+${1:SELECT *
+FROM table}
+'''
+select(query, '${2:key}')
+endsnippet
