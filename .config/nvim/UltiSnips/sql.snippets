@@ -1,3 +1,6 @@
+#....................................................................................
+# Query templates
+#....................................................................................
 snippet query "SQL Query template" b
 SELECT
     ${2:*}
@@ -10,6 +13,13 @@ ORDER BY
 	col
 LIMIT ${3:100}
 endsnippet
+
+snippet cte_table "cte table template" b
+WITH cte_${1:name} AS (
+	${2}
+)${3:,}
+endsnippet
+
 
 snippet count_and_percent "Count and percent calculation from a col in group by" b
 COUNT(1) AS cnt_${1:col_name},
@@ -29,4 +39,13 @@ ${2:COUNT(1)}
 )
 endsnippet
 
+snippet show_create_table "Create table command" b
+SHOW CREATE TABLE ${1:my_table};
+endsnippet
+
+snippet num_rows "Count number of rows in table" b
+SELECT COUNT(1) AS num_rows
+FROM ${1:my_table}
+WHERE ${2:ymd} = ${3:20200201};
+endsnippet
 

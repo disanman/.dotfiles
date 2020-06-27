@@ -11,8 +11,9 @@ c.url.open_base_url = True
 ## Page(s) to open at the start.
 c.url.start_pages = ['google.com']
 
-config.bind('U', 'hint links spawn cvlc --preferred-resolution 576 {hint-url}')
 config.bind('Y', 'hint links spawn cvlc --preferred-resolution 240 {hint-url}')
+config.bind('U', 'hint links spawn cvlc --preferred-resolution 576 {hint-url}')
+config.bind('I', 'hint links spawn cvlc --preferred-resolution 720 {hint-url}')
 
 c.auto_save.session = True
 c.downloads.position = 'bottom'

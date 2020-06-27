@@ -102,6 +102,8 @@ Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor i
 Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'tpope/vim-fugitive'     " awesome git plugin
+Plugin 'idanarye/vim-merginal'  " extension for vim-fugitive (for managing branches)
+Plugin 'kshenoy/vim-signature'    " marks in the left
 " Sneak for quick text finding
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-repeat'       " useful?
@@ -265,7 +267,8 @@ nmap <silent><localleader>: :FzfHistory:<CR>
 nmap <silent><localleader>/ :FzfHistory/<CR>
 nmap <silent><localleader>, :FzfMaps<CR>
 nmap <silent><localleader>m :FzfMarks<CR>
-nmap <silent><localleader>C :FzfColors<CR>
+nmap <silent><localleader><localleader>C :FzfColors<CR>
+nmap <silent><localleader><localleader>h :FzfHelptags<CR>
 let g:fzf_command_prefix = 'Fzf'
 " Using RipGrep with preview! -> modify file as in git
 nmap <silent><localleader>R :FzfRg<CR>
@@ -656,16 +659,10 @@ nmap <localleader><localleader>c :Gcommit<CR>
 nmap <localleader><localleader>C :FzfCommits<CR>
 " Fzf into commits for the current buffer
 nmap <localleader><localleader>B :FzfBCommits<CR>
-" TODO: :FzfGFiles
-" TODO: change branches:
-" function! s:changebranch(branch)
-"     execute 'Git checkout' . a:branch
-"     call feedkeys("i")
-" endfunction
-" command! -bang Gbranch call fzf#run({
-"             \ 'source': 'git branch -a --no-color | grep -v "^\* " ',
-"             \ 'sink': function('s:changebranch')
-"             \ })
+" Fzf into files of current git folder
+nmap <localleader><localleader>G :FzfGFiles<CR>
+" Using Merginal
+nmap <localleader>g :MerginalToggle<CR>
 
 "------------------------------------------------------------ SQL
 " Settings for writting cool SQL, load dict:
