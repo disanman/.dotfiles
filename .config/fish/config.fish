@@ -76,18 +76,23 @@ abbr t@ 'task @'
 abbr t@w 'task @ work'
 abbr t@h 'task @ home'
 abbr t@0 'task @ none'
-abbr tw 'task @ work && task'
-abbr th 'task @ home && task'
-abbr t0 'task @ none && task'
+abbr tw 'task @ work && clear && task'
+abbr th 'task @ home && clear && task'
+abbr t0 'task @ none && clear && task'
 # Task reports
 abbr tp 'task projects'
 abbr ts 'task summary'
 abbr st 'task start'
 abbr tt 'task timesheet'
 abbr tc 'task completed'
+abbr tr 'task recurring'
 abbr tcal 'task calendar'
 abbr tbd 'task burndown.daily'
 abbr tbw 'task burndown.weekly'
+# Task filters
+abbr tpj 'task project:'
+# TimeWarrior
+abbr tws 'timew summary'
 
 # Expressvpn
 abbr vpn 'sudo systemctl start expressvpn.service && sleep 3 && expressvpn connect'

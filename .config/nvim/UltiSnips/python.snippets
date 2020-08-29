@@ -1,7 +1,233 @@
-snippet query "Code used to query from Hadoop" b
-query = '''
-${1:SELECT *
-FROM table}
-'''
-select(query, '${2:key}')
+# Brings SQL snippets
+extends sql
+
+# .............................................................................
+#     Code snippets
+# .............................................................................
+snippet title "Insert a title frame" b
+# .............................................................................
+#   ${1:My title}
+# .............................................................................
 endsnippet
+
+snippet recalculate_data_template "Snippet used to recalculate data from Python calling the cluster" b
+# Code used to recalculate data using Python
+dates = [(datetime.today() - timedelta(days=day)).strftime('%Y%m%d') for day in range(${1:1}, ${2:5})]   # how many days in the past
+
+for date in dates:
+    print(f'Executing query of day: {date}')
+    query = query_base.format(crunchDate=date)
+    select(query)     # should not add a key => the execution is sequential (wait for it to finish)
+endsnippet
+
+snippet format_ymd "Format a ymd column to date strings" b
+${1:data}['date'] = [datetime.strptime(str(date), '%Y%m%d').date() for date in ${1}['${2:ymd}']]
+endsnippet
+
+snippet function_template "Insert an empty function_template" b
+def ${1:my_function_name}(${2:inputs}):
+    ${4:function_code}
+    return ${3:something}
+endsnippet
+
+snippet dataclass_template "Insert a template of a data class" b
+@dataclass
+class ${1:MyClassName}():
+    ${2:attr1} = ${3:val1}
+    ${4:attr2} = ${5:val2}
+endsnippet
+
+snippet class_template "Insert a template of a class" b
+class ${1:MyClassName}():
+    ${2:attr1} = ${3:val1}
+    ${4:attr2} = ${5:val2}
+endsnippet
+
+snippet for "for loop" b
+for ${1:item} in ${2:iterable}:
+    ${3:${VISUAL:pass}}
+endsnippet
+
+snippet ifmain "ifmain" b
+if __name__ == __main__:
+    ${1:${VISUAL:main()}}
+endsnippet
+
+snippet dfcol "Column of a dataframe" A
+${1:df}['${2:col}']
+endsnippet
+
+snippet lcomp "List comprehension template" b
+[${1:value} for $1 in ${2:${VISUAL:iterable}}${3: if ${4:condition}}]
+endsnippet
+
+snippet not_implemented "Raise not implemented error" b
+raise NotImplementedError
+endsnippet
+snippet raise_not_implemented "Raise not implemented error" b
+raise NotImplementedError
+endsnippet
+
+# .............................................................................
+# Using select object:
+# .............................................................................
+snippet query "Code used to query from Hadoop by using the select object" b
+query = '''
+    ${4:${VISUAL:SELECT *
+    FROM table}}
+'''
+select(query, '${1:key}'${2:, server='${3:impala}'})
+
+data = select.$1.copy()
+endsnippet
+
+snippet sss "Select" bA
+select
+endsnippet
+
+snippet sfield "Select field" bA
+select.field('${1:my_field}', row_number=${2:10})
+endsnippet
+
+snippet srec "Reconnect select object" bA
+select.reconnect()
+endsnippet
+
+snippet sclose "Close connection of select object" bA
+select.close()
+endsnippet
+
+snippet skeys "Select keys" bA
+select.keys
+endsnippet
+
+snippet ssk "Select spcific key" bA
+select['${1:key}']
+endsnippet
+
+snippet slast_key "Select last key" bA
+select.last_key
+endsnippet
+
+snippet sset_last_key "Set last key" bA
+select.set_key('${1:my_key}')
+endsnippet
+
+snippet sdet "Select last details" bA
+select.last_details
+endsnippet
+
+snippet squery "Select last query" bA
+select.last_query
+endsnippet
+
+snippet srow "Select last row" bA
+select.row
+endsnippet
+
+snippet sprint_row "Select: print row" bA
+select.print_row(row_number=${1:0}, key=${2:None}, depth=${3:5}, indent=${4:2}, width=${5:100})
+endsnippet
+
+snippet siloc "Select field" bA
+select.iloc
+endsnippet
+
+snippet shead "Select head" bA
+select.head
+endsnippet
+
+snippet sthead "Select transposed head" bA
+select.head.transpose()
+endsnippet
+
+snippet sres "Select last results" bA
+select.last_results
+endsnippet
+
+snippet sts "Get table or field schema" bA
+select.get_table_schema('${1:my_table}'${2:${3:, field='${3:field}'}${4:, comments=True}})
+endsnippet
+
+snippet sqs "Get query schema" bA
+select.get_query_schema(${1:query}${2:, server='${3:hive}'})
+endsnippet
+
+snippet slqs "Get last query schema" bA
+select.last_query_schema
+endsnippet
+
+snippet sfc "Find columns" bA
+select.find_columns('${1:text}'${2:, key='${3:key}'})
+endsnippet
+
+snippet sspo "Set pandas options" bA
+select.set_pandas_options(max_rows=${1:50}, max_columns=${2:12}, max_colwidth=${3:10}, width=${4:120}, column_space=${5:10}, precision=${6:2})
+endsnippet
+
+# .............................................................................
+#   Class methods
+# .............................................................................
+snippet init "Init dunder method" b
+def __init__(self, ${1:attrbs}):
+    ${2:pass}
+endsnippet
+
+snippet repr "Repr dunder method" b
+def __repr__(self):
+    ${1:pass}
+endsnippet
+
+# .............................................................................
+#     Plots
+# .............................................................................
+
+snippet histogram_plot "Template for using hist_plot" b
+hist_plot(series=${1:series}, xlabel='${2:x_label}', ylabel='${3:y_label}',
+          suptitle='${4:super_title}',
+          title='${5:title}')
+endsnippet
+
+snippet line_plot "Inserts a line plot code block" b
+plt.figure(figsize=(15,8), facecolor='white')
+plot = sns.lineplot(x='${5:x_col}', y='${6:y_col}', data=${7:data}, label='${8:label}', linewidth=${9:2})
+plt.suptitle('${1:Suptitle}', fontsize=18, y=0.96)
+plot.set(xlabel='${2:x_label}', ylabel='${3:y_label}', title=f'${4:small_title}')
+endsnippet
+
+snippet rotate_axis "Rotate x axis in a plot" b
+for tick in ${1:plot}.get_xticklabels():
+    tick.set_rotation(${2:60})
+endsnippet
+
+# Some colors, w after some keywords it can work
+snippet color1 "Color cornflowerblue" w
+'cornflowerblue'
+endsnippet
+snippet color2 "Color salmon" w
+'salmon'
+endsnippet
+snippet color3 "Color goldenrod" w
+'goldenrod'
+endsnippet
+snippet color4 "Color green" w
+'green'
+endsnippet
+snippet color5 "Color olive" w
+'olive'
+endsnippet
+
+# Snippets used when subplotting
+snippet subplot_template "Template for subplotting" b
+plot, axes = plt.subplots(1, 2, figsize=(12, 12))   # then do:
+axes = axes.ravel()
+endsnippet
+snippet ax0 "Axes position 0" w
+axes[0]
+endsnippet
+snippet ax1 "Axes position 1" w
+axes[1]
+endsnippet
+
+
+

@@ -123,7 +123,12 @@ urgency.due.coefficient = 20.0
 urgency.inherit = 1
 urgency.blocking.coefficient = 5.0
 # Project importances
-urgency.user.project.ImprovePython.coefficient = 1
+urgency.user.project.Electonics.coefficient = 0.8
+urgency.user.project.Hacking.coefficient = 0.8
+urgency.user.project.Bike.coefficient = 0.8
+urgency.user.project.ImprovePython.coefficient = 0.6
+urgency.user.project.Growing.coefficient = 0.5
+urgency.user.project.Guitar.coefficient = 0.4
 
 
 # Estimate UDA: measured in hours

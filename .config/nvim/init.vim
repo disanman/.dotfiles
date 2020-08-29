@@ -44,11 +44,12 @@ vmap v :'<,'>norm<space>
 nmap <leader>z ysiw`f`
 vmap <leader>z S`f`
 " Settings for writing faster python code
-nmap \\i A.iloc[0] <ESC><S-CR>k$F.D
+" query current df in its first row by using iloc[0]
+nmap \\i viw<ESC>a.iloc[0]<ESC>vF.b<Plug>JupyterRunVisualf.df]
 " JSON prettify
-nmap <silent><leader><leader>j :set syntax=json<CR>:%!python -m json.tool<CR>
+nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
 " Send query to python from a SQL file
-nmap <silent><leader><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>data = select(query)<CR>data<ESC>,pu<ESC>}
+nmap <silent><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>data = select(query)<CR>data<ESC>,pu<ESC>}
 nmap \\q {i<CR>query = '''<ESC>}O'''<CR>select(query, '')<ESC>0f'a
 
 "---------------------------------------------------------------  Opening files
@@ -102,6 +103,7 @@ Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor i
 Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'tpope/vim-fugitive'     " awesome git plugin
+Plugin 'dhruvasagar/vim-table-mode'    " create and edit text based tables
 Plugin 'idanarye/vim-merginal'  " extension for vim-fugitive (for managing branches)
 Plugin 'kshenoy/vim-signature'    " marks in the left
 " Sneak for quick text finding
@@ -132,6 +134,9 @@ filetype plugin indent on    " required
 scriptencoding utf-8
 syntax on
 set mouse=a mousemodel=popup
+" Show tabs as characters:   (use :retab to replace tabs by spaces)
+set list
+set listchars=tab:>-
 " Split navigations
 set splitbelow
 set splitright
@@ -237,27 +242,47 @@ vmap <C-V> "+gp
 vmap <C-X> "+x
 " select all text"  <C-a> is increment number, <C-x> is decrement number
 map <leader><C-a> GVgg
+" Copy from current line to the end to clipboard
+map \G VG<C-C>
 " Copy current paragraph to clipboard, and put cursor on the end of it
 nmap \c vip<C-C>}k
 " Copy current paragraph to clipboard, and put cursor on the end of it
 nmap \ip vip<C-C>}k
 nmap \p vip<C-C>}k
+" Copy in indent to clipboard
+nmap \i vii<C-C>}k
 " Copy current line to clipboard, and put cursor on the end of it
 nmap \y V<C-C>$
 nmap \l V<C-C>$
+" copy inside '
+nmap \i' vi'<C-C>f'
+nmap \' vi'<C-C>f'
+" copy inside "
+nmap \i" vi"<C-C>f"
+nmap \" vi"<C-C>f"
+" copy inside ()
+nmap \i( vi(<C-C>f)
+nmap \( vi(<C-C>f)
+nmap \i) vi(<C-C>f)
+nmap \) vi(<C-C>f)
 " copy in word
 nmap \iw viw<C-C>e
 nmap \w viw<C-C>e
 " copy in WORD
 nmap \iW viW<C-C>e
 nmap \W viW<C-C>e
+" yank regions delimitted by marks, highlight what was copied and return to top one
+" From mark 'a' to 'z':
+nmap \a 'aV'z<C-c>
+" From 's' to 'x':
+nmap \s 'sV'x<C-c>
 
 "---------------------------------------------------------------  FZF
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
 " TODO: add preview to Blines, fix Gfiles: git
 nmap <silent><localleader>F :FzfFiles<CR>
 nmap <silent><localleader>f :tabnew<CR>:FzfFiles<CR>
-nmap <silent><localleader><localleader>t :FzfBTags<CR>
+nmap <silent>`t :FzfBTags<CR>
 nmap <silent><localleader>w :FzfWindows<CR>
 nmap <silent><localleader>l :FzfBLines<CR>
 nmap <silent><localleader>h :FzfHistory<CR>
@@ -267,8 +292,8 @@ nmap <silent><localleader>: :FzfHistory:<CR>
 nmap <silent><localleader>/ :FzfHistory/<CR>
 nmap <silent><localleader>, :FzfMaps<CR>
 nmap <silent><localleader>m :FzfMarks<CR>
-nmap <silent><localleader><localleader>C :FzfColors<CR>
-nmap <silent><localleader><localleader>h :FzfHelptags<CR>
+" nmap <silent><localleader><localleader>C :FzfColors<CR>    -> I'm not really using it!
+nmap <silent>`h :FzfHelptags<CR>
 let g:fzf_command_prefix = 'Fzf'
 " Using RipGrep with preview! -> modify file as in git
 nmap <silent><localleader>R :FzfRg<CR>
@@ -284,10 +309,10 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source'
 "---------------------------------------------------------------  Python settings
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " pandas print
-nmap <localleader><localleader>1 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap <localleader><localleader>2 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap <localleader><localleader>3 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap <localleader><localleader>4 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100)<ESC><S-CR>{v}D
+nmap `1 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap `2 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap `3 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
+nmap `4 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100)<ESC><S-CR>{v}D
 let python_highlight_all=1
 " Execute python code into jupyterconsole
 nmap <leader>C :JupyterConnect<CR>
@@ -328,13 +353,13 @@ vmap <silent><C-CR> :VtrSendLinesToRunner<CR>
 " Execute code (current word)           ///////////////////////TO BE FIXED!!!
 nmap <leader><leader>w viw:VtrSendCommandToRunner<CR>
 " Execute code (current paragraph)
-nmap <leader><leader>p vip:VtrSendLinesToRunner<CR>
+nmap <leader><leader>p vip:VtrSendLinesToRunner<CR>:'>+1<CR>
 " Execute code (current python class)
 nmap <leader><leader>c vac:VtrSendLinesToRunner<CR>
 " Execute code (current python function)
 nmap <leader><leader>f vaf:VtrSendLinesToRunner<CR>
 " .........................................................
-" Setting for Shougo/echodoc.vim, using neovim's floating text feature (signatures for completions):
+" Setting for Shougo/echodoc.vim, using neovim's floating text feature (signatures for completions in Python):
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 "___________________________________________
@@ -350,6 +375,9 @@ let g:echodoc#type = 'signature'
 "___________________________________________
 
 "------------------------------------------------------------  Visual aspects
+" Show tab characters as `>--`:
+" set list
+" set listchars=tab:>-
 " Cursor changes :help guicursor
 " To enable mode shapes, Cursor highlight, and blinking:
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250_Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -467,7 +495,7 @@ nmap <silent><leader><leader>t :r! date "+\%Y-\%m-\%d \%H:\%M"<CR>
 "--------------------------------------------------------------- TaskWiki
 let g:taskwiki_markup_syntax = 'markdown'
 let g:taskwiki_disable_concealcursor = 'yes'
-noremap <silent><localleader><localleader>tm :TaskWikiMod<CR>
+noremap <silent>``t :TaskWikiMod<CR>
 let g:taskwiki_sort_orders={'D': 'project+,due+', 'J': 'urgency+', 'K': 'urgency-'}
 " noremap <silent><localleader><localleader>ts :TaskWikiSummary<CR>
 
@@ -650,19 +678,19 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 "------------------------------------------------------------  Git
 " Fugitive config -> git
-nmap <localleader><localleader>s :Gstatus<CR>
-nmap <localleader><localleader>d :Gdiff<CR>
-nmap <localleader><localleader>p :Gpull<CR>
-nmap <localleader><localleader>u :Gpush<CR>
-nmap <localleader><localleader>c :Gcommit<CR>
+nmap `s :Gstatus<CR>
+nmap `d :Gdiff<CR>
+nmap `p :Gpull<CR>
+nmap `u :Gpush<CR>
+nmap `c :Gcommit<CR>
 " Fzf into commits (for them to work, the folder should be in the git one, use cd, pwd)
-nmap <localleader><localleader>C :FzfCommits<CR>
+nmap `C :FzfCommits<CR>
 " Fzf into commits for the current buffer
-nmap <localleader><localleader>B :FzfBCommits<CR>
+nmap `B :FzfBCommits<CR>
 " Fzf into files of current git folder
-nmap <localleader><localleader>G :FzfGFiles<CR>
+nmap `f :FzfGFiles<CR>
 " Using Merginal
-nmap <localleader>g :MerginalToggle<CR>
+nmap `g :MerginalToggle<CR>
 
 "------------------------------------------------------------ SQL
 " Settings for writting cool SQL, load dict:
@@ -676,7 +704,12 @@ vmap <silent><leader>m :DB<CR><M-j>
 nmap <silent><leader>m V:DB<CR><M-j>
 " Load hive files as SQL (cool syntax)
 au BufRead,BufNewFile *.hql set filetype=sql
+" Set comments in visully selected lines (enters normal mode and does stuff)
+vmap - vI-- <CR>
+vmap <leader>- v0d3l<CR>
 
+"------------------------------------------------------------ R
+imap <C-t> %>%
 
 "------------------------------------------------------------ Ultisnips
 map <silent><leader>s :UltiSnipsEdit<CR>
@@ -696,15 +729,18 @@ let g:semshi#update_delay_factor = 0.0001
 " ...............................................................
 " Semshi colors:
 hi semshiLocal           ctermfg=209
-hi semshiGlobal          ctermfg=1
+hi semshiGlobal          ctermfg=242
 hi semshiImported        ctermfg=1    cterm=bold,italic
 " input parameters to functions
 hi semshiParameter       ctermfg=75
 hi semshiParameterUnused ctermfg=117  cterm=underline
 hi semshiFree            ctermfg=218
 hi semshiBuiltin         ctermfg=207
+" decorators and built in functions
+hi semshiBuiltin         ctermfg=135
 hi semshiAttribute       ctermfg=166
 hi semshiSelf            ctermfg=242  cterm=italic
 hi semshiUnresolved      ctermfg=226  cterm=underline
 hi semshiSelected        ctermfg=231  ctermbg=161
+hi pythonAttribute       ctermfg=166
 " ...............................................................
