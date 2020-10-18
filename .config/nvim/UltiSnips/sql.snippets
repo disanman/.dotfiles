@@ -78,14 +78,18 @@ trv_udf.aggregate_collection('${1:macro_or_function_or_udf}', ${2:array}${3:, ar
 endsnippet
 
 snippet array_contains_udf "Check if an element is contained in an array"
-array_contains(${1:array}, ${2:element})
+array_contains(${1:${VISUAL:array}}, ${2:element})
+endsnippet
+
+snippet date_diff_udf "Difference between two dates" b
+trv_udf.dateDiff(${1:start_date}, ${2:end_date})
 endsnippet
 
 #.............................................................................
 #  Misc
 #.............................................................................
-snippet count_1 "Just inserts COUNT(1)" b
-COUNT(1) AS num_${1:rows}${2:,}
+snippet count_1 "Just inserts COUNT(1)" w
+COUNT(1)${1: AS num_${2:rows}${3:,}}
 endsnippet
 
 snippet count_distinct "Just inserts COUNT(DISTINCT something)" b
@@ -126,7 +130,7 @@ endsnippet
 
 snippet create_table "Create table snippet" b
 DROP TABLE IF EXISTS dsanchez.$1;
-CREATE TABLE dsanchez.${1:my_table} AS
+CREATE ${2:EXTERNAL }TABLE dsanchez.${1:my_table} AS
 endsnippet
 
 
@@ -177,6 +181,10 @@ ORDER BY
     ${1:col} ${2:DESC}
 endsnippet
 
+snippet partition_by "Insert a PARTITION BY clause" w
+PARTITION BY
+endsnippet
+
 snippet having_template "Insert HAVING clause" b
 HAVING
     ${1:col} ${2:> condition}
@@ -214,6 +222,10 @@ snippet crunch_date "Insert crunchDate"
 endsnippet
 
 snippet explode_template "Lateral view explode" b
+LATERAL VIEW EXPLODE(${1:array_to_explode}) ${3}_array AS ${3:name}
+endsnippet
+
+snippet lateral_explode_template "Lateral view explode" b
 LATERAL VIEW EXPLODE(${1:array_to_explode}) ${3}_array AS ${3:name}
 endsnippet
 

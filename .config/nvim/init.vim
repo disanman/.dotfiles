@@ -43,14 +43,26 @@ vmap v :'<,'>norm<space>
 " Surround yank surround ` in word - use <c-s> in insert mode to insert surrounds
 nmap <leader>z ysiw`f`
 vmap <leader>z S`f`
+" Surround with *: Bold
+nmap <leader>* ysiw*f*
+vmap <leader>* S*f*
+" Surround with _: Italic
+nmap <leader>_ ysiw_f_
+vmap <leader>_ S_f_
 " Settings for writing faster python code
 " query current df in its first row by using iloc[0]
 nmap \\i viw<ESC>a.iloc[0]<ESC>vF.b<Plug>JupyterRunVisualf.df]
-" JSON prettify
-nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
+" JSON prettify: ,,j: doesn't order fields, ,,J: orders them  TODO: check what it's doing... so lines can be sent to python! and do cool stuff there!
+nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=4)"<CR>
+nmap <silent><leader><leader>J :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
 " Send query to python from a SQL file
-nmap <silent><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>data = select(query)<CR>data<ESC>,pu<ESC>}
-nmap \\q {i<CR>query = '''<ESC>}O'''<CR>select(query, '')<ESC>0f'a
+nmap <silent><leader>q vip<M-Tab>query<M-Tab><Esc>F,dt),p
+nmap <silent><leader><leader>q vip<M-Tab>query<M-Tab>
+" Old ways of sending queries:
+" nmap <silent><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>data = select(query)<CR>data<ESC>,p<ESC>}
+" nmap <silent><leader><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>select(query, '<C-d>'<C-d>)<ESC>0f'a
+" Wrap paragraph into a cte
+nmap <silent><leader><leader><leader>c vip<M-Tab>cte<M-tab>
 
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
@@ -61,6 +73,8 @@ nmap <leader><leader>x :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat25
 " Set folder directory: useful when calling fuzzy finder
 nmap <leader>G :cd ~/Documents/<CR>
 nmap <leader>g :cd ~/git/<CR>
+" Set folder directory for all windows to the one in which the current file is located, print it
+nmap <leader><leader>g :cd %:p:h<CR>:pwd<CR>
 
 "---------------------------------------------------------------  Plugins - Vundle
 set nocompatible                   " be iMproved, required
@@ -161,6 +175,8 @@ nnoremap <space> za
 " Buffers: next, previous
 nmap <silent><localleader>n :bn<CR>
 nmap <silent><localleader>p :bp<CR>
+" Set trigger command for ultisnips: <Alt-Tab>
+let g:UltiSnipsExpandTrigger='<M-Tab>'
 
 "---------------------------------------------------------------  Ranger
 " ranger.vim settings
@@ -292,6 +308,7 @@ nmap <silent><localleader>: :FzfHistory:<CR>
 nmap <silent><localleader>/ :FzfHistory/<CR>
 nmap <silent><localleader>, :FzfMaps<CR>
 nmap <silent><localleader>m :FzfMarks<CR>
+nmap <silent><localleader><localleader>s :FzfSnippets<CR>
 " nmap <silent><localleader><localleader>C :FzfColors<CR>    -> I'm not really using it!
 nmap <silent>`h :FzfHelptags<CR>
 let g:fzf_command_prefix = 'Fzf'
@@ -309,10 +326,11 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source'
 "---------------------------------------------------------------  Python settings
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " pandas print
-nmap `1 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap `2 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap `3 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200)<ESC><S-CR>{v}D
-nmap `4 O<ESC>Di<CR><CR><ESC>kipd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100)<ESC><S-CR>{v}D
+
+nmap `1 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
+nmap `2 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
+nmap `3 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
+nmap `4 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100); pd.set_option('display.max_colwidth', 80)<ESC><S-CR>{v}D
 let python_highlight_all=1
 " Execute python code into jupyterconsole
 nmap <leader>C :JupyterConnect<CR>
@@ -321,12 +339,15 @@ nmap <leader><leader>C :!jupyter qtconsole & disown && sleep 2<CR>:JupyterConnec
 " Execute code (current line)
 nmap <silent><leader><CR> V<Plug>JupyterRunVisual<CR>
 nmap <S-CR> V<Plug>JupyterRunVisual<CR>
+imap <S-CR> <ESC>V<Plug>JupyterRunVisual<CR>i
 nmap <silent><leader>ll V<Plug>JupyterRunVisual<CR>
 " Execute code (current selection)
 vmap <S-CR> <Plug>JupyterRunVisual:'>+1<CR>
 vmap <silent><leader><CR> <Plug>JupyterRunVisual:'>+1<CR>
 " Execute code (current word)
 nmap <silent><leader>w viw<Plug>JupyterRunVisuale
+" Execute code (current WORD)
+nmap <silent><leader>W viW<Plug>JupyterRunVisuale
 " Execute code (current paragraph)
 nmap <silent><leader>p vip<Plug>JupyterRunVisual:'>+1<CR>
 " Execute code (current python class)
@@ -575,19 +596,19 @@ let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
 " Hover and details
-nmap <silent><S-tab> :ALEHover<CR>
-nmap <silent><leader>d :ALEHover<CR>
-nmap <silent><leader>D :ALEDetail<CR>
-nmap <silent><localleader><space> :ALELint<CR>
-" Open definition in
-nmap <silent><leader>o :ALEGoToDefinition<CR>
-nmap <silent><leader>t :ALEGoToDefinitionInTab<CR>
-nmap <silent><leader>s :ALEGoToDefinitionInSplit<CR>
-nmap <silent><leader>v :ALEGoToDefinitionInVSplit<CR>
+" nmap <silent><S-tab> :ALEHover<CR>
+" nmap <silent><leader>d :ALEHover<CR>
+" nmap <silent><leader>D :ALEDetail<CR>
+" nmap <silent><localleader><space> :ALELint<CR>
+" Open definition in  => replaced by Coc options
+" nmap <silent><leader>o :ALEGoToDefinition<CR>
+" nmap <silent><leader>t :ALEGoToDefinition -tab<CR>
+" nmap <silent><leader>s :ALEGoToDefinition -split<CR>
+" nmap <silent><leader>v :ALEGoToDefinition -vsplit<CR>
 " References - python
-nmap <silent><leader>f :ALEFindReferences<CR>
+" nmap <silent><leader>f :ALEFindReferences<CR>   " --> replaced by coc-references
 " Map Alt-tab in insert mode => insert 4 spaces (check tab usage in Autocomplete)
-imap <m-tab> <space><space><space><space>
+" imap <m-tab> <space><space><space><space>
 
 "------------------------------------------------------------  Autocomplete
 " tab: to open menu selection, omnicompletion
@@ -647,13 +668,19 @@ endif
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
+nmap <silent> gn :CocCommand document.jumpToNextSymbol<CR>
+nmap <silent> gr <Plug>(coc-references)
+" Go to definition (in vertical, split and tab)
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent><leader>v :vs<CR><Plug>(coc-definition)
+nmap <silent><leader>s :sp<CR><Plug>(coc-definition)
+nmap <silent><leader>t :tab split<CR><Plug>(coc-definition)
+" other jumps (are they working?)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 " Rename
 nmap <silent> [r <Plug>(coc-rename)
-" Use K to show documentation in preview window.
+" Use K to show documentation in preview window ----> super useful in Python!
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -705,19 +732,21 @@ nmap <silent><leader>m V:DB<CR><M-j>
 " Load hive files as SQL (cool syntax)
 au BufRead,BufNewFile *.hql set filetype=sql
 " Set comments in visully selected lines (enters normal mode and does stuff)
-vmap - vI-- <CR>
-vmap <leader>- v0d3l<CR>
+vmap <silent>- :'<,'>norm 0i-- <CR>
+vmap <silent><leader>- v0d3l<CR>
 
 "------------------------------------------------------------ R
 imap <C-t> %>%
 
 "------------------------------------------------------------ Ultisnips
-map <silent><leader>s :UltiSnipsEdit<CR>
+map <silent>\s :UltiSnipsEdit<CR>
 " To allow :UltiSnipsEdit to split current window.
 let g:UltiSnipsEditSplit='vertical'
+" List all the snippets that could be used
+imap <C-l> <Plug>(coc-snippets-expand)
 " Just disable the default command used to trigger ultisnips so it doesn't
-" inteinterfere with coc completion:
-let g:UltiSnipsExpandTrigger='<C-tab>'
+" inteinterfere with coc completion: is the following line working?
+let g:UltiSnipsExpandTrigger='<M-Tab>'
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
@@ -738,9 +767,9 @@ hi semshiFree            ctermfg=218
 hi semshiBuiltin         ctermfg=207
 " decorators and built in functions
 hi semshiBuiltin         ctermfg=135
-hi semshiAttribute       ctermfg=166
+hi semshiAttribute       ctermfg=130
 hi semshiSelf            ctermfg=242  cterm=italic
 hi semshiUnresolved      ctermfg=226  cterm=underline
 hi semshiSelected        ctermfg=231  ctermbg=161
-hi pythonAttribute       ctermfg=166
+hi pythonAttribute       ctermfg=3
 " ...............................................................

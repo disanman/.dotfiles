@@ -1,6 +1,7 @@
 " Vim color file
 " Check color table at: https://jonasjacek.github.io/colors/
 " Use :syntax to see color highlight groups
+" Check also /usr/share/vim/vim80/syntax/python.vim for python highlighting
 
 set background=dark
 if version > 580
@@ -74,7 +75,7 @@ hi pythonString	        ctermfg=101     cterm=none
 hi pythonQuotes	        ctermfg=101     cterm=none
 hi pythonFunction       ctermfg=34      cterm=bold
 hi pythonKeyword        ctermfg=135     cterm=none
-hi pythonAttribute      ctermfg=166     cterm=none
+hi pythonAttribute      ctermfg=123       cterm=none
 hi pythonNumber         ctermfg=9       cterm=none
 " Function definition and decorators -> blue 33
 hi pythonStatement      ctermfg=33      cterm=italic
@@ -85,22 +86,34 @@ hi pythonOperator       ctermfg=33      cterm=italic
 hi pythonInclude        ctermfg=9       cterm=italic
 " Comments -> orange: 172
 hi pythonComment        ctermfg=242     cterm=italic
+hi sqlComment           ctermfg=242     cterm=italic
+hi rComment             ctermfg=242     cterm=italic
 " Builtin -> pink
 hi pythonBuiltin        ctermfg=135     cterm=italic
 hi pythonEscape         ctermfg=135     cterm=italic
 
+" R colors
+hi rString	        ctermfg=101     cterm=none
+hi rPreProc	        ctermfg=9       cterm=italic
+hi rFunction        ctermfg=173     cterm=italic
+
+" SQL strings
+hi sqlString              ctermfg=101     cterm=none
+
 " Vimwiki
-hi VimwikiCode          ctermfg=28   ctermbg=none   cterm=italic
+hi VimwikiCode          ctermfg=2      ctermbg=none   cterm=italic
 hi VimwikiHeaderChar    ctermfg=172    ctermbg=none   cterm=bold
 hi VimwikiHeader1       ctermfg=172    ctermbg=none   cterm=bold
 hi VimwikiHeader2       ctermfg=172    ctermbg=none   cterm=bold
 hi VimwikiHeader3       ctermfg=172    ctermbg=none   cterm=bold
-hi VimwikiPre           ctermfg=9     ctermbg=none   cterm=none
-hi VimwikiListTodo      ctermfg=28    ctermbg=none   cterm=none
-hi Vimwikiweblink1      ctermfg=32    ctermbg=none   cterm=italic
+hi VimwikiPre           ctermfg=9      ctermbg=none   cterm=none
+hi VimwikiListTodo      ctermfg=2      ctermbg=none   cterm=none
+hi Vimwikiweblink1      ctermfg=32     ctermbg=none   cterm=italic
+hi VimwikiBold          ctermfg=242    ctermbg=none   cterm=bold
+hi VimwikiItalic        ctermfg=247    ctermbg=none   cterm=italic
 
 " Vimrc
-hi vimLineComment ctermfg=9
+hi vimLineComment ctermfg=242     cterm=italic
 
 " ALE Hightlights SpellBad, SpellCap, error, and todo
 hi SpellCap ctermbg=236

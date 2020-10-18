@@ -86,7 +86,7 @@ select
 endsnippet
 
 snippet sfield "Select field" bA
-select.field('${1:my_field}', row_number=${2:10})
+select.field('${1:my_field}', row_number=${2:0})
 endsnippet
 
 snippet srec "Reconnect select object" bA
@@ -145,8 +145,20 @@ snippet sres "Select last results" bA
 select.last_results
 endsnippet
 
+snippet sst "Get sample from table" bA
+select.get_sample_from_table('${1:table}'${2:, ymd=${3:-1}, server='${4:hive}', num_rows=${5:100}})
+endsnippet
+
+snippet stp "Get table partitions" bA
+select.get_table_partitions('${1:table}')
+endsnippet
+
 snippet sts "Get table or field schema" bA
-select.get_table_schema('${1:my_table}'${2:${3:, field='${3:field}'}${4:, comments=True}})
+select.get_table_schema('${1:my_table}'${2:${3:, field='${4:field}'}${5:, comments=True}})
+endsnippet
+
+snippet ssearch "Search in table schema" b
+select.search_in_table_schema('${1:db.table}', '${2:search_string}')
 endsnippet
 
 snippet sqs "Get query schema" bA
@@ -157,12 +169,24 @@ snippet slqs "Get last query schema" bA
 select.last_query_schema
 endsnippet
 
+snippet sexplain_query "Explain query" b
+select.explain_query(query)
+endsnippet
+
 snippet sfc "Find columns" bA
 select.find_columns('${1:text}'${2:, key='${3:key}'})
 endsnippet
 
 snippet sspo "Set pandas options" bA
-select.set_pandas_options(max_rows=${1:50}, max_columns=${2:12}, max_colwidth=${3:10}, width=${4:120}, column_space=${5:10}, precision=${6:2})
+select.set_pandas_options(max_rows=${1:50}, max_columns=${2:20}, max_colwidth=${3:50}, width=${4:190}, column_space=${5:2}, precision=${6:2}, min_rows=${7:14})
+endsnippet
+
+snippet skq "Kill query" bA
+select.kill_query('${1:key}')
+endsnippet
+
+snippet sklq "Kill last query" bA
+select.kill_last_query
 endsnippet
 
 # .............................................................................
@@ -188,9 +212,16 @@ hist_plot(series=${1:series}, xlabel='${2:x_label}', ylabel='${3:y_label}',
           title='${5:title}')
 endsnippet
 
+snippet cumulative_plot "Template for using cumulative_plot function" b
+cumulative_plot(series=${1:series}, xlabel='${2:x_label}', ylabel='${3:y_label}',
+                suptitle='${4:super_title}',
+                title=f'${5:title}')
+endsnippet
+
+
 snippet line_plot "Inserts a line plot code block" b
 plt.figure(figsize=(15,8), facecolor='white')
-plot = sns.lineplot(x='${5:x_col}', y='${6:y_col}', data=${7:data}, label='${8:label}', linewidth=${9:2})
+plot = sns.lineplot(x='${5:x_col}', y='${6:y_col}', hue='${7:color_col}', data=${8:data}, linewidth=${9:2})
 plt.suptitle('${1:Suptitle}', fontsize=18, y=0.96)
 plot.set(xlabel='${2:x_label}', ylabel='${3:y_label}', title=f'${4:small_title}')
 endsnippet
@@ -198,6 +229,10 @@ endsnippet
 snippet rotate_axis "Rotate x axis in a plot" b
 for tick in ${1:plot}.get_xticklabels():
     tick.set_rotation(${2:60})
+endsnippet
+
+snippet vline "Adds a vertical line in a plot" b
+plt.axvline(x=${1:datetime(2020,7,7)}, linestyle='${2::}', color='${3:gray}')
 endsnippet
 
 # Some colors, w after some keywords it can work
@@ -228,6 +263,4 @@ endsnippet
 snippet ax1 "Axes position 1" w
 axes[1]
 endsnippet
-
-
 
