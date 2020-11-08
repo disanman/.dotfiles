@@ -101,8 +101,8 @@ Plugin 'kevinhwang91/rnvimr'    " floating ranger!
 Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
 " TaskWiki - Tasks and project management
-Plugin 'tbabej/taskwiki'
-Plugin 'farseer90718/vim-taskwarrior'  " enable grid view
+" Plugin 'tbabej/taskwiki'
+" Plugin 'farseer90718/vim-taskwarrior'  " enable grid view
 Plugin 'powerman/vim-plugin-AnsiEsc'   " enables colors in charts
 " Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
@@ -338,7 +338,8 @@ nmap <leader>C :JupyterConnect<CR>
 nmap <leader><leader>C :!jupyter qtconsole & disown && sleep 2<CR>:JupyterConnect<CR>O<ESC>Di<CR><CR><ESC>kicd '/Users/dsanchez/git/data-science/workspace/python/'<ESC><S-CR>kD:!kinit -l 4h -kt '/Users/dsanchez/Documents/Jupyter/dsanchez.keytab' dsanchez@HADOOP.TRIVAGO.COM<CR>iimport pandas as pd<CR>from hive_connect import select, STATUS, DATA<ESC>,p{v}d
 " Execute code (current line)
 nmap <silent><leader><CR> V<Plug>JupyterRunVisual<CR>
-nmap <S-CR> V<Plug>JupyterRunVisual<CR>
+nmap <silent>L V<Plug>JupyterRunVisual
+nmap <S-CR> V<Plug>JupyterRunVisual
 imap <S-CR> <ESC>V<Plug>JupyterRunVisual<CR>i
 nmap <silent><leader>ll V<Plug>JupyterRunVisual<CR>
 " Execute code (current selection)
@@ -747,6 +748,33 @@ imap <C-l> <Plug>(coc-snippets-expand)
 " Just disable the default command used to trigger ultisnips so it doesn't
 " inteinterfere with coc completion: is the following line working?
 let g:UltiSnipsExpandTrigger='<M-Tab>'
+
+" ......................................................... Terminal windows inside Vim
+" Use :terminal or :term,
+" Do not send control commands, it will break escape
+" <C-\><C-n> to exit terminal mode
+" open terminal in tab, vsplit, hsplit"
+nmap <leader>tt :tabnew<CR>:term<CR>i
+nmap <leader>tv :vsplit<CR>:term<CR>i
+nmap <leader>ts :split<CR>:term<CR>i
+if has('nvim')
+    " exit terminal mode:
+    tnoremap <A-[> <C-\><C-n>
+    " move into other splits
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-k> <C-\><C-n><C-w>l
+    " move into tabs
+    tnoremap <A-C-l> <C-\><C-n>:tabnext<CR>
+    tnoremap <A-C-h> <C-\><C-n>:tabprevious<CR>
+    "tnoremap <C-l> <C-\><C-n>:tabnext<CR>   -> this will break Esc in terminal
+    "tnoremap <C-h> <C-\><C-n>:tabprevious<CR>
+endif
+" Send line under cursor into terminal in the right
+nmap \\l Vy<C-w><C-l>pi
+nmap \\w yiw<C-w><C-l>pi
+nmap \\W yiW<C-w><C-l>pi
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
