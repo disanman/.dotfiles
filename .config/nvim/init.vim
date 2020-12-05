@@ -116,8 +116,10 @@ Plugin 'luochen1990/rainbow'     " adds parenthesis colors
 Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
 Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
 Plugin 'tpope/vim-surround'     "`:help surround`
-Plugin 'tpope/vim-fugitive'     " awesome git plugin
 Plugin 'dhruvasagar/vim-table-mode'    " create and edit text based tables
+Plugin 'szw/vim-maximizer'      " Maximizes buffers in the current window (hides others)
+" Git
+Plugin 'tpope/vim-fugitive'     " awesome git plugin
 Plugin 'idanarye/vim-merginal'  " extension for vim-fugitive (for managing branches)
 Plugin 'kshenoy/vim-signature'    " marks in the left
 " Sneak for quick text finding
@@ -292,6 +294,8 @@ nmap \W viW<C-C>e
 nmap \a 'aV'z<C-c>
 " From 's' to 'x':
 nmap \s 'sV'x<C-c>
+" Shortcut for using faster registers: '' = "   then a just do ''ayip  to yank current paragraph into a register
+nmap '' "
 
 "---------------------------------------------------------------  FZF
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
@@ -739,6 +743,10 @@ vmap <silent><leader>- v0d3l<CR>
 "------------------------------------------------------------ R
 imap <C-t> %>%
 
+"------------------------------------------------------------ Vim maximizer
+let g:maximizer_set_default_mapping = 0
+nnoremap <silent><leader>m :MaximizerToggle<CR>
+
 "------------------------------------------------------------ Ultisnips
 map <silent>\s :UltiSnipsEdit<CR>
 " To allow :UltiSnipsEdit to split current window.
@@ -754,7 +762,7 @@ let g:UltiSnipsExpandTrigger='<M-Tab>'
 " Do not send control commands, it will break escape
 " <C-\><C-n> to exit terminal mode
 " open terminal in tab, vsplit, hsplit"
-nmap <leader>tt :tabnew<CR>:term<CR>i
+nmap <leader>ttt :tabnew<CR>:term<CR>i
 nmap <leader>tv :vsplit<CR>:term<CR>i
 nmap <leader>ts :split<CR>:term<CR>i
 if has('nvim')

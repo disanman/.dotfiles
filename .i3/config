@@ -416,6 +416,9 @@ exec_always --no-startup-id udisksctl mount -b /dev/sda1  # data partition
 # ......................................................................
 exec --no-startup-id sleep 3 && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && xcape -e "Hyper_L=space" && notify-send "Finished boot!"
 # exec --no-startup-id sleep 3 && xmodmap /home/diego/.Xmodmap && xcape -e "Hyper_L=space" && notify-send "Finished boot!"
+#
+# Unmute sound, set volume at startup (it's being muted at boot):
+exec_always sleep 5 && amixer -c 0 set Headphone 100%
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
