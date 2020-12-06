@@ -19,6 +19,20 @@ function fish_vi_cursor --on-variable fish_bind_mode
     end
 end
 
+# Functions used to search in Google and Duck Duck go
+function ds
+    w3m 'duckduckgo.com/?q='$argv
+end
+function gs
+    w3m 'google.com/search?q='$argv
+end
+function gd
+    w3m 'google.com/search?q=define '$argv
+end
+function ws
+    w3m 'en.wikipedia.org/wiki/'$argv
+end
+
 
 # Settings
 set -U fish_greeting  # removes greetings!
