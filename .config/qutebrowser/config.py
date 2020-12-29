@@ -5,7 +5,7 @@
 #  \__\_\\__,_|\__\___|____/|_|  \___/ \_/\_/ |___/\___|_|
 
 # Use :config-write --force --defaults, actual config starts after line 382
-c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}' , 'd': 'https://duckduckgo.com/?q={}', 'y': 'https://www.youtube.com/search?q={}'}
+c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}' , 'd': 'https://duckduckgo.com/?q={}', 'y': 'https://www.youtube.com/search?q={}', 'i': 'https://www.imdb.com/find?q={}'}
 ## Open base URL of the searchengine if a searchengine shortcut is invoked without parameters.
 c.url.open_base_url = True
 ## Page(s) to open at the start.

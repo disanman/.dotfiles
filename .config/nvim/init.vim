@@ -32,6 +32,8 @@ nmap E ge
 " Search options (using regex)
 nnoremap / /\v
 vnoremap / /\v
+" Search for visually selection
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 set ignorecase
 set smartcase
 set hlsearch
@@ -248,6 +250,8 @@ nmap <silent><localleader><c-l> :tabm +1<CR>
 nmap Y v$y
 " Yank link (text inside following parenthesis) into register +
 nmap <leader>yl f)vi)<C-c>
+" Paste in link
+nmap <leader>pl 0f(ci(<C-r>+<Esc>
 " Yank text inside following `  (yank green) into register +
 nmap <leader>yg f`vi`<C-c>
 " Copy selection to clipboard when in visual mode.
@@ -788,7 +792,7 @@ nmap \\W yiW<C-w><C-l>pi
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
-" nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
+nmap <silent><leader><leader><leader>r :Semshi rename<CR>
 let g:semshi#error_sign = v:false
 let g:semshi#update_delay_factor = 0.0001
 " ...............................................................

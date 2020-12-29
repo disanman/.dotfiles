@@ -40,6 +40,7 @@ set -g fish_key_bindings hybrid_bindings
 # fish_vi_cursor
 export PATH="$PATH:$HOME/.vim/bundle/vim-superman/bin"
 export PATH="/home/diego/miniconda3/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # Programs abbr
 abbr x 'exit'
@@ -163,6 +164,11 @@ abbr bd 'bluetoothctl disconnect && bluetoothctl power off'
 abbr bi 'bluetoothctl info'
 abbr bs 'bluetoothctl scan'
 abbr bc 'bluetoothctl scan'
+
+# Screen settings, created by using arandr (save option)
+abbr 2s sh ~/.screenlayout/2_screens.sh
+abbr 1s sh ~/.screenlayout/1_screen.sh
+abbr 1bs sh ~/.screenlayout/1_big_screen.sh
 
 # Screen settings
 abbr om 'optimus-manager'
