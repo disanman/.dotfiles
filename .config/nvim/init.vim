@@ -1,3 +1,4 @@
+ab -> →
 "                  _   _         __     _____ __  __    ____             __ _
 "                 | \ | | ___  __\ \   / /_ _|  \/  |  / ___|___  _ __  / _(_) __ _
 "                 |  \| |/ _ \/ _ \ \ / / | || |\/| | | |   / _ \| '_ \| |_| |/ _` |
@@ -65,6 +66,11 @@ nmap <silent><leader><leader>q vip<M-Tab>query<M-Tab>
 " nmap <silent><leader><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>select(query, '<C-d>'<C-d>)<ESC>0f'a
 " Wrap paragraph into a cte
 nmap <silent><leader><leader><leader>c vip<M-Tab>cte<M-tab>
+" Options to replace + in table mode
+nmap <leader>s+ vip:s/+/\|/g<CR>
+" Create vertical line in a table, and table at the end of the line
+nmap <leader>tl <C-v>}kA\|<Esc>
+nmap <leader>tel vip:norm A\|<CR>
 
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
@@ -85,7 +91,7 @@ set rtp+=~/.vim/bundle/Vundle.vim  " Vundle path
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'             " let Vundle manage Vundle, required
 " Python programming
-Plugin 'w0rp/ale'                         " Lint files
+" Plugin 'w0rp/ale'                         " Lint files
 Plugin 'wmvanvliet/jupyter-vim'           " Send code to jupyter qtconsole
 Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python: vaf, vif (in func), vac, vic (in class), vii (in indentation), vai (around indentation)
 Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
@@ -766,9 +772,9 @@ let g:UltiSnipsExpandTrigger='<M-Tab>'
 " Do not send control commands, it will break escape
 " <C-\><C-n> to exit terminal mode
 " open terminal in tab, vsplit, hsplit"
-nmap <leader>ttt :tabnew<CR>:term<CR>i
-nmap <leader>tv :vsplit<CR>:term<CR>i
-nmap <leader>ts :split<CR>:term<CR>i
+nmap <leader>tt :tabnew<CR>:set nornu nonu<CR>:term<CR>i
+nmap <leader>tv :vsplit<CR>:set nornu nonu<CR>:term<CR>i
+nmap <leader>ts :split<CR>:set nornu nonu<CR>:term<CR>i
 if has('nvim')
     " exit terminal mode:
     tnoremap <A-[> <C-\><C-n>
@@ -792,6 +798,10 @@ nmap \\W yiW<C-w><C-l>pi
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
 nmap <silent><localleader>j :Semshi goto function next<CR>
 nmap <silent><localleader>k :Semshi goto function prev<CR>
+" nmap <silent><leader><leader><leader><leader>r :Semshi rename<CR>
+" nmap <silent><leader>o :Semshi goto name prev<CR>zt
+"nmap <silent><leader>v eb:vsplit<CR>:Semshi goto name prev<CR>zt
+"nmap <silent><leader>s eb:split<CR>:Semshi goto name prev<CR>zt
 nmap <silent><leader><leader><leader>r :Semshi rename<CR>
 let g:semshi#error_sign = v:false
 let g:semshi#update_delay_factor = 0.0001

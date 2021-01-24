@@ -168,7 +168,7 @@ abbr bc 'bluetoothctl scan'
 # Screen settings, created by using arandr (save option)
 abbr 2s sh ~/.screenlayout/2_screens.sh
 abbr 1s sh ~/.screenlayout/1_screen.sh
-abbr 1bs sh ~/.screenlayout/1_big_screen.sh
+abbr 1bs 'sh ~/.screenlayout/1_big_screen.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 
 # Screen settings
 abbr om 'optimus-manager'

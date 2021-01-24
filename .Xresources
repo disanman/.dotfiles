@@ -53,8 +53,8 @@ XTerm*selectToClipboard: true
 *color7:                          #707880
 *color15:                         #c5c8c6
 
-URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15
-URxvt.letterSpace:                -2
+URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15, xft:DejaVu Sans Mono:size=15, xtf:unifont:size=15
+URxvt.letterSpace:                -1
 
 
 ! alternative font settings with 'terminus':
