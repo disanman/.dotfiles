@@ -97,6 +97,8 @@ Plugin 'michaeljsmith/vim-indent-object'  " Indentation level objects for python
 Plugin 'numirias/semshi'                  " Colorizing python scripts, after installing run:  :UpdateRemotePlugins  and restart Vim
 Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around function), if (in function), ac (around class), ic (in class)
 Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
+" Text objects → extended
+Plugin 'wellle/targets.vim'    " adds A-I, - text objects, c2i), search forward and backward
 " Completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}  " Conquer of Completion
 " Snippets
@@ -126,6 +128,10 @@ Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links h
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'dhruvasagar/vim-table-mode'    " create and edit text based tables
 Plugin 'szw/vim-maximizer'      " Maximizes buffers in the current window (hides others)
+" testing telescope  → only works in nightly build TODO
+" Plugin 'nvim-lua/popup.nvim'
+" Plugin 'nvim-lua/plenary.nvim'
+" Plugin 'nvim-telescope/telescope.nvim'
 " Git
 Plugin 'tpope/vim-fugitive'     " awesome git plugin
 Plugin 'idanarye/vim-merginal'  " extension for vim-fugitive (for managing branches)
