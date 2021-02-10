@@ -1,4 +1,4 @@
-ab -> →
+"
 "                  _   _         __     _____ __  __    ____             __ _
 "                 | \ | | ___  __\ \   / /_ _|  \/  |  / ___|___  _ __  / _(_) __ _
 "                 |  \| |/ _ \/ _ \ \ / / | || |\/| | | |   / _ \| '_ \| |_| |/ _` |
@@ -46,12 +46,14 @@ vmap v :'<,'>norm<space>
 " Surround yank surround ` in word - use <c-s> in insert mode to insert surrounds
 nmap <leader>z ysiw`f`
 vmap <leader>z S`f`
-" Surround with *: Bold
+" Surround with *: Bold, change in bold
 nmap <leader>* ysiw*f*
 vmap <leader>* S*f*
-" Surround with _: Italic
+nmap <leader>ci* T*ct*
+" Surround with _: Italic, change in italic
 nmap <leader>_ ysiw_f_
 vmap <leader>_ S_f_
+nmap <leader>ci_ T_ct_
 " Settings for writing faster python code
 " query current df in its first row by using iloc[0]
 nmap \\i viw<ESC>a.iloc[0]<ESC>vF.b<Plug>JupyterRunVisualf.df]
@@ -66,8 +68,14 @@ nmap <silent><leader><leader>q vip<M-Tab>query<M-Tab>
 " nmap <silent><leader><leader>q {i<CR>query = '''<ESC>}O<ESC>0i'''<CR>select(query, '<C-d>'<C-d>)<ESC>0f'a
 " Wrap paragraph into a cte
 nmap <silent><leader><leader><leader>c vip<M-Tab>cte<M-tab>
-" Options to replace + in table mode
+"---------------------------------------------------------------  Table mode
+" Use + in corners (corner = any corner or join, corner_corner = 4 extreme corners)
+let g:table_mode_corner = '+'
+let g:table_mode_corner_corner='+'
+" Replace + with |
 nmap <leader>s+ vip:s/+/\|/g<CR>
+" Replace + with | (in line)
+nmap <leader>s\ V:s/\|/+/g<CR>
 " Create vertical line in a table, and table at the end of the line
 nmap <leader>tl <C-v>}kA\|<Esc>
 nmap <leader>tel vip:norm A\|<CR>
@@ -76,6 +84,10 @@ nmap <leader>tel vip:norm A\|<CR>
 " Open this file to edit vim config
 nmap <silent><leader>e :tabnew<CR>:e ~/.config/nvim/init.vim<CR>
 nmap <silent><leader><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
+" Go to file indicated under cursor in a vertical split
+nmap <leader>gf :vs<CR>gf
+" Go to file indicated under cursor in a new tab
+nmap <leader>gft :tab split<CR>gf
 " Color file
 nmap <leader><leader>x :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 " Set folder directory: useful when calling fuzzy finder
@@ -99,8 +111,10 @@ Plugin 'jeetsukumaran/vim-pythonsense'    " Python text objects: af (around func
 Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Text objects → extended
 Plugin 'wellle/targets.vim'    " adds A-I, - text objects, c2i), search forward and backward
+Plugin 'terryma/vim-expand-region'        " use + and - to expand a visual selection!
 " Completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}  " Conquer of Completion
+Plugin 'antoinemadec/coc-fzf'
 " Snippets
 Plugin 'SirVer/ultisnips'
 " Ranger
@@ -262,8 +276,8 @@ nmap <silent><localleader><c-l> :tabm +1<CR>
 nmap Y v$y
 " Yank link (text inside following parenthesis) into register +
 nmap <leader>yl f)vi)<C-c>
-" Paste in link
-nmap <leader>pl 0f(ci(<C-r>+<Esc>
+" Paste in link, (inside the parenthesis of a link already created with vimwiki)
+nmap <leader>pl 0f]f(ci(<C-r>+<Esc>
 " Yank text inside following `  (yank green) into register +
 nmap <leader>yg f`vi`<C-c>
 " Copy selection to clipboard when in visual mode.
@@ -727,6 +741,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 "------------------------------------------------------------  Git
 " Fugitive config -> git
 nmap `s :Gstatus<CR>
+" Diff of the current file vs. its initial version
 nmap `d :Gdiff<CR>
 nmap `p :Gpull<CR>
 nmap `u :Gpush<CR>
@@ -739,6 +754,13 @@ nmap `B :FzfBCommits<CR>
 nmap `f :FzfGFiles<CR>
 " Using Merginal
 nmap `g :MerginalToggle<CR>
+" Solving conflicts, open current file with HEAD... conflicts in three
+" vertical splits
+set diffopt+=vertical
+nmap `D :Gdiffsplit!<CR>
+" Solving conflicts: Put change from the left/right into the center version
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 
 "------------------------------------------------------------ SQL
 " Settings for writting cool SQL, load dict:
@@ -795,10 +817,18 @@ if has('nvim')
     "tnoremap <C-l> <C-\><C-n>:tabnext<CR>   -> this will break Esc in terminal
     "tnoremap <C-h> <C-\><C-n>:tabprevious<CR>
 endif
-" Send line under cursor into terminal in the right
-nmap \\l Vy<C-w><C-l>pi
-nmap \\w yiw<C-w><C-l>pi
-nmap \\W yiW<C-w><C-l>pi
+" Send line under cursor into terminal in the right, and return to the left
+nmap \\l Vy<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
+nmap \\w yiw<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
+nmap \\W yiW<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
+" Send current paragraph into terminal in the right
+nmap \\p vipy<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h]
+" Send current selection to terminal in the right
+vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
+
+" ......................................................... Abbrebiations (like snippets, but directly from vim)
+" To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
+ab -> →
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
