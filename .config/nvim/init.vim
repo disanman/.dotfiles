@@ -136,9 +136,13 @@ Plugin 'gcmt/taboo.vim'                " Cool tab names
 Plugin 'vim-airline/vim-airline'       " Statusbar
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'luochen1990/rainbow'     " adds parenthesis colors
-Plugin 'RRethy/vim-illuminate'   " adds ilumination of current word the cursor is in
-Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) -> disable it by default
+Plugin 'luochen1990/rainbow'           " adds parenthesis colors
+Plugin 'RRethy/vim-illuminate'         " adds ilumination of current word the cursor is in
+Plugin 'vim-scripts/restore_view.vim'  " Remember code folds and cursor position
+" Focus mode
+Plugin 'junegunn/goyo.vim'             " Focus Mode
+Plugin 'junegunn/limelight.vim'        " Limelight - Additional Focus mode stuff with Goyo
+" Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) → disable it by default → also breaks the symbol conceal → sets a default color
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'dhruvasagar/vim-table-mode'    " create and edit text based tables
 Plugin 'szw/vim-maximizer'      " Maximizes buffers in the current window (hides others)
@@ -149,7 +153,8 @@ Plugin 'szw/vim-maximizer'      " Maximizes buffers in the current window (hides
 " Git
 Plugin 'tpope/vim-fugitive'     " awesome git plugin
 Plugin 'idanarye/vim-merginal'  " extension for vim-fugitive (for managing branches)
-Plugin 'kshenoy/vim-signature'    " marks in the left
+" Plugin 'kshenoy/vim-signature'    " marks in the left
+Plugin 'airblade/vim-gitgutter'
 " Sneak for quick text finding
 Plugin 'justinmk/vim-sneak'
 Plugin 'tpope/vim-repeat'       " useful?
@@ -508,6 +513,47 @@ function! <SID>SynStack()
 endfunc
 " Using vim-scripts/SyntaxAttr.vim plugin:
 nmap <leader><C-S-P> :call SyntaxAttr()<CR>
+" Conceal options, check also ~/.config/nvim/after/syntax/python.vim file
+" nice colors: 2, 101, 58
+nnoremap \\c :let &cole=(&cole == 2)? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>:highlight Conceal ctermfg=2 ctermbg=234<CR>
+highlight Conceal ctermfg=2 ctermbg=234
+
+"----------------------------------------------------------------
+"        Goyo
+"----------------------------------------------------------------
+nmap <silent>`l :Goyo<CR>
+
+function! s:goyo_leave()
+    highlight Conceal ctermfg=2 ctermbg=234
+    " Restore highlight and clean the command prompt
+    echon ''
+endfunction
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+"----------------------------------------------------------------
+"        LimeLight
+"----------------------------------------------------------------
+    nmap <silent>``l :Limelight!!<CR>:echon ''<CR>
+    " Color name (:help cterm-colors) or ANSI code
+    let g:limelight_conceal_ctermfg = 2
+    let g:limelight_conceal_ctermfg = 240
+    " Default: 0.5
+    let g:limelight_default_coefficient = 0.7
+    " Number of preceding/following paragraphs to include (default: 0)
+    let g:limelight_paragraph_span = 2
+    " Beginning/end of paragraph
+    " When there's no empty line between the paragraphs
+    " and each paragraph starts with indentation
+    let g:limelight_bop = '^\s'
+    let g:limelight_eop = '\ze\n^\s'
+    " Highlighting priority (default: 10)
+    " Set it to -1 not to overrule hlsearch
+    let g:limelight_priority = -1
+    " Integration with goyo
+    autocmd! User GoyoEnter Limelight
+    autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+
 
 "------------------------------------------------------------  Vimwiki
 " disable table options so it won't interfere with coc completions
@@ -567,83 +613,83 @@ let g:calendar_google_task = 1
 
 "------------------------------------------------------------  ALE
 " Settings for ALE, eslint and typescript (tsserver) are for java
-nmap <silent><localleader>0 :ALEToggle<CR>
-let g:ale_linters = {'python': ['pycodestyle', 'mypy', 'pyls', 'flake8', 'pyflakes', 'mccabe', 'black', 'isort']}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8', 'black']}
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 0
-let g:ale_lint_on_save = 0
-let g:ale_lint_on_insert_leave = 1
-let g:ale_completion_enabled = 0
-" let g:ale_completion_delay = 5
-set completeopt=menu,menuone   ",noinsert,nopreview,noselect,noinsert,longest
-" set completeopt-=noinsert   " do not have it, I like auto-insert the first match
-set complete=.,k,t
-let g:ale_set_balloons = 1
-let g:ale_set_highlights = 1
-" Env settings
-let g:ale_python_auto_pipenv = 1
-" pycodestyle options
-let g:ale_python_pycodestyle_executable = '/home/diego/miniconda3/bin/pycodestyle'
-let g:ale_python_pycodestyle_options = '--max-line-length=120'
-let g:ale_python_pycodestyle_use_global = 1
-let g:ale_python_pycodestyle_auto_pipenv = 1
-" flake8 options
-let g:ale_python_flake8_executable = '/home/diego/miniconda3/bin/flake8'
-let g:ale_python_flake8_options = '--max-line-length=120'
-let g:ale_python_flake8_use_global = 1
-let g:ale_python_flake8_auto_pipenv = 1
-" let g:ale_python_flake8_options = '--ignore-missing-imports'
-" mypy options
-let g:ale_python_mypy_executable = '/home/diego/miniconda3/bin/mypy'
-let g:ale_python_mypy_options = '--ignore-missing-imports'
-let g:ale_python_mypy_use_global = 1
-let g:ale_python_mypy_auto_pipenv = 1
-" pyls options
-let g:ale_python_pyls_executable = '/home/diego/miniconda3/bin/pyls'
-let g:ale_python_pyls_options = '--ignore-missing-imports'
-let g:ale_python_pyls_use_global = 1
-let g:ale_python_pyls_auto_pipenv = 1
-let g:ale_python_pyls_config = {
-\   'pyls': {
-\     'plugins': {'pycodestyle': {'enabled': v:false},
-\                 'mypy': {'enabled': v:false},
-\                 'flake8': {'enabled': v:false}
-\     }
-\   },
-\ }
-" black options
-let g:ale_python_black_executable = '/home/diego/miniconda3/bin/black'
-let g:ale_python_black_use_global = 1
-let g:ale_python_black_auto_pipenv = 1
-let g:ale_python_black_change_directory = 1
-" Changing the way warnings and erros are shown:
-let g:ale_echo_msg_error_str = '✘'
-let g:ale_echo_msg_warning_str = '!'
-let g:ale_sign_error = '✘ '
-let g:ale_sign_warning = '! '
-hi ALEErrorSign ctermbg=232 ctermfg=red
-hi ALEWarningSign ctermbg=232 ctermfg=172
-let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
-" ALE shortcuts
-" navigate through errors:
-nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <leader>j <Plug>(ale_next_wrap)
-" Hover and details
-" nmap <silent><S-tab> :ALEHover<CR>
-" nmap <silent><leader>d :ALEHover<CR>
-" nmap <silent><leader>D :ALEDetail<CR>
-" nmap <silent><localleader><space> :ALELint<CR>
-" Open definition in  => replaced by Coc options
-" nmap <silent><leader>o :ALEGoToDefinition<CR>
-" nmap <silent><leader>t :ALEGoToDefinition -tab<CR>
-" nmap <silent><leader>s :ALEGoToDefinition -split<CR>
-" nmap <silent><leader>v :ALEGoToDefinition -vsplit<CR>
-" References - python
-" nmap <silent><leader>f :ALEFindReferences<CR>   " --> replaced by coc-references
-" Map Alt-tab in insert mode => insert 4 spaces (check tab usage in Autocomplete)
-" imap <m-tab> <space><space><space><space>
+" nmap <silent><localleader>0 :ALEToggle<CR>
+" let g:ale_linters = {'python': ['pycodestyle', 'mypy', 'pyls', 'flake8', 'pyflakes', 'mccabe', 'black', 'isort']}
+" let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8', 'black']}
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_fix_on_save = 0
+" let g:ale_lint_on_save = 0
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_completion_enabled = 0
+" " let g:ale_completion_delay = 5
+" set completeopt=menu,menuone   ",noinsert,nopreview,noselect,noinsert,longest
+" " set completeopt-=noinsert   " do not have it, I like auto-insert the first match
+" set complete=.,k,t
+" let g:ale_set_balloons = 1
+" let g:ale_set_highlights = 1
+" " Env settings
+" let g:ale_python_auto_pipenv = 1
+" " pycodestyle options
+" let g:ale_python_pycodestyle_executable = '/home/diego/miniconda3/bin/pycodestyle'
+" let g:ale_python_pycodestyle_options = '--max-line-length=120'
+" let g:ale_python_pycodestyle_use_global = 1
+" let g:ale_python_pycodestyle_auto_pipenv = 1
+" " flake8 options
+" let g:ale_python_flake8_executable = '/home/diego/miniconda3/bin/flake8'
+" let g:ale_python_flake8_options = '--max-line-length=120'
+" let g:ale_python_flake8_use_global = 1
+" let g:ale_python_flake8_auto_pipenv = 1
+" " let g:ale_python_flake8_options = '--ignore-missing-imports'
+" " mypy options
+" let g:ale_python_mypy_executable = '/home/diego/miniconda3/bin/mypy'
+" let g:ale_python_mypy_options = '--ignore-missing-imports'
+" let g:ale_python_mypy_use_global = 1
+" let g:ale_python_mypy_auto_pipenv = 1
+" " pyls options
+" let g:ale_python_pyls_executable = '/home/diego/miniconda3/bin/pyls'
+" let g:ale_python_pyls_options = '--ignore-missing-imports'
+" let g:ale_python_pyls_use_global = 1
+" let g:ale_python_pyls_auto_pipenv = 1
+" let g:ale_python_pyls_config = {
+" \   'pyls': {
+" \     'plugins': {'pycodestyle': {'enabled': v:false},
+" \                 'mypy': {'enabled': v:false},
+" \                 'flake8': {'enabled': v:false}
+" \     }
+" \   },
+" \ }
+" " black options
+" let g:ale_python_black_executable = '/home/diego/miniconda3/bin/black'
+" let g:ale_python_black_use_global = 1
+" let g:ale_python_black_auto_pipenv = 1
+" let g:ale_python_black_change_directory = 1
+" " Changing the way warnings and erros are shown:
+" let g:ale_echo_msg_error_str = '✘'
+" let g:ale_echo_msg_warning_str = '!'
+" let g:ale_sign_error = '✘ '
+" let g:ale_sign_warning = '! '
+" hi ALEErrorSign ctermbg=232 ctermfg=red
+" hi ALEWarningSign ctermbg=232 ctermfg=172
+" let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+" " ALE shortcuts
+" " navigate through errors:
+" nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+" nmap <silent> <leader>j <Plug>(ale_next_wrap)
+" " Hover and details
+" " nmap <silent><S-tab> :ALEHover<CR>
+" " nmap <silent><leader>d :ALEHover<CR>
+" " nmap <silent><leader>D :ALEDetail<CR>
+" " nmap <silent><localleader><space> :ALELint<CR>
+" " Open definition in  => replaced by Coc options
+" " nmap <silent><leader>o :ALEGoToDefinition<CR>
+" " nmap <silent><leader>t :ALEGoToDefinition -tab<CR>
+" " nmap <silent><leader>s :ALEGoToDefinition -split<CR>
+" " nmap <silent><leader>v :ALEGoToDefinition -vsplit<CR>
+" " References - python
+" " nmap <silent><leader>f :ALEFindReferences<CR>   " --> replaced by coc-references
+" " Map Alt-tab in insert mode => insert 4 spaces (check tab usage in Autocomplete)
+" " imap <m-tab> <space><space><space><space>
 
 "------------------------------------------------------------  Autocomplete
 " tab: to open menu selection, omnicompletion
@@ -750,8 +796,8 @@ nmap `c :Gcommit<CR>
 nmap `C :FzfCommits<CR>
 " Fzf into commits for the current buffer
 nmap `B :FzfBCommits<CR>
-" Fzf into files of current git folder
-nmap `f :FzfGFiles<CR>
+" Fzf into files of current git folder (set folder the one of the current file)
+nmap `f :cd %:p:h<CR>:pwd<CR>:FzfGFiles<CR>
 " Using Merginal
 nmap `g :MerginalToggle<CR>
 " Solving conflicts, open current file with HEAD... conflicts in three
@@ -761,6 +807,33 @@ nmap `D :Gdiffsplit!<CR>
 " Solving conflicts: Put change from the left/right into the center version
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+" Settings for vim-gitgutter, Signs:
+set signcolumn=auto
+let g:gitgutter_sign_added = ''
+let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_removed = ''
+let g:gitgutter_sign_removed_first_line = ''
+let g:gitgutter_sign_modified_removed = ''
+" Colors
+let g:gitgutter_override_sign_column_highlight = 0
+" highlight clear SignColumn
+highlight GitGutterAdd ctermfg=2
+highlight GitGutterChange ctermfg=3
+highlight GitGutterDelete ctermfg=1
+highlight GitGutterChangeDelete ctermfg=4
+" Adjust background:
+" let g:gitgutter_override_sign_column_highlight = 1
+" highlight SignColumn guibg=bg
+" highlight SignColumn ctermbg=bg
+" Update sign column every quarter second
+set updatetime=250
+" Jump between hunks
+nmap <Leader>gn <Plug>(GitGutterNextHunk)
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+" Chunk staging
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+
 
 "------------------------------------------------------------ SQL
 " Settings for writting cool SQL, load dict:
@@ -829,6 +902,7 @@ vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
 " ......................................................... Abbrebiations (like snippets, but directly from vim)
 " To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
 ab -> →
+ab <- ←
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
@@ -859,3 +933,5 @@ hi semshiUnresolved      ctermfg=226  cterm=underline
 hi semshiSelected        ctermfg=231  ctermbg=161
 hi pythonAttribute       ctermfg=3
 " ...............................................................
+hi clear Conceal
+hi Conceal ctermfg=2 ctermbg=234
