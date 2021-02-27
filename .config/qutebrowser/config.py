@@ -4,6 +4,8 @@
 # | |_| | |_| | ||  __/ |_) | | | (_) \ V  V /\__ \  __/ |
 #  \__\_\\__,_|\__\___|____/|_|  \___/ \_/\_/ |___/\___|_|
 
+config.load_autoconfig(False)    # don't load settings done from the Gui → use the ones from this file
+
 # Use :config-write --force --defaults, actual config starts after line 382
 c.url.searchengines = {'DEFAULT': 'https://www.google.com/search?q={}' , 'd': 'https://duckduckgo.com/?q={}', 'y': 'https://www.youtube.com/search?q={}', 'i': 'https://www.imdb.com/find?q={}'}
 ## Open base URL of the searchengine if a searchengine shortcut is invoked without parameters.

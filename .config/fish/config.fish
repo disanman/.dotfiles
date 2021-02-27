@@ -134,6 +134,12 @@ abbr ssh_pricing_vs 'ssh -i ~/Documents/crawlers crawler@35.207.89.160'
 abbr ssh_mount_pricing_gba 'sudo mkdir /mnt/pricing_gba && sudo sshfs crawler@35.234.125.251:/home/crawler/ /mnt/pricing_gba/ -o IdentityFile=~/Documents/crawlers'
 abbr ssh_umount_pricing_gba 'sudo fusermount -u /mnt/pricing_gba && sudo rm -r /mnt/pricing_gba'
 
+# Abbr for weather
+abbr now 'bash ~/Documents/Notes/Linux/now.sh'
+abbr w1 "curl 'https://en.wttr.in/Dusseldorf'"
+abbr w2 "curl 'https://en.wttr.in/Dusseldorf?format=v2'"
+abbr w3 "curl -s 'wttr.in/{Dusseldorf,Milan,Bogota}?format=3'"
+
 # abbr for config files
 abbr cfi 'nvim ~/.i3/config'            # Config i3
 abbr cfc 'nvim ~/.config/compton.conf'         # Config i3

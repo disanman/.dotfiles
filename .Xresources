@@ -1,8 +1,9 @@
 Xft.dpi:       96
 Xft.antialias: true
 Xft.hinting:   true
-Xft.rgba:      rgb
-Xft.autohint:  false
+!Xft.rgba:      rgb
+Xft.rgba:      none
+Xft.autohint:  true
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
@@ -53,8 +54,14 @@ XTerm*selectToClipboard: true
 *color7:                          #707880
 *color15:                         #c5c8c6
 
-URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15, xft:DejaVu Sans Mono:size=15, xtf:unifont:size=15
-URxvt.letterSpace:                -1
+URxvt.font:                       xft:Consolas:pixelsize=20, xft:TerminessTTFNerdFontMono:pixelsize=30, xft:DejaVu Sans Mono:pixelsize=30
+!URxvt.font:                       xft:TerminessTTF Nerd Font:size=20
+!URxvt.font:                       xft:TerminessTTF Nerd Font Mono:size=20
+!URxvt.font:                       xft:Consolas:pixelsize=20, xft:TerminessTTFNerdFontMono:pixelsize=30
+!URxvt.font:                       xft:Consolas:size=15, xft:TerminessTTFNerdFontMono:size=15, xft:DejaVu Sans Mono:size=15, xtf:unifont:size=15
+!URxvt.font:                       xft:Consolas:size=15, xft:Sauce Code Pro:size=15, xft:TerminessTTFNerdFontMono:size=15, xft:DejaVu Sans Mono:size=15, xtf:unifont:size=15
+!URxvt.font:                       xft:SF Mono:size=12,xft:Inconsolata Nerd Font Mono:size=11
+!URxvt.letterSpace:                -1
 
 
 ! alternative font settings with 'terminus':

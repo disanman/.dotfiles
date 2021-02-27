@@ -29,7 +29,7 @@ imap <C-l> <Del>
 " Remap j and k for working with wrapped lines, E for going to the end of previous line
 nmap j gj
 nmap k gk
-nmap E ge
+" nmap E ge  → its more useful the normal E
 " Search options (using regex)
 nnoremap / /\v
 vnoremap / /\v
@@ -82,7 +82,7 @@ nmap <leader>tel vip:norm A\|<CR>
 
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
-nmap <silent><leader>e :tabnew<CR>:e ~/.config/nvim/init.vim<CR>
+nmap <silent><leader>e :e ~/.config/nvim/init.vim<CR>
 nmap <silent><leader><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 " Go to file indicated under cursor in a vertical split
 nmap <leader>gf :vs<CR>gf
@@ -112,6 +112,7 @@ Plugin 'Shougo/echodoc.vim'               " Display signatures from completions
 " Text objects → extended
 Plugin 'wellle/targets.vim'    " adds A-I, - text objects, c2i), search forward and backward
 Plugin 'terryma/vim-expand-region'        " use + and - to expand a visual selection!
+Plugin 'tpope/vim-commentary'   " adds commentaries as text objects, just use gc + motion
 " Completion
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}  " Conquer of Completion
 Plugin 'antoinemadec/coc-fzf'
@@ -192,8 +193,23 @@ set splitright
 " save, quit, drop
 nmap <silent><localleader>s :w<CR>:echo 'File saved!'<CR>
 nmap <silent><localleader>q :q<CR>
+nmap <silent><localleader><localleader>q :bd<CR>
 nmap <silent><localleader>Q :q!<CR>
-nmap <silent><localleader>d :drop _<CR>
+" nmap <silent><localleader>d :drop _<CR>    → replaced by buffer delete: bd
+nmap <silent><localleader>d :bd<CR>
+nmap <silent><localleader>D :bd!<CR>
+" Close all other buffers
+nmap <silent><localleader><localleader>d :%bd\|e#<CR>
+" Buffers: next, previous, previous one
+nmap <silent><localleader>a :b#<CR>
+nmap <silent><localleader>n :bn<CR>
+nmap <silent>`] :bn<CR>
+nmap <silent>`[ :bp<CR>
+nmap <silent>]b :bn<CR>
+nmap <silent><localleader>p :bp<CR>
+" Go to buffer: first, last
+nmap <silent>[B :bf<CR>
+nmap <silent>]B :bl<CR>
 " Open new empty current buffer (like drop file)
 map <silent><C-n> :enew<CR>
 " Automatically deletes all tralling whitespace on save
@@ -207,9 +223,6 @@ set foldmethod=manual
 nmap <leader><space> viizf
 vmap <leader><space> zf
 nnoremap <space> za
-" Buffers: next, previous
-nmap <silent><localleader>n :bn<CR>
-nmap <silent><localleader>p :bp<CR>
 " Set trigger command for ultisnips: <Alt-Tab>
 let g:UltiSnipsExpandTrigger='<M-Tab>'
 
@@ -335,13 +348,15 @@ nmap '' "
 "---------------------------------------------------------------  FZF
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
 " TODO: add preview to Blines, fix Gfiles: git
-nmap <silent><localleader>F :FzfFiles<CR>
-nmap <silent><localleader>f :tabnew<CR>:FzfFiles<CR>
+nmap <silent><localleader>f :FzfFiles<CR>
+nmap <silent><localleader>F :tabnew<CR>:FzfFiles<CR>
 nmap <silent>`t :FzfBTags<CR>
 nmap <silent><localleader>w :FzfWindows<CR>
 nmap <silent><localleader>l :FzfBLines<CR>
 nmap <silent><localleader>h :FzfHistory<CR>
 nmap <silent><localleader>b :FzfBuffers<CR>
+" Fix FzfBuffers shortcut in python
+nmap <silent><localleader><localleader>b :nnoremap <silent> <localleader>b :FzfBuffers<CR><CR>
 nmap <silent><localleader>c :FzfCommands<CR>
 nmap <silent><localleader>: :FzfHistory:<CR>
 nmap <silent><localleader>/ :FzfHistory/<CR>
@@ -357,9 +372,9 @@ nmap <silent><localleader>r :tabnew<CR>:FzfRg<CR>
 " Note search with Control-N - VimwiKi note search - using notational-fzf-vim:
 let g:nv_search_paths = ['~/Documents/Notes']
 let g:nv_use_short_pathnames = 1
-nmap <silent><leader>N :NV<CR>
-nmap <silent><leader>n :tabnew<CR>:NV<CR>
-" Use line completion:
+nmap <silent><leader>n :NV<CR>
+nmap <silent><leader>N :tabnew<CR>:NV<CR>
+" Use line completion in insert mode: call fzf and rg matching:
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source': 'rg -n ^ --color always', 'options': '--ansi --delimiter : --nth 3..', 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 "---------------------------------------------------------------  Python settings
@@ -371,6 +386,9 @@ nmap `2 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns', 10); pd.set
 nmap `3 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
 nmap `4 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns',  6); pd.set_option('display.width',  800); pd.set_option('display.max_rows', 100); pd.set_option('display.max_colwidth', 80)<ESC><S-CR>{v}D
 let python_highlight_all=1
+" Disable default shortcuts of jupyter-vim
+" autocmd FileType python nnoremap <buffer> <silent><localleader>b :FzfBuffers<CR>
+let g:jupyter_mapkeys = 0
 " Execute python code into jupyterconsole
 nmap <leader>C :JupyterConnect<CR>
 " Alternative way to connect, open console and send commands,    has to be executed from a Python file TODO: fix that
@@ -378,18 +396,18 @@ nmap <leader><leader>C :!jupyter qtconsole & disown && sleep 2<CR>:JupyterConnec
 " Execute code (current line)
 nmap <silent><leader><CR> V<Plug>JupyterRunVisual<CR>
 nmap <silent>L V<Plug>JupyterRunVisual
-nmap <S-CR> V<Plug>JupyterRunVisual
+nmap <S-CR> V<Plug>JupyterRunVisual<Esc>0
 imap <S-CR> <ESC>V<Plug>JupyterRunVisual<CR>i
 nmap <silent><leader>ll V<Plug>JupyterRunVisual<CR>
 " Execute code (current selection)
 vmap <S-CR> <Plug>JupyterRunVisual:'>+1<CR>
 vmap <silent><leader><CR> <Plug>JupyterRunVisual:'>+1<CR>
 " Execute code (current word)
-nmap <silent><leader>w viw<Plug>JupyterRunVisuale
+nmap <silent><leader>w viw<Plug>JupyterRunVisualeb<Esc>
 " Execute code (current WORD)
 nmap <silent><leader>W viW<Plug>JupyterRunVisuale
 " Execute code (current paragraph)
-nmap <silent><leader>p vip<Plug>JupyterRunVisual:'>+1<CR>
+nmap <silent><leader>p vip<Plug>JupyterRunVisual<CR><Esc>
 " Execute code (current python class)
 nmap <silent><leader>c vac<Plug>JupyterRunVisual:'>+1<CR>
 " Execute code (current python function)
@@ -515,8 +533,30 @@ endfunc
 nmap <leader><C-S-P> :call SyntaxAttr()<CR>
 " Conceal options, check also ~/.config/nvim/after/syntax/python.vim file
 " nice colors: 2, 101, 58
-nnoremap \\c :let &cole=(&cole == 2)? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>:highlight Conceal ctermfg=2 ctermbg=234<CR>
+nnoremap <silent>\\c :let &cole=(&cole == 2)? 0 : 2 <bar>:highlight Conceal ctermfg=2 ctermbg=234<CR>
+" nnoremap <silent>\\\c :let &cole=(&cole == 3)? 0 : 3 <bar>:highlight Conceal ctermfg=2 ctermbg=234<CR>
 highlight Conceal ctermfg=2 ctermbg=234
+" Set conceal cursor options: :help concealcursor
+set concealcursor=n
+" Toggle conceal
+nnoremap <silent>\` :let &cole=(&cole == 2)? 0 : 2 <CR>
+" Always conceal:
+nmap <silent> \1 :set concealcursor=nvic<CR>
+" conceal only in normal mode
+nmap <silent> \2 :set concealcursor=n<CR>
+nmap <silent> \3 :set concealcursor=c<CR>
+" Set conceal color:
+nmap <silent> \4 :highlight Conceal ctermfg=2 ctermbg=234<CR>
+nmap <silent> \5 :highlight Conceal ctermfg=4 ctermbg=234<CR>
+nmap <silent> \6 :highlight Conceal ctermfg=8 ctermbg=234<CR>
+nmap <silent> \7 :highlight Conceal ctermfg=130 ctermbg=234<CR>
+nmap <silent> \8 :highlight Conceal ctermfg=none ctermbg=234<CR>
+" Sync syntax from the start → 0
+nmap <silent> \0 :syntax sync fromstart<CR>
+" Set/disable color column:
+nmap <silent> \\1 :set colorcolumn=80<CR>:hi ColorColumn ctermbg=233<CR>
+nmap <silent> \\2 :set colorcolumn=120<CR>:hi ColorColumn ctermbg=233<CR>
+nmap <silent> \\3 :hi ColorColumn ctermbg=234<CR>
 
 "----------------------------------------------------------------
 "        Goyo
@@ -761,8 +801,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 " Rename
 nmap <silent> [r <Plug>(coc-rename)
-" Use K to show documentation in preview window ----> super useful in Python!
+" Use K and d to show documentation in preview window ----> super useful in Python!
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <leader>d :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -789,21 +830,22 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 nmap `s :Gstatus<CR>
 " Diff of the current file vs. its initial version
 nmap `d :Gdiff<CR>
-nmap `p :Gpull<CR>
-nmap `u :Gpush<CR>
-nmap `c :Gcommit<CR>
+" Diff of the current 2 files opened in the current window
+nmap ``d :windo diffthis<CR>
+" Solving conflicts, open current file with HEAD... conflicts in three VERTICAL splits
+set diffopt+=vertical
+nmap `D :Gdiffsplit!<CR>
+nmap `p :Git pull<CR>
+nmap `u :Git push<CR>
+nmap `c :Git commit<CR>
 " Fzf into commits (for them to work, the folder should be in the git one, use cd, pwd)
-nmap `C :FzfCommits<CR>
+nmap `C :cd %:p:h<CR>:pwd<CR>:FzfCommits<CR>
 " Fzf into commits for the current buffer
 nmap `B :FzfBCommits<CR>
 " Fzf into files of current git folder (set folder the one of the current file)
 nmap `f :cd %:p:h<CR>:pwd<CR>:FzfGFiles<CR>
 " Using Merginal
 nmap `g :MerginalToggle<CR>
-" Solving conflicts, open current file with HEAD... conflicts in three
-" vertical splits
-set diffopt+=vertical
-nmap `D :Gdiffsplit!<CR>
 " Solving conflicts: Put change from the left/right into the center version
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
@@ -828,18 +870,23 @@ highlight GitGutterChangeDelete ctermfg=4
 " Update sign column every quarter second
 set updatetime=250
 " Jump between hunks
-nmap <Leader>gn <Plug>(GitGutterNextHunk)
-nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+nmap `j <Plug>(GitGutterNextHunk)
+nmap `k <Plug>(GitGutterPrevHunk)
 " Chunk staging
-nmap <Leader>ga <Plug>(GitGutterStageHunk)
-nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+nmap `a <Plug>(GitGutterStageHunk)
+nmap `A <Plug>(GitGutterUndoHunk)
+" Fold parts of code without changes
+nmap `<Space> :GitGutterFold<CR>
+nmap `P :GitGutterPreviewHunk<CR>
+" Undo changes done in the current Hunk (restore as it was):
+nmap `U :GitGutterUndoHunk<CR>
 
 
 "------------------------------------------------------------ SQL
 " Settings for writting cool SQL, load dict:
 nmap <silent><leader><leader>k :set dictionary+=~/Documents/Notes/completion_dict.hql<CR>
 " map for editing the dict
-nmap <silent><leader><leader><leader>k :tabnew<CR>:e ~/Documents/Notes/completion_dict.hql<CR>
+nmap <silent><leader><leader><leader>k :e ~/Documents/Notes/completion_dict.hql<CR>
 " Settings for MySQL, using dadbod plugin
 " let g:db = 'mysql://ABI:-BigData-@35.205.97.41/Autoscout24_CLD'
 let g:db = 'postgresql://dbuser:pwd@localhost/DB'
@@ -903,6 +950,8 @@ vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
 " To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
 ab -> →
 ab <- ←
+ab _cdot ·
+ab +- ±
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)
@@ -935,3 +984,6 @@ hi pythonAttribute       ctermfg=3
 " ...............................................................
 hi clear Conceal
 hi Conceal ctermfg=2 ctermbg=234
+" ...............................................................
+" Color column (disable → color 234 = background) → enable it with \\1 or \\2, disable with \\3
+hi ColorColumn ctermbg=234

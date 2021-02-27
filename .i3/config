@@ -9,7 +9,7 @@
 set $mod mod3
 
 # Set terminal and broser variables:
-set $term --no-startup-id terminal
+set $term --no-startup-id kitty
 set $browser qutebroser
 
 # start a terminal

@@ -30,14 +30,10 @@
 URxvt.intensityStyles:	false
 URxvt.background:       [70]#000000
 URxvt.depth:		32
-URxvt.font: 		xft:monospace:size=11
+!URxvt.font: 		xft:monospace:size=11
 URxvt.scrollBar:	false
 URxvt.cursorColor:	white
 
-!! Got from .Xresources
-Xft.dpi:       96
-Xft.antialias: true
-Xft.lcdfilter: lcddefault
 
 !! Extensions
 URxvt.perl-ext-common:	default,resize-font
