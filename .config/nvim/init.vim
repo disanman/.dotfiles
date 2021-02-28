@@ -89,7 +89,7 @@ nmap <leader>gf :vs<CR>gf
 " Go to file indicated under cursor in a new tab
 nmap <leader>gft :tab split<CR>gf
 " Color file
-nmap <leader><leader>x :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
+nmap <leader><leader>x :e ~/Documents/Notes/VIM/config_vim/vim_colors.vim<CR>
 " Set folder directory: useful when calling fuzzy finder
 nmap <leader>G :cd ~/Documents/<CR>
 nmap <leader>g :cd ~/git/<CR>
@@ -365,6 +365,7 @@ nmap <silent><localleader>m :FzfMarks<CR>
 nmap <silent><localleader><localleader>s :FzfSnippets<CR>
 " nmap <silent><localleader><localleader>C :FzfColors<CR>    -> I'm not really using it!
 nmap <silent>`h :FzfHelptags<CR>
+nmap <silent><localleader><localleader>h :FzfHelptags<CR>
 let g:fzf_command_prefix = 'Fzf'
 " Using RipGrep with preview! -> modify file as in git
 nmap <silent><localleader>R :FzfRg<CR>
@@ -463,7 +464,8 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinko
 " Select color scheme, best ones: afterglow, dracula, termschool, wombat256mod
 " Already defined in opening files: nmap <leader><leader>w :e ~/.vim/bundle/awesome-vim-colorschemes/colors/wombat256mod.vim<CR>
 set background=dark
-colorscheme wombat256mod
+source ~/Documents/Notes/VIM/config_vim/vim_colors.vim
+" colorscheme wombat256mod
 " Illuminate - highlight words like the current one under the cursor
 nmap <silent><leader>i :IlluminationToggle<CR>
 " Set numbera and relative number: [add numbered list :put =range(1,10)]

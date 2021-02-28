@@ -1,5 +1,18 @@
 #!/usr/bin/fish
 
+function fish_prompt
+    set_color green
+    printf '𝔇·'
+    # printf '%s@%s%s%s%s> ' (whoami) (hostname | cut -d . -f 1) (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+    set_color blue
+    printf 'ﳐ'
+    set_color $fish_color_cwd
+    printf (prompt_pwd)
+    set_color normal
+    printf '> '
+end
+
+
 # Functions for VI mode (also cursor change in urxvt)
 function hybrid_bindings --description "Vi-style bindings that inherit emacs-style bindings in all modes"
     for mode in default insert visual

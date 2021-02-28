@@ -1,9 +1,14 @@
 " Vim color file
-" Check color table at: https://jonasjacek.github.io/colors/
-" Use :syntax to see color highlight groups
-" Check also /usr/share/vim/vim80/syntax/python.vim for python highlighting
+" Original Maintainer:  Lars H. Nielsen (dengmao@gmail.com)
+" Last Change:  2010-07-23
+"
+" Modified version of wombat for 256-color terminals by
+"   David Liang (bmdavll@gmail.com)
+" based on version by
+"   Danila Bespalov (danila.bespalov@gmail.com)
 
 set background=dark
+
 if version > 580
 	hi clear
 	if exists("syntax_on")
@@ -14,14 +19,13 @@ endif
 let colors_name = "wombat256mod"
 
 
-" Base options for cterm: bold, underline,undercurl, reverse, inverse, italic, standout, NONE
 " General colors
 hi Normal		ctermfg=252		ctermbg=234		cterm=none		guifg=#e3e0d7	guibg=#242424	gui=none
 hi Cursor		ctermfg=234		ctermbg=228		cterm=none		guifg=#242424	guibg=#eae788	gui=none
-hi Visual		ctermfg=251		ctermbg=239		cterm=none  	guifg=#c3c6ca	guibg=#554d4b	gui=none
+hi Visual		ctermfg=251		ctermbg=239		cterm=none		guifg=#c3c6ca	guibg=#554d4b	gui=none
 hi VisualNOS	ctermfg=251		ctermbg=236		cterm=none		guifg=#c3c6ca	guibg=#303030	gui=none
 hi Search		ctermfg=177		ctermbg=241		cterm=none		guifg=#d787ff	guibg=#636066	gui=none
-hi Folded		ctermfg=240		ctermbg=233		cterm=none		guifg=#a0a8b0	guibg=#3a4046	gui=none
+hi Folded		ctermfg=103		ctermbg=237		cterm=none		guifg=#a0a8b0	guibg=#3a4046	gui=none
 hi Title		ctermfg=230						cterm=bold		guifg=#ffffd7					gui=bold
 hi StatusLine	ctermfg=230		ctermbg=238		cterm=none		guifg=#ffffd7	guibg=#444444	gui=italic
 hi VertSplit	ctermfg=238		ctermbg=238		cterm=none		guifg=#444444	guibg=#444444	gui=none
@@ -40,12 +44,33 @@ hi PmenuSel		ctermfg=232		ctermbg=192						guifg=#080808	guibg=#cae982
 endif
 
 " Diff highlighting
-hi DiffAdd		ctermfg=255		ctermbg=22									guibg=#2a0d6a
-hi DiffDelete	ctermfg=232		ctermbg=9		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
-hi DiffText		ctermfg=232 	ctermbg=172		cterm=bold						guibg=#73186e	gui=none
+hi DiffAdd						ctermbg=17										guibg=#2a0d6a
+hi DiffDelete	ctermfg=234		ctermbg=60		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
+hi DiffText						ctermbg=53		cterm=none						guibg=#73186e	gui=none
 hi DiffChange					ctermbg=237										guibg=#382a37
-hi DiffRemoved	ctermfg=9		ctermbg=none		cterm=none		guifg=#242424	guibg=#3e3969	gui=none
-hi DiffAdded	ctermfg=40		ctermbg=none									guibg=#2a0d6a
+
+"hi CursorIM
+"hi Directory
+"hi IncSearch
+"hi Menu
+"hi ModeMsg
+"hi MoreMsg
+"hi PmenuSbar
+"hi PmenuThumb
+"hi Question
+"hi Scrollbar
+"hi SignColumn
+"hi SpellBad
+"hi SpellCap
+"hi SpellLocal
+"hi SpellRare
+"hi TabLine
+"hi TabLineFill
+"hi TabLineSel
+"hi Tooltip
+"hi User1
+"hi User9
+"hi WildMenu
 
 
 " Syntax highlighting
@@ -69,59 +94,3 @@ hi! link CursorColumn	CursorLine
 hi! link NonText		LineNr
 
 " vim:set ts=4 sw=4 noet:
-
-" Python mods
-hi pythonString	        ctermfg=101     cterm=none
-hi pythonQuotes	        ctermfg=101     cterm=none
-hi pythonFunction       ctermfg=34      cterm=bold
-hi pythonKeyword        ctermfg=135     cterm=none
-hi pythonAttribute      ctermfg=123       cterm=none
-hi pythonNumber         ctermfg=9       cterm=none
-" Function definition and decorators -> blue 33
-hi pythonStatement      ctermfg=33      cterm=italic
-hi pythonDecorator      ctermfg=33      cterm=italic
-hi pythonDecoratorName  ctermfg=33      cterm=italic
-hi pythonOperator       ctermfg=33      cterm=italic
-" Import -> dark_red 9
-hi pythonInclude        ctermfg=9       cterm=italic
-" Comments -> orange: 172
-hi pythonComment        ctermfg=242     cterm=italic
-hi sqlComment           ctermfg=242     cterm=italic
-hi rComment             ctermfg=242     cterm=italic
-" Builtin -> pink
-hi pythonBuiltin        ctermfg=135     cterm=italic
-hi pythonEscape         ctermfg=135     cterm=italic
-
-" R colors
-hi rString	        ctermfg=101     cterm=none
-hi rPreProc	        ctermfg=9       cterm=italic
-hi rFunction        ctermfg=173     cterm=italic
-
-" SQL strings
-hi sqlString              ctermfg=101     cterm=none
-
-" Vimwiki
-hi VimwikiCode          ctermfg=2      ctermbg=none   cterm=italic
-hi VimwikiHeaderChar    ctermfg=172    ctermbg=none   cterm=bold
-hi VimwikiHeader1       ctermfg=172    ctermbg=none   cterm=bold
-hi VimwikiHeader2       ctermfg=172    ctermbg=none   cterm=bold
-hi VimwikiHeader3       ctermfg=172    ctermbg=none   cterm=bold
-hi VimwikiPre           ctermfg=9      ctermbg=none   cterm=none
-hi VimwikiListTodo      ctermfg=2      ctermbg=none   cterm=none
-hi Vimwikiweblink1      ctermfg=32     ctermbg=none   cterm=italic
-hi VimwikiBold          ctermfg=242    ctermbg=none   cterm=bold
-hi VimwikiItalic        ctermfg=247    ctermbg=none   cterm=italic
-
-" Vimrc
-hi vimLineComment ctermfg=242     cterm=italic
-
-" ALE Hightlights SpellBad, SpellCap, error, and todo
-hi SpellCap ctermbg=236
-hi SignColumn ctermbg=232
-
-" Other options - coments orange
-hi confComment        ctermfg=172     cterm=italic
-" Tab colors
-hi TabLine      ctermfg=248 ctermbg=238 cterm=none
-hi TabLineFill  ctermfg=235 ctermbg=236
-hi TabLineSel   ctermfg=255 ctermbg=232 cterm=bold
