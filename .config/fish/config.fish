@@ -2,10 +2,10 @@
 
 function fish_prompt
     set_color green
-    printf '𝔇·'
+    printf '𘠌'
     # printf '%s@%s%s%s%s> ' (whoami) (hostname | cut -d . -f 1) (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
     set_color blue
-    printf 'ﳐ'
+    printf '𘠓'
     set_color $fish_color_cwd
     printf (prompt_pwd)
     set_color normal
@@ -93,6 +93,10 @@ abbr md 'udisksctl mount -b /dev/sda1'  # use lsblk to find disk names
 abbr um_data 'udisksctl unmount -b /dev/sda1'
 abbr ud 'udisksctl unmount -b /dev/sda1'  # use lsblk to find disk names
 
+# Utilities
+abbr count_files 'find -type f | wc -l'    # recursive count of number of files in current folder
+abbr cf 'find -type f | wc -l'    # recursive count of number of files in current folder
+
 # Tasks shortcuts
 abbr t 'task'
 abbr ta 'task add'
@@ -162,6 +166,7 @@ abbr cfr 'nvim .config/ranger/rc.conf'         # Config ranger
 abbr cfrr 'nvim .config/ranger/rifle.conf'     # Config ranger-rifle
 abbr cfrc 'nvim ~/.config/ranger/commands.py'  # Config ranger-commands
 abbr cff 'nvim ~/.config/fish/config.fish'     # Config fish shell
+abbr cfk 'nvim ~/.config/kitty/kitty.conf'     # Config Kitty terminal
 abbr cfv 'nvim ~/.config/nvim/init.vim'        # Config nvim
 abbr cft 'nvim ~/.taskrc'                      # Config task
 abbr restart 'sudo shutdown -r now'

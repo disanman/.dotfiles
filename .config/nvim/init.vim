@@ -60,6 +60,8 @@ nmap \\i viw<ESC>a.iloc[0]<ESC>vF.b<Plug>JupyterRunVisualf.df]
 " JSON prettify: ,,j: doesn't order fields, ,,J: orders them  TODO: check what it's doing... so lines can be sent to python! and do cool stuff there!
 nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=4)"<CR>
 nmap <silent><leader><leader>J :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
+" paste from clipboard (data copied using select object in Python), Python syntax seems ok:
+nmap <silent><leader><C-V> :vsplit<CR>:enew<CR>"+p:set syntax=python<CR>
 " Send query to python from a SQL file
 nmap <silent><leader>q vip<M-Tab>query<M-Tab><Esc>F,dt),p
 nmap <silent><leader><leader>q vip<M-Tab>query<M-Tab>
@@ -143,6 +145,7 @@ Plugin 'vim-scripts/restore_view.vim'  " Remember code folds and cursor position
 " Focus mode
 Plugin 'junegunn/goyo.vim'             " Focus Mode
 Plugin 'junegunn/limelight.vim'        " Limelight - Additional Focus mode stuff with Goyo
+Plugin 'ernstwi/vim-secret'            " Set secret conceal
 " Plugin 'Yggdroot/indentLine'   " This will break the conceal of VimWiki (links hide) → disable it by default → also breaks the symbol conceal → sets a default color
 Plugin 'tpope/vim-surround'     "`:help surround`
 Plugin 'dhruvasagar/vim-table-mode'    " create and edit text based tables
@@ -381,7 +384,6 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source'
 "---------------------------------------------------------------  Python settings
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
 " pandas print
-
 nmap `1 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns', 14); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
 nmap `2 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns', 10); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
 nmap `3 O<ESC>Di<CR><CR><ESC>ki pd.set_option('display.max_columns',  8); pd.set_option('display.width', 1000); pd.set_option('display.max_rows', 200); pd.set_option('display.max_colwidth', 120)<ESC><S-CR>{v}D
@@ -396,7 +398,7 @@ nmap <leader>C :JupyterConnect<CR>
 nmap <leader><leader>C :!jupyter qtconsole & disown && sleep 2<CR>:JupyterConnect<CR>O<ESC>Di<CR><CR><ESC>kicd '/Users/dsanchez/git/data-science/workspace/python/'<ESC><S-CR>kD:!kinit -l 4h -kt '/Users/dsanchez/Documents/Jupyter/dsanchez.keytab' dsanchez@HADOOP.TRIVAGO.COM<CR>iimport pandas as pd<CR>from hive_connect import select, STATUS, DATA<ESC>,p{v}d
 " Execute code (current line)
 nmap <silent><leader><CR> V<Plug>JupyterRunVisual<CR>
-nmap <silent>L V<Plug>JupyterRunVisual
+nmap <silent>L V<Plug>JupyterRunVisual<CR><Esc>
 nmap <S-CR> V<Plug>JupyterRunVisual<Esc>0
 imap <S-CR> <ESC>V<Plug>JupyterRunVisual<CR>i
 nmap <silent><leader>ll V<Plug>JupyterRunVisual<CR>
@@ -533,6 +535,7 @@ function! <SID>SynStack()
 endfunc
 " Using vim-scripts/SyntaxAttr.vim plugin:
 nmap <leader><C-S-P> :call SyntaxAttr()<CR>
+nmap <leader><leader><leader>p :call SyntaxAttr()<CR>
 " Conceal options, check also ~/.config/nvim/after/syntax/python.vim file
 " nice colors: 2, 101, 58
 nnoremap <silent>\\c :let &cole=(&cole == 2)? 0 : 2 <bar>:highlight Conceal ctermfg=2 ctermbg=234<CR>
@@ -542,6 +545,7 @@ highlight Conceal ctermfg=2 ctermbg=234
 set concealcursor=n
 " Toggle conceal
 nnoremap <silent>\` :let &cole=(&cole == 2)? 0 : 2 <CR>
+nnoremap <silent>``` :let &cole=(&cole == 2)? 0 : 2 <CR>
 " Always conceal:
 nmap <silent> \1 :set concealcursor=nvic<CR>
 " conceal only in normal mode
@@ -559,12 +563,13 @@ nmap <silent> \0 :syntax sync fromstart<CR>
 nmap <silent> \\1 :set colorcolumn=80<CR>:hi ColorColumn ctermbg=233<CR>
 nmap <silent> \\2 :set colorcolumn=120<CR>:hi ColorColumn ctermbg=233<CR>
 nmap <silent> \\3 :hi ColorColumn ctermbg=234<CR>
+" Secret enable → to conceal private notes:
+let g:secret_cchar='·'
+nmap \\s <Plug>SecretToggle
 
-"----------------------------------------------------------------
-"        Goyo
-"----------------------------------------------------------------
+
+"---------------------------------------------------------------- Goyo
 nmap <silent>`l :Goyo<CR>
-
 function! s:goyo_leave()
     highlight Conceal ctermfg=2 ctermbg=234
     " Restore highlight and clean the command prompt
@@ -572,9 +577,7 @@ function! s:goyo_leave()
 endfunction
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-"----------------------------------------------------------------
-"        LimeLight
-"----------------------------------------------------------------
+"---------------------------------------------------------------- LimeLight
     nmap <silent>``l :Limelight!!<CR>:echon ''<CR>
     " Color name (:help cterm-colors) or ANSI code
     let g:limelight_conceal_ctermfg = 2
@@ -594,8 +597,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
     " Integration with goyo
     autocmd! User GoyoEnter Limelight
     autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-
 
 "------------------------------------------------------------  Vimwiki
 " disable table options so it won't interfere with coc completions
@@ -950,8 +951,11 @@ vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
 
 " ......................................................... Abbrebiations (like snippets, but directly from vim)
 " To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
+ab => ⇒
 ab -> →
 ab <- ←
+ab ^\| ↑
+ab or\| ↓
 ab _cdot ·
 ab +- ±
 
