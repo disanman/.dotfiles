@@ -62,6 +62,8 @@ nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!pyt
 nmap <silent><leader><leader>J :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
 " paste from clipboard (data copied using select object in Python), Python syntax seems ok:
 nmap <silent><leader><C-V> :vsplit<CR>:enew<CR>"+p:set syntax=python<CR>
+" Execute current line and paste from clipboard (data copied using select object in Python), Python syntax seems ok:
+nmap <silent><leader><leader><C-V> V<Plug>JupyterRunVisual<CR>:vsplit<CR>:enew<CR>"+p:set syntax=python<CR>
 " Send query to python from a SQL file
 nmap <silent><leader>q vip<M-Tab>query<M-Tab><Esc>F,dt),p
 nmap <silent><leader><leader>q vip<M-Tab>query<M-Tab>
@@ -248,7 +250,8 @@ let g:rnvimr_pick_enable = 0
 let g:rnvimr_bw_enable = 1
 " Set up only two columns in miller mode
 let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
-let g:rnvimr_split_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit' }
+" let g:rnvimr_split_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
+let g:rnvimr_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
 let g:rnvimr_sync_path = '~/.config/ranger/'
 " Customize initial layout
 let g:rnvimr_layout = { 'relative': 'editor',
@@ -953,11 +956,10 @@ vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
 " To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
 ab => ⇒
 ab -> →
-ab <- ←
-ab ^\| ↑
-ab or\| ↓
-ab _cdot ·
 ab +- ±
+ab .o. ö
+ab .u. ü
+ab SS ß
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)

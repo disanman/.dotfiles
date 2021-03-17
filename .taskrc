@@ -16,21 +16,6 @@ data.location=~/Documents/.task
 # Default values
 default.project=Inbox
 
-# Color theme (uncomment one to use)
-#include /usr/share/doc/task/rc/light-16.theme
-#include /usr/share/doc/task/rc/light-256.theme
-#include /usr/share/doc/task/rc/dark-16.theme
-#include /usr/share/doc/task/rc/dark-256.theme
-#include /usr/share/doc/task/rc/dark-red-256.theme
-#include /usr/share/doc/task/rc/dark-green-256.theme
-#include /usr/share/doc/task/rc/dark-blue-256.theme
-#include /usr/share/doc/task/rc/dark-violets-256.theme
-#include /usr/share/doc/task/rc/dark-yellow-green.theme
-#include /usr/share/doc/task/rc/dark-gray-256.theme
-#include /usr/share/doc/task/rc/dark-gray-blue-256.theme
-#include /usr/share/doc/task/rc/solarized-dark-256.theme
-#include /usr/share/doc/task/rc/solarized-light-256.theme
-#include /usr/share/doc/task/rc/no-color.theme
 # =============================================================
 #   My color theme
 # =============================================================
@@ -58,14 +43,14 @@ color.blocking=yellow on gray4
 color.project.none=
 
 # Priority
-color.uda.priority.H=bold blue #color14
-color.uda.priority.M=bold yellow #color12
-color.uda.priority.L=bold green #color11
+color.uda.priority.H=bold blue
+color.uda.priority.M=bold yellow
+color.uda.priority.L=bold green
 
 # Tags
 color.tag.next=
 color.tag.none=
-color.tagged=color10
+color.tagged=gray15
 
 # Due
 color.due=blue
@@ -78,22 +63,23 @@ color.burndown.pending=gray2 on red
 color.burndown.started=gray2 on blue
 
 # Report: history
-color.history.add=color0 on color1
-color.history.delete=color0 on color3
-color.history.done=color0 on color6
+color.history.add=bold black on bright red
+color.history.delete=bold black on bright blue
+color.history.done=bold black on bright green
 
 # Report: summary
 color.summary.background=black on gray2
 color.summary.bar=red on green
 
 # Command: calendar
-color.calendar.due=color0 on color9
-color.calendar.due.today=color0 on color1
-color.calendar.holiday=color0 on color3
-color.calendar.overdue=color0 on color5
-color.calendar.today=color0 on color4
-color.calendar.weekend=on color0
-color.calendar.weeknumber=color4
+weekstart=monday     # so the calendar will start on Monday
+color.calendar.due=underline on gray4
+color.calendar.due.today=yellow underline
+color.calendar.holiday=black on green
+color.calendar.overdue=bold black on bright magenta
+color.calendar.today=yellow inverse
+color.calendar.weekend=blue
+color.calendar.weeknumber=gray4
 
 # Command: sync
 color.sync.added=color14
@@ -162,4 +148,4 @@ taskd.ca=/home/diego/Documents/.task/ca.cert.pem
 taskd.server=taskwarrior.inthe.am:53589
 taskd.credentials=inthe_am/disanman/c5d67d2c-744f-4e18-85ab-a7d0f6e28546
 taskd.trust=ignore hostname
-context=home
+context=work
