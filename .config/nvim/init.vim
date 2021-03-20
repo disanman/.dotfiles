@@ -8,7 +8,8 @@
 
 
 "---------------------------------------------------------------  Main key-maps
-let g:python3_host_prog = '/home/diego/miniconda3/bin/python'
+let g:python3_host_prog = '/home/diego/miniconda3/envs/py39/bin/python'
+" let g:python3_host_prog = '/home/diego/miniconda3/bin/python'
 " let g:python3_host_prog = '/usr/local/bin/python3'
 let g:loaded_python_provider = 0
 " Settings for leader (,) and local-leader (;) :
@@ -250,8 +251,8 @@ let g:rnvimr_pick_enable = 0
 let g:rnvimr_bw_enable = 1
 " Set up only two columns in miller mode
 let g:rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
-" let g:rnvimr_split_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
-let g:rnvimr_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
+let g:rnvimr_split_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
+" let g:rnvimr_action = { '<C-t>': 'tabedit', '<C-s>': 'split', '<C-v>': 'vsplit', 'gw': 'JumpNvimCwd', 'yw': 'EmitRangerCwd' }
 let g:rnvimr_sync_path = '~/.config/ranger/'
 " Customize initial layout
 let g:rnvimr_layout = { 'relative': 'editor',
@@ -346,19 +347,51 @@ nmap \W viW<C-C>e
 " yank regions delimitted by marks, highlight what was copied and return to top one
 " From mark 'a' to 'z':
 nmap \a 'aV'z<C-c>
-" From 's' to 'x':
+" From 's' to 'x': TODO this was broken after snippets were assigned in \s
 nmap \s 'sV'x<C-c>
 " Shortcut for using faster registers: '' = "   then a just do ''ayip  to yank current paragraph into a register
 nmap '' "
 
 "---------------------------------------------------------------  FZF
+let g:fzf_command_prefix = 'Fzf'
+" This is the default extra key bindings
 " Using fzf.vim, use <c-t>, <c-x>, <c-v> to open result in a tab, split or vertical split
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+" fzf layout: Popup window
+" let g:fzf_layout = {'window': {'width': 0.95, 'height': 0.9}}
+" Fzf layout: down / up / left / right
+let g:fzf_layout = {'down': '60%'}
+" TODO: improve colors:
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'fzfHighlight'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'fzfHighlight'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+hi fzfHighlight ctermbg=10
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 " TODO: add preview to Blines, fix Gfiles: git
 nmap <silent><localleader>f :FzfFiles<CR>
 nmap <silent><localleader>F :tabnew<CR>:FzfFiles<CR>
 nmap <silent>`t :FzfBTags<CR>
+nmap <silent>`T :FzfTags<CR>
 nmap <silent><localleader>w :FzfWindows<CR>
 nmap <silent><localleader>l :FzfBLines<CR>
+nmap <silent><localleader>L :FzfLines<CR>
 nmap <silent><localleader>h :FzfHistory<CR>
 nmap <silent><localleader>b :FzfBuffers<CR>
 " Fix FzfBuffers shortcut in python
@@ -372,7 +405,6 @@ nmap <silent><localleader><localleader>s :FzfSnippets<CR>
 " nmap <silent><localleader><localleader>C :FzfColors<CR>    -> I'm not really using it!
 nmap <silent>`h :FzfHelptags<CR>
 nmap <silent><localleader><localleader>h :FzfHelptags<CR>
-let g:fzf_command_prefix = 'Fzf'
 " Using RipGrep with preview! -> modify file as in git
 nmap <silent><localleader>R :FzfRg<CR>
 nmap <silent><localleader>r :tabnew<CR>:FzfRg<CR>
@@ -383,6 +415,11 @@ nmap <silent><leader>n :NV<CR>
 nmap <silent><leader>N :tabnew<CR>:NV<CR>
 " Use line completion in insert mode: call fzf and rg matching:
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({'prefix': '^.*$', 'source': 'rg -n ^ --color always', 'options': '--ansi --delimiter : --nth 3..', 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+" Inserting a folder location using fzf
+imap <c-x><c-f> <plug>(fzf-complete-path)
+" fzf autocomplete from a file list:
+inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /home/diego/Documents/Bri_text/lista_anglicismos')
+
 
 "---------------------------------------------------------------  Python settings
 set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent
@@ -568,7 +605,7 @@ nmap <silent> \\2 :set colorcolumn=120<CR>:hi ColorColumn ctermbg=233<CR>
 nmap <silent> \\3 :hi ColorColumn ctermbg=234<CR>
 " Secret enable → to conceal private notes:
 let g:secret_cchar='·'
-nmap \\s <Plug>SecretToggle
+nmap \\\s <Plug>SecretToggle
 
 
 "---------------------------------------------------------------- Goyo
@@ -808,6 +845,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 " Rename
 nmap <silent> [r <Plug>(coc-rename)
 " Use K and d to show documentation in preview window ----> super useful in Python!
+"     Use <C-w><C-p> to enter/exit from the floating window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <silent> <leader>d :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -817,6 +855,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+" Color of the floating window coc creates on documentation
+hi CocFloating ctermfg = 251 ctermbg=235
 " ..................................... coc-snippets settings
 " use c-j and c-k to jump between placeholders of the snippet
 " Use <C-l> for trigger snippet expand.
@@ -880,7 +920,6 @@ nmap `j <Plug>(GitGutterNextHunk)
 nmap `k <Plug>(GitGutterPrevHunk)
 " Chunk staging
 nmap `a <Plug>(GitGutterStageHunk)
-nmap `A <Plug>(GitGutterUndoHunk)
 " Fold parts of code without changes
 nmap `<Space> :GitGutterFold<CR>
 nmap `P :GitGutterPreviewHunk<CR>
@@ -913,6 +952,7 @@ nnoremap <silent><leader>m :MaximizerToggle<CR>
 
 "------------------------------------------------------------ Ultisnips
 map <silent>\s :UltiSnipsEdit<CR>
+map <silent>\\a :e ~/Documents/Notes/VIM/config_vim/snippets/all.snippets<CR>
 " To allow :UltiSnipsEdit to split current window.
 let g:UltiSnipsEditSplit='vertical'
 " List all the snippets that could be used
@@ -953,13 +993,15 @@ nmap \\p vipy<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h]
 vmap \\<CR> y<C-w><C-l>pi<CR><CR><C-\><C-n><C-w>h
 
 " ......................................................... Abbrebiations (like snippets, but directly from vim)
-" To remove abbrebiations, just use `:una -`, or `:abc` (abbreviation clear)
+" To remove abbreviations, just use `:una -`, or `:abc` (abbreviation clear)
+" Abbreviations can also be called using <C-]>
 ab => ⇒
 ab -> →
 ab +- ±
-ab .o. ö
+" ab .o. ö
 ab .u. ü
 ab SS ß
+iab .o. ö
 
 " ......................................................... Semshi (has to be at the end of the file)
 " Semshi settings (also check file in ~/.vim/bundle/semshi/plugin/semshi.vim)

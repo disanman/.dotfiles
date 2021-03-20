@@ -12,7 +12,6 @@ function fish_prompt
     printf '> '
 end
 
-
 # Functions for VI mode (also cursor change in urxvt)
 function hybrid_bindings --description "Vi-style bindings that inherit emacs-style bindings in all modes"
     for mode in default insert visual
@@ -68,6 +67,9 @@ abbr update 'sudo pacman -Syy'
 abbr upgrade 'sudo pacman -Su'
 abbr install 'sudo pacman -S'
 abbr remove 'sudo pacman -Rs'
+# Install/Uninstall programs using yay and fzf!
+abbr yinstall "yay -Slq | fzf -q '$1' -m --preview 'yay -Si {1}'| xargs -ro yay -S"
+abbr yremove "yay -Qq | fzf -q '$1' -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns"
 abbr autoremove 'sudo apt autoremove'
 abbr b 'feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 abbr f 'figlet'
@@ -165,6 +167,7 @@ abbr cfq 'nvim ~/.config/qutebrowser/config.py' # Config qutebrowser
 abbr cfr 'nvim .config/ranger/rc.conf'         # Config ranger
 abbr cfrr 'nvim .config/ranger/rifle.conf'     # Config ranger-rifle
 abbr cfrc 'nvim ~/.config/ranger/commands.py'  # Config ranger-commands
+abbr cfrs 'nvim ~/.config/ranger/scope.sh'     # Config ranger-scope
 abbr cff 'nvim ~/.config/fish/config.fish'     # Config fish shell
 abbr cfk 'nvim ~/.config/kitty/kitty.conf'     # Config Kitty terminal
 abbr cfv 'nvim ~/.config/nvim/init.vim'        # Config nvim
@@ -173,6 +176,8 @@ abbr restart 'sudo shutdown -r now'
 abbr low_light 'xbacklight -set 0.01'
 abbr reload_term 'xrdb ~/.Xresources'
 abbr ip 'ipython --no-autoindent'
+abbr py39 '~/miniconda3/envs/py39/bin/python'
+abbr pip39 '~/miniconda3/envs/py39/bin/pip'
 
 # Change locale
 abbr es 'setxkbmap es && setxkbmap -option caps:swapescape && xmodmap /home/diego/.Xmodmap && xmodmap -e "keycode 65 = Hyper_L" && xmodmap -e "keycode any = space" && killall xcape && xcape -e "Hyper_L=space" && notify-send "Locale: ES"'
@@ -190,8 +195,8 @@ abbr bs 'bluetoothctl scan'
 abbr bc 'bluetoothctl scan'
 
 # Screen settings, created by using arandr (save option)
-abbr 2s sh ~/.screenlayout/2_screens.sh
-abbr 1s sh ~/.screenlayout/1_screen.sh
+abbr 2s 'sh ~/.screenlayout/2_screens.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
+abbr 1s 'sh ~/.screenlayout/1_screen.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 abbr 1bs 'sh ~/.screenlayout/1_big_screen.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 
 # Screen settings

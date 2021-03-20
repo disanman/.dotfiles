@@ -63,9 +63,35 @@ class my_edit(Command):
         return self._tab_directory_content()
 
 
+class fzf_select(Command):
+    """
+    :fzf_select → starts from the current directory
+    Find a file using fzf.
+    With a prefix argument select only directories.
+    See: https://github.com/junegunn/fzf
+    """
+    def execute(self):
+        import subprocess
+        if self.quantifier:
+            # match only directories
+            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            -o -type d -print 2> /dev/null | sed 1d | cut -b3- | fzf +m"
+        else:
+            # match files and directories
+            command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
+            -o -print 2> /dev/null | sed 1d | cut -b3- | fzf +m --preview='bat --color=always --theme 'gruvbox-dark' -r :50 -n {}'"
+        fzf = self.fm.execute_command(command, stdout=subprocess.PIPE)
+        stdout, stderr = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.decode('utf-8').rstrip('\n'))
+            if os.path.isdir(fzf_file):
+                self.fm.cd(fzf_file)
+            else:
+                self.fm.select_file(fzf_file)
+
 class fzf_locate(Command):
     """
-    :fzf_locate
+    :fzf_locate → starts from Home directory
     Find a file using fzf.
     With a prefix argument select only directories.
     See: https://github.com/junegunn/fzf
@@ -78,7 +104,7 @@ class fzf_locate(Command):
             command = "locate home | fzf -e -i"
         else:
             # match files and directories
-            command = "locate home | fzf -e -i --preview='bat --color=always -r :50 -n {}'"
+            command = "locate home | fzf -e -i --preview='bat --color=always --theme 'gruvbox-dark' -r :50 -n {}'"
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:

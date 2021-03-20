@@ -148,4 +148,4 @@ taskd.ca=/home/diego/Documents/.task/ca.cert.pem
 taskd.server=taskwarrior.inthe.am:53589
 taskd.credentials=inthe_am/disanman/c5d67d2c-744f-4e18-85ab-a7d0f6e28546
 taskd.trust=ignore hostname
-context=work
+context=home
