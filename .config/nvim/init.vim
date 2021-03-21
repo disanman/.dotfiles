@@ -887,7 +887,7 @@ nmap `c :Git commit<CR>
 " Fzf into commits (for them to work, the folder should be in the git one, use cd, pwd)
 nmap `C :cd %:p:h<CR>:pwd<CR>:FzfCommits<CR>
 " Fzf into commits for the current buffer
-nmap `B :FzfBCommits<CR>
+nmap `B :cd %:p:h<CR>:pwd<CR>:FzfBCommits<CR>
 " Fzf into files of current git folder (set folder the one of the current file)
 nmap `f :cd %:p:h<CR>:pwd<CR>:FzfGFiles<CR>
 " Using Merginal

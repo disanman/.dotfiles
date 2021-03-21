@@ -137,6 +137,7 @@ abbr ed 'expressvpn disconnect'
 abbr h 'history | fzf'
 
 # Opening youtube videos using vlc and specific resolutions
+abbr y 'ytfzf -t'
 abbr y240 'cvlc --preferred-resolution 240'
 abbr y360 'cvlc --preferred-resolution 360'
 abbr y480 'cvlc --preferred-resolution 480'
