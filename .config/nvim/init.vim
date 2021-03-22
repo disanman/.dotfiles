@@ -88,6 +88,7 @@ nmap <leader>tel vip:norm A\|<CR>
 "---------------------------------------------------------------  Opening files
 " Open this file to edit vim config
 nmap <silent><leader>e :e ~/.config/nvim/init.vim<CR>
+nmap <silent><leader><leader>e <leader>e:vsplit<CR>:e ~/Documents/Notes/VIM/config_vim/trv_pc/init.vim <CR>:windo diffthis<CR>]c
 nmap <silent><leader><leader>r :source ~/.config/nvim/init.vim<CR>:echo "Config reloaded"<CR>
 " Go to file indicated under cursor in a vertical split
 nmap <leader>gf :vs<CR>gf
@@ -896,6 +897,8 @@ nmap `s :Gstatus<CR>
 nmap `d :Gdiff<CR>
 " Diff of the current 2 files opened in the current window
 nmap ``d :windo diffthis<CR>
+" Open a new vertical split and paste the text in clipboard using diff over the current buffer! go to first change
+nmap ```d :vs<CR>:enew<CR>"+p:windo diffthis<CR>]c
 " Solving conflicts, open current file with HEAD... conflicts in three VERTICAL splits
 set diffopt+=vertical
 nmap `D :Gdiffsplit!<CR>
