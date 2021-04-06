@@ -118,7 +118,7 @@ abbr tww 'clear && task waiting'
 abbr tp 'clear && task projects'
 abbr ts 'clear && task summary'
 abbr st 'clear && task start'
-abbr tt 'clear && task timesheet'
+abbr ttime 'clear && task timesheet'
 abbr tc 'clear && task completed'
 abbr tr 'clear && task recurring'
 abbr tcal 'clear && task calendar'
@@ -209,6 +209,9 @@ abbr bc 'bluetoothctl scan'
 abbr 2s 'sh ~/.screenlayout/2_screens.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 abbr 1s 'sh ~/.screenlayout/1_screen.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
 abbr 1bs 'sh ~/.screenlayout/1_big_screen.sh && feh --randomize --bg-fill ~/Pictures/Wallpapers/*'
+
+# Tuxi
+abbr tt tuxi
 
 # Screen settings
 abbr om 'optimus-manager'

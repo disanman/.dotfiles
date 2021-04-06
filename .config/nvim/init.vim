@@ -132,8 +132,8 @@ Plugin 'kevinhwang91/rnvimr'    " floating ranger!
 Plugin 'vimwiki/vimwiki'
 Plugin 'Alok/notational-fzf-vim'   " search notes using <c-n>!
 " TaskWiki - Tasks and project management
-" Plugin 'tbabej/taskwiki'
-" Plugin 'farseer90718/vim-taskwarrior'  " enable grid view
+Plugin 'tbabej/taskwiki'
+Plugin 'farseer90718/vim-taskwarrior'  " enable grid view
 Plugin 'powerman/vim-plugin-AnsiEsc'   " enables colors in charts
 " Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
