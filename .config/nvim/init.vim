@@ -61,7 +61,7 @@ nmap \\i viw<ESC>a.iloc[0]<ESC>vF.b<Plug>JupyterRunVisualf.df]
 " JSON prettify: ,,j: doesn't order fields, ,,J: orders them  TODO: check what it's doing... so lines can be sent to python! and do cool stuff there!
 nmap <silent><leader><leader>j :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -c "import json, sys, collections; print json.dumps(json.load(sys.stdin, object_pairs_hook=collections.OrderedDict), indent=4)"<CR>
 nmap <silent><leader><leader>J :vsplit<CR>:enew<CR>"+p:set syntax=json<CR>:%!python -m json.tool<CR>
-" paste from clipboard (data copied using select object in Python), Python syntax seems ok:
+" paste from clipboard (data copied using select object in Python), Python syntax seems ok:  → then you could use a macro like: 0JjddQ saved in q (that will remove spaces and will compact the reply from select)
 nmap <silent><leader><C-V> :vsplit<CR>:enew<CR>"+p:set syntax=python<CR>
 " Execute current line and paste from clipboard (data copied using select object in Python), Python syntax seems ok:
 nmap <silent><leader><leader><C-V> V<Plug>JupyterRunVisual<CR>:vsplit<CR>:enew<CR>"+p:set syntax=python<CR>
@@ -138,7 +138,7 @@ Plugin 'powerman/vim-plugin-AnsiEsc'   " enables colors in charts
 " Other - Utilities - colors - UI
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'              " A must install! - use fzf inside Vim
-Plugin 'itchyny/calendar.vim'          " Google Calendar, Year, month, day, clock
+" Plugin 'itchyny/calendar.vim'          " Google Calendar, Year, month, day, clock → need to enable API permissions in GCloud...
 Plugin 'gcmt/taboo.vim'                " Cool tab names
 Plugin 'vim-airline/vim-airline'       " Statusbar
 Plugin 'vim-airline/vim-airline-themes'
@@ -698,15 +698,15 @@ nmap <silent><leader><leader>t :r! date "+\%Y-\%m-\%d \%H:\%M"<CR>
 
 "--------------------------------------------------------------- TaskWiki
 let g:taskwiki_markup_syntax = 'markdown'
-let g:taskwiki_disable_concealcursor = 'yes'
+let g:taskwiki_disable_concealcursor = 'no'
 noremap <silent>``t :TaskWikiMod<CR>
 let g:taskwiki_sort_orders={'D': 'project+,due+', 'J': 'urgency+', 'K': 'urgency-'}
 " noremap <silent><localleader><localleader>ts :TaskWikiSummary<CR>
 
 "---------------------------------------------------------------  Calendar
 " Settings for calendar, change between views using `<` and `>`
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
+" let g:calendar_google_calendar = 1
+" let g:calendar_google_task = 1
 " Examples of using calendar
 " :Calendar -view=year
 " :Calendar -view=year -split=vertical -width=27
